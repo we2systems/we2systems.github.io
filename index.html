@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>we2systems | Hybrid Cloud Service Provider & Specialized Consulting</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for the Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#0070f3',
+                        'dark-bg': '#0D1117',
+                        'card-bg': '#161B22',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /*
+        Custom CSS for the Fluid Background Effect
+        A large, slow-moving radial gradient for an elegant, fluid look.
+        */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0D1117; /* Dark background */
+            min-height: 100vh;
+        }
+
+        .fluid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at var(--x) var(--y),
+                rgba(0, 112, 243, 0.1) 0%,
+                rgba(0, 112, 243, 0.05) 10%,
+                rgba(13, 17, 23, 1) 50%
+            );
+            transition: background 0.5s ease-out;
+            pointer-events: none; /* Allows clicks through the background */
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fluid Background Container -->
+    <div id="fluid-bg" class="fluid-background"></div>
+
+    <!-- JavaScript for the subtle mouse-following fluid effect -->
+    <script>
+        const fluidBg = document.getElementById('fluid-bg');
+
+        // Initial setup for the center to ensure the gradient is visible on load
+        fluidBg.style.setProperty('--x', '50%');
+        fluidBg.style.setProperty('--y', '50%');
+
+        // Update gradient position on mouse movement for a 'fluidic' feel
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth * 100;
+            const y = e.clientY / window.innerHeight * 100;
+            fluidBg.style.setProperty('--x', `${x}%`);
+            fluidBg.style.setProperty('--y', `${y}%`);
+        });
+    </script>
+
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo - Assuming logo.png is in the same folder, or using text for robustness -->
+            <a href="#home" class="flex items-center space-x-2 text-2xl font-bold text-white tracking-tight">
+                <!-- Using a simple icon/text as a fallback for logo.png -->
+                <img src="logo.png" alt="we2systems Logo" class="h-6" onerror="this.onerror=null;this.style.display='none';">
+                <span class="text-primary-blue">we2</span>systems
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
+                <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
+                <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
+            </nav>
+
+            <!-- Contact Button (Mobile visible) -->
+            <a href="#contact" class="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-blue-600 transition duration-300 shadow-md hidden md:inline-block">
+                Start Consultation
+            </a>
+
+            <!-- Mobile Menu Placeholder (Not fully functional dropdown but good practice for responsiveness) -->
+            <button class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+
+    <main>
+        <!-- 1. Hero Section (Good Opening) -->
+        <section id="home" class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 z-10">
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-6 animate-pulse" style="animation: pulse 5s infinite;">
+                    Architecting Tomorrow's <span class="text-primary-blue block sm:inline">Hybrid Cloud.</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                    Seamless integration, specialized consulting, and optimized infrastructure—from the rack to the cluster.
+                </p>
+                <a href="#services" class="inline-block px-10 py-4 bg-primary-blue text-white text-lg font-semibold rounded-xl hover:bg-blue-600 transition duration-300 shadow-xl shadow-primary-blue/30 transform hover:scale-105">
+                    Explore Our Expertise
+                </a>
+            </div>
+        </section>
+
+
+        <!-- 2. What We Do (Categorized Services) -->
+        <section id="services" class="py-20 bg-dark-bg/90">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">Specialized Cloud & Infrastructure Consulting</h2>
+                    <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+                        We don't just manage cloud—we master the critical technologies that power modern, hybrid environments.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <!-- Service Card 1: Hybrid Cloud / Kubernetes / Docker -->
+                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
+                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m0 0h16m0 0V7m0 10v-4M4 7h16M4 7v4"></path></svg>
+                        <h3 class="text-xl font-semibold text-white mb-2">Hybrid Cloud & Ops</h3>
+                        <p class="text-gray-400 mb-4">
+                            Seamlessly connect private infrastructure with public cloud resources for optimal performance and cost.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li><span class="text-primary-blue">•</span> Kubernetes Cluster Design</li>
+                            <li><span class="text-primary-blue">•</span> Dockerization & Microservices</li>
+                            <li><span class="text-primary-blue">•</span> Multi-cloud Strategy</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 2: Data Intelligence (Snowflake) -->
+                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
+                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19l12-3m-6 0v-4m-6 4l6-4m-6 4L9 15"></path></svg>
+                        <h3 class="text-xl font-semibold text-white mb-2">Cloud Data Platforms</h3>
+                        <p class="text-gray-400 mb-4">
+                            Expert consulting for data warehousing and analytics on modern, scalable platforms like **Snowflake**.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li><span class="text-primary-blue">•</span> Snowflake Optimization</li>
+                            <li><span class="text-primary-blue">•</span> Data Governance & Security</li>
+                            <li><span class="text-primary-blue">•</span> ELT/ETL Pipeline Setup</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 3: Accelerated Computing (NVIDIA) -->
+                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
+                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <h3 class="text-xl font-semibold text-white mb-2">AI & HPC Acceleration</h3>
+                        <p class="text-gray-400 mb-4">
+                            Harnessing the power of **NVIDIA** GPUs for high-performance computing, deep learning, and simulation.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li><span class="text-primary-blue">•</span> GPU Cluster Implementation</li>
+                            <li><span class="text-primary-blue">•</span> CUDA & OpenACC Optimization</li>
+                            <li><span class="text-primary-blue">•</span> Infrastructure Sizing</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 4: Physical Infrastructure (Server Racks) -->
+                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
+                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 012-2h10a2 2 0 012 2M5 12c0 2 1.5 4 4 4h6c2.5 0 4-2 4-4m-12 8h8M7 8h10"></path></svg>
+                        <h3 class="text-xl font-semibold text-white mb-2">Physical Infrastructure</h3>
+                        <p class="text-gray-400 mb-4">
+                            Design and deployment of physical **Server Racks** for on-prem or co-location data center environments.
+                        </p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li><span class="text-primary-blue">•</span> Rack Layout & Cooling Strategy</li>
+                            <li><span class="text-primary-blue">•</span> Cabling and Power Management</li>
+                            <li><span class="text-primary-blue">•</span> Hardware Procurement Advice</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. Why Choose Us -->
+        <section id="why-us" class="py-20">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-primary-blue font-semibold uppercase tracking-wider">Our Advantage</span>
+                        <h2 class="text-4xl font-bold text-white mb-6 mt-2">The Deep Expertise You Need for Hybrid Success</h2>
+                        <p class="text-gray-400 text-lg mb-8">
+                            Navigating the complexities of modern IT requires specialized knowledge. We bridge the gap between niche technologies and enterprise architecture, delivering solutions that are robust, secure, and future-proof.
+                        </p>
+
+                        <div class="space-y-4">
+                            <!-- Feature 1 -->
+                            <div class="flex items-start space-x-3">
+                                <span class="text-primary-blue font-extrabold text-2xl leading-none">01.</span>
+                                <div>
+                                    <h4 class="text-white font-semibold">Niche Technology Focus</h4>
+                                    <p class="text-gray-500 text-sm">We specialize in Kubernetes, Docker, Snowflake, and NVIDIA—critical layers of the modern stack.</p>
+                                </div>
+                            </div>
+                            <!-- Feature 2 -->
+                            <div class="flex items-start space-x-3">
+                                <span class="text-primary-blue font-extrabold text-2xl leading-none">02.</span>
+                                <div>
+                                    <h4 class="text-white font-semibold">Full-Stack Approach</h4>
+                                    <p class="text-gray-500 text-sm">From physical server rack deployment to cloud software optimization, we handle the entire infrastructure.</p>
+                                </div>
+                            </div>
+                            <!-- Feature 3 -->
+                            <div class="flex items-start space-x-3">
+                                <span class="text-primary-blue font-extrabold text-2xl leading-none">03.</span>
+                                <div>
+                                    <h4 class="text-white font-semibold">Agility and Partnership</h4>
+                                    <p class="text-gray-500 text-sm">We operate as an extension of your team, providing flexible consulting tailored to your business velocity.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder Image/Graphic -->
+                    <div class="hidden md:block">
+                        <div class="bg-card-bg rounded-3xl p-8 border border-primary-blue/30 shadow-2xl shadow-primary-blue/10 min-h-[400px] flex items-center justify-center">
+                            <svg class="w-32 h-32 text-primary-blue opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 4. Contact Us -->
+        <section id="contact" class="py-20 bg-card-bg/50 border-t border-gray-700/50">
+            <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-white mb-2">Let's Build Your Hybrid Future</h2>
+                    <p class="text-gray-400 text-lg">
+                        Tell us about your project—whether it's a Kubernetes migration or a Snowflake optimization.
+                    </p>
+                </div>
+                
+                <form action="#" method="POST" class="bg-card-bg p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                            <input type="text" name="name" id="name" required class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Work Email</label>
+                            <input type="email" name="email" id="email" required class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-300 mb-1">Area of Interest</label>
+                            <select id="service" name="service" required class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200 appearance-none">
+                                <option value="" disabled selected>Select a Service</option>
+                                <option value="hybrid-cloud">Hybrid Cloud & Operations</option>
+                                <option value="snowflake">Snowflake Consulting</option>
+                                <option value="nvidia">NVIDIA & HPC Acceleration</option>
+                                <option value="kubernetes-docker">Kubernetes & Docker</option>
+                                <option value="server-racks">Server Rack Deployment</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Project Details</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 bg-primary-blue text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]">
+                            Send Consultation Request
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-bg border-t border-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2024 we2systems. All rights reserved. | Hybrid Cloud & Specialized Consulting</p>
+        </div>
+    </footer>
+
+</body>
+</html>
