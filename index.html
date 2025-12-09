@@ -66,6 +66,71 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
         }
+    
+    /* Futuristic NVIDIA + Tesla inspired gradient glow */
+        @keyframes glowShift {
+            0% { filter: drop-shadow(0 0 12px rgba(0,255,255,0.25)); }
+            50% { filter: drop-shadow(0 0 26px rgba(0,255,190,0.55)); }
+            100% { filter: drop-shadow(0 0 12px rgba(0,255,255,0.25)); }
+        }
+        #taglineAnimation {
+            animation: glowShift 4s ease-in-out infinite;
+        }
+    /* glowing arrow */
+        @keyframes arrowGlow {
+            0% { filter: drop-shadow(0 0 2px rgba(0,112,243,0.2)); }
+            50% { filter: drop-shadow(0 0 8px rgba(0,112,243,0.6)); }
+            100% { filter: drop-shadow(0 0 2px rgba(0,112,243,0.2)); }
+        }
+        .glow-arrow {
+            animation: arrowGlow 2s infinite ease-in-out;
+        }
+    @keyframes glowPulse {
+            0% { box-shadow: 0 0 10px rgba(0,112,243,0.2); }
+            50% { box-shadow: 0 0 26px rgba(0,255,180,0.5); }
+            100% { box-shadow: 0 0 10px rgba(0,112,243,0.2); }
+        }
+    /* Metallic effect for HPE */
+        .hpe-metal {
+            background: linear-gradient(135deg, #1a1a1a 0%, #262626 50%, #1a1a1a 100%);
+            border: 1px solid rgba(180,180,180,0.4);
+            box-shadow: 0 0 10px rgba(200,200,200,0.25);
+        }
+        /* NVIDIA neon pulse */
+        @keyframes nvidiaPulse {
+            0% { box-shadow: 0 0 12px rgba(0,255,180,0.25); }
+            50% { box-shadow: 0 0 28px rgba(0,255,180,0.6); }
+            100% { box-shadow: 0 0 12px rgba(0,255,180,0.25); }
+        }
+        .nvidia-neon {
+            border: 1px solid rgba(0,255,180,0.6);
+            animation: nvidiaPulse 3s ease-in-out infinite;
+        }
+    .active-service-card {
+            transform: scale(1.08);
+            opacity: 1;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+        }
+        .service-card:not(.active-service-card) {
+            opacity: 0.75;
+            transform: scale(0.92);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+    .glow-tile {
+            animation: softGlow 4s ease-in-out infinite;
+        }
+        @keyframes softGlow {
+            0% { box-shadow: 0 0 10px rgba(0,255,180,0.15); }
+            50% { box-shadow: 0 0 28px rgba(0,255,180,0.45); }
+            100% { box-shadow: 0 0 10px rgba(0,255,180,0.15); }
+        }
+
+
+        .glow-hpc { box-shadow: 0 0 25px rgba(0,255,180,0.45); border-color: rgba(0,255,180,0.6); }
+        .glow-hpe { box-shadow: 0 0 25px rgba(0,255,0,0.4); border-color: rgba(0,255,0,0.5); }
+        .glow-cloud { box-shadow: 0 0 25px rgba(0,112,243,0.5); border-color: rgba(0,112,243,0.6); }
+        .glow-data { box-shadow: 0 0 25px rgba(0,180,255,0.5); border-color: rgba(0,180,255,0.6); }
+        .glow-physical { box-shadow: 0 0 25px rgba(255,200,80,0.45); border-color: rgba(255,200,80,0.6); }
     </style>
 </head>
 <body>
@@ -95,10 +160,12 @@
     <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <!-- Logo - Assuming logo.png is in the same folder, or using text for robustness -->
-            <a href="#home" class="flex items-center space-x-2 text-2xl font-bold text-white tracking-tight">
-                <!-- Using a simple icon/text as a fallback for logo.png -->
-                <img src="logo.png" alt="we2systems Logo" class="h-6" onerror="this.onerror=null;this.style.display='none';">
-                <span class="text-primary-blue">we2</span>systems
+            <a href="#home" class="flex flex-col items-start leading-tight text-white">
+                <div class="flex items-center space-x-2 text-2xl font-bold tracking-tight">
+                    
+                    <span class="text-primary-blue">we2</span>systems
+                </div>
+                
             </a>
 
             <!-- Desktop Navigation -->
@@ -113,105 +180,200 @@
                 Start Consultation
             </a>
 
-            <!-- Mobile Menu Placeholder (Not fully functional dropdown but good practice for responsiveness) -->
-            <button class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
             </button>
         </div>
-    </header>
+    <!-- Mobile Dropdown Menu -->
+    <nav id="mobileMenu" class="hidden flex flex-col bg-dark-bg/95 backdrop-blur-sm border-t border-gray-700/50 md:hidden px-6 pt-4 pb-6 space-y-4 text-center">
+        <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
+        <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
+        <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
+    </nav>
+</header>
 
 
     <main>
-        <!-- 1. Hero Section (Good Opening) -->
-        <section id="home" class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden">
+        <!-- NEW Landing Tagline Page -->
+        <section id="landing" class="relative flex items-center justify-center min-h-[100vh] text-center bg-dark-bg overflow-hidden">
+            <div id="parallaxText" class="max-w-5xl mx-auto px-6 z-10 will-change-transform">
+                <h1 id="taglineAnimation" class="text-6xl sm:text-8xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-primary-blue via-blue-300 to-primary-blue bg-clip-text text-transparent">
+                    Hybrid is the Future.<br><span class="text-4xl sm:text-6xl">We Build What’s Real.</span>
+                <h2 class="text-lg sm:text-2xl text-gray-300 mt-4 tracking-wide font-light">We help enterprises build resilient, hybrid and multi-cloud systems that balance cost, performance, and control.</h2>
+                </h1>
+            </div>
+            
+        <div class="absolute bottom-10 w-full flex justify-center">
+    <svg class="w-10 h-10 text-primary-blue animate-bounce glow-arrow" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+    </svg>
+</div>
+</section>
+<section id="home" class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden">
             <div class="max-w-4xl mx-auto px-4 z-10">
-                <h1 class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-6 animate-pulse" style="animation: pulse 5s infinite;">
+                <p class="text-xl sm:text-2xl text-gray-400 mb-6 max-w-2xl mx-auto">From Nutanix AHV to NC2, from VMware-exit to Kubernetes modernization — we architect, migrate, and operate infrastructure that simply works.</p>
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-10 animate-pulse" style="animation: pulse 5s infinite;">
                     Architecting Tomorrow's <span class="text-primary-blue block sm:inline">Hybrid Cloud.</span>
                 </h1>
-                <p class="text-xl sm:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                    Seamless integration, specialized consulting, and optimized infrastructure—from the rack to the cluster.
-                </p>
                 <a href="#services" class="inline-block px-10 py-4 bg-primary-blue text-white text-lg font-semibold rounded-xl hover:bg-blue-600 transition duration-300 shadow-xl shadow-primary-blue/30 transform hover:scale-105">
                     Explore Our Expertise
                 </a>
             </div>
         </section>
 
-
-        <!-- 2. What We Do (Categorized Services) -->
         <section id="services" class="py-20 bg-dark-bg/90">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-white mb-4">Specialized Cloud & Infrastructure Consulting</h2>
-                    <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-                        We don't just manage cloud—we master the critical technologies that power modern, hybrid environments.
-                    </p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+        <h2 class="text-4xl font-bold text-white mb-4">Specialized Cloud & Infrastructure Consulting</h2>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto mb-16">
+            We don't just manage cloud—we master the critical technologies that power modern, hybrid environments.
+        </p>
+
+        <!-- TOP ROW — ICON TILES -->
+        <div id="serviceTabs" class="flex justify-center gap-4 flex-wrap mb-12">
+            <div class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300" data-target="tile-hpc">⚡ AI & HPC</div>
+            <div class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300" data-target="tile-hpe">▩ HPE Hybrid Infra</div>
+            <div class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300" data-target="tile-cloud">☁ Hybrid Cloud</div>
+            <div class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300" data-target="tile-data">📊 Data Platforms</div>
+            <div class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300" data-target="tile-physical">🧱 Physical Infra</div>
+        </div>
+
+        <!-- MAIN DISPLAY TILE -->
+        <div id="serviceDisplay" class="mx-auto w-[85%] max-w-4xl relative flex items-center p-6 rounded-2xl bg-card-bg shadow-xl border border-primary-blue/40 text-left transition relative overflow-hidden glow-tile">
+            <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">&#10094;</button>
+            <div id="sliderWrapper" class="service-slide flex transition-transform duration-700" style="width:100%;">
+
+
+                <div id="tile-hpc" class="service-tile min-w-full px-6">
+                    <div class="flex items-center mb-4 gap-3">
+                        
+                        <h3 class="text-3xl font-semibold text-primary-blue">AI & HPC Acceleration</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Harnessing NVIDIA GPUs for AI, deep learning, simulation and high‑performance computing.</p>
+                    <ul class="text-gray-400 space-y-1">
+                        <li>• GPU Cluster Implementation</li>
+                        <li>• CUDA & OpenACC Optimization</li>
+                        <li>• Infrastructure Sizing</li>
+                    </ul>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-                    <!-- Service Card 1: Hybrid Cloud / Kubernetes / Docker -->
-                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
-                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m0 0h16m0 0V7m0 10v-4M4 7h16M4 7v4"></path></svg>
-                        <h3 class="text-xl font-semibold text-white mb-2">Hybrid Cloud & Ops</h3>
-                        <p class="text-gray-400 mb-4">
-                            Seamlessly connect private infrastructure with public cloud resources for optimal performance and cost.
-                        </p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li><span class="text-primary-blue">•</span> Kubernetes Cluster Design</li>
-                            <li><span class="text-primary-blue">•</span> Dockerization & Microservices</li>
-                            <li><span class="text-primary-blue">•</span> Multi-cloud Strategy</li>
-                        </ul>
+                <div id="tile-hpe" class="service-tile min-w-full px-6">
+                    <div class="flex items-center mb-4 gap-3">
+                        
+                        <h3 class="text-3xl font-semibold text-green-400">HPE Hybrid Infrastructure</h3>
                     </div>
-
-                    <!-- Service Card 2: Data Intelligence (Snowflake) -->
-                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
-                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19l12-3m-6 0v-4m-6 4l6-4m-6 4L9 15"></path></svg>
-                        <h3 class="text-xl font-semibold text-white mb-2">Cloud Data Platforms</h3>
-                        <p class="text-gray-400 mb-4">
-                            Expert consulting for data warehousing and analytics on modern, scalable platforms like **Snowflake**.
-                        </p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li><span class="text-primary-blue">•</span> Snowflake Optimization</li>
-                            <li><span class="text-primary-blue">•</span> Data Governance & Security</li>
-                            <li><span class="text-primary-blue">•</span> ELT/ETL Pipeline Setup</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service Card 3: Accelerated Computing (NVIDIA) -->
-                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
-                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        <h3 class="text-xl font-semibold text-white mb-2">AI & HPC Acceleration</h3>
-                        <p class="text-gray-400 mb-4">
-                            Harnessing the power of **NVIDIA** GPUs for high-performance computing, deep learning, and simulation.
-                        </p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li><span class="text-primary-blue">•</span> GPU Cluster Implementation</li>
-                            <li><span class="text-primary-blue">•</span> CUDA & OpenACC Optimization</li>
-                            <li><span class="text-primary-blue">•</span> Infrastructure Sizing</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service Card 4: Physical Infrastructure (Server Racks) -->
-                    <div class="service-card bg-card-bg p-6 rounded-2xl border border-gray-700/50 shadow-2xl">
-                        <svg class="w-10 h-10 text-primary-blue mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 012-2h10a2 2 0 012 2M5 12c0 2 1.5 4 4 4h6c2.5 0 4-2 4-4m-12 8h8M7 8h10"></path></svg>
-                        <h3 class="text-xl font-semibold text-white mb-2">Physical Infrastructure</h3>
-                        <p class="text-gray-400 mb-4">
-                            Design and deployment of physical **Server Racks** for on-prem or co-location data center environments.
-                        </p>
-                        <ul class="text-sm text-gray-500 space-y-1">
-                            <li><span class="text-primary-blue">•</span> Rack Layout & Cooling Strategy</li>
-                            <li><span class="text-primary-blue">•</span> Cabling and Power Management</li>
-                            <li><span class="text-primary-blue">•</span> Hardware Procurement Advice</li>
-                        </ul>
-                    </div>
+                    <p class="text-gray-400 mb-4">Expertise across HPE HGX, ProLiant Gen10/Gen11, Alletra storage & enterprise networking.</p>
+                    <ul class="text-gray-400 space-y-1">
+                        <li>• AI Acceleration with HPE + NVIDIA</li>
+                        <li>• ProLiant Architecture Design</li>
+                        <li>• Alletra Storage Solutions</li>
+                    </ul>
                 </div>
-            </div>
-        </section>
+
+                <div id="tile-cloud" class="service-tile min-w-full px-6">
+                    <div class="flex items-center mb-4 gap-3">
+                        <h3 class="text-3xl font-semibold text-primary-blue">Hybrid Cloud & Ops</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Seamlessly connect private infrastructure with public cloud resources for optimal performance and cost.</p>
+                    <ul class="text-gray-400 space-y-1">
+                        <li>• Kubernetes Cluster Design</li>
+                        <li>• Dockerization & Microservices</li>
+                        <li>• Multi-cloud Strategy</li>
+                    </ul>
+                </div>
+                <div id="tile-data" class="service-tile min-w-full px-6">
+                    <div class="flex items-center mb-4 gap-3">
+                        <h3 class="text-3xl font-semibold text-blue-300">Cloud Data Platforms</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Expert consulting for data warehousing and analytics on modern, scalable platforms like <strong>Snowflake</strong>.</p>
+                    <ul class="text-gray-400 space-y-1">
+                        <li>• Snowflake Optimization</li>
+                        <li>• Data Governance & Security</li>
+                        <li>• ELT/ETL Pipeline Setup</li>
+                    </ul>
+                </div>
+                <div id="tile-physical" class="service-tile min-w-full px-6">
+                    <div class="flex items-center mb-4 gap-3">
+                        <h3 class="text-3xl font-semibold text-yellow-300">Physical Infrastructure</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Design and deployment of physical <strong>Server Racks</strong> for on-prem or co-location data center environments.</p>
+                    <ul class="text-gray-400 space-y-1">
+                        <li>• Rack Layout & Cooling Strategy</li>
+                        <li>• Cabling and Power Management</li>
+                        <li>• Hardware Procurement Advice</li>
+                    </ul>
+                </div>
+
+            </div><button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">&#10095;</button>
+        </div></div>
+
+    <script>
+        const tabs = document.querySelectorAll('.service-tab');
+let currentIndex = 0;
+const slider = document.getElementById('sliderWrapper');
+
+function slideTo(index) {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    const cards = slider.querySelectorAll('.service-tile');
+    cards.forEach((card, idx) => {
+        if (idx === index) {
+            
+            
+        } else {
+            
+            
+        }
+    });
+    // Dynamic Glow Change
+    const display = document.getElementById('serviceDisplay');
+    display.classList.remove('glow-hpc','glow-hpe','glow-cloud','glow-data','glow-physical');
+    switch(index) {
+        case 0: display.classList.add('glow-hpc'); break;
+        case 1: display.classList.add('glow-hpe'); break;
+        case 2: display.classList.add('glow-cloud'); break;
+        case 3: display.classList.add('glow-data'); break;
+        case 4: display.classList.add('glow-physical'); break;
+    }
+
+    tabs.forEach(t=>t.classList.remove('bg-primary-blue','text-white'));
+    tabs[index].classList.add('bg-primary-blue','text-white');
+    currentIndex = index;
+}
+
+tabs.forEach((tab, idx) => {
+    tab.addEventListener('click', () => {
+        clearInterval(autoScrollTiles);
+        slideTo(idx);
+    });
+});
+
+prevBtn.addEventListener('click', () => {
+    clearInterval(autoScrollTiles);
+    const prev = (currentIndex - 1 + tabs.length) % tabs.length;
+    slideTo(prev);
+});
+nextBtn.addEventListener('click', () => {
+    clearInterval(autoScrollTiles);
+    const next = (currentIndex + 1) % tabs.length;
+    slideTo(next);
+});
+
+const autoScrollTiles = setInterval(() => {
+    const next = (currentIndex + 1) % tabs.length;
+    slideTo(next);
+}, 2500);
+
+slideTo(0);
+    </script>
+</section>
 
 
         <!-- 3. Why Choose Us -->
-        <section id="why-us" class="py-20">
+        
+<section id="why-us" class="py-20">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
@@ -305,12 +467,53 @@
             </div>
         </section>
 
-    </main>
+    <script>
+// Mobile Menu Toggle
+const mobileBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+mobileBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+});
+
+// Parallax subtle movement on landing tagline
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const speed = 0.18; // subtle movement
+    const element = document.getElementById('parallaxText');
+    if (element) {
+        element.style.transform = `translateY(${scrollY * speed}px)`;
+    }
+});
+
+// Smooth scroll between anchor sections
+const links = document.querySelectorAll('a[href^="#"]');
+for (const link of links) {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+</script>
+</main>
 
     <!-- Footer -->
-    <footer class="bg-dark-bg border-t border-gray-800 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p>&copy; 2024 we2systems. All rights reserved. | Hybrid Cloud & Specialized Consulting</p>
+    <footer class="bg-dark-bg border-t border-gray-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-400 grid md:grid-cols-2 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-white font-semibold mb-2">Registered Address - Hyderabad</h3>
+                <p>#402, 4Th Floor,<br>6-3-249/6, Alcazar Plaza & Towers,<br>Road No 1, Banjara Hills,<br>Hyderabad- 500034, Telangana</p>
+            </div>
+            <div>
+                <h3 class="text-white font-semibold mb-2">Bengaluru Office</h3>
+                <p>3rd Floor, 317 A, 9th Main Rd,<br>5th Block, Jayanagar,<br>Bengaluru, Karnataka 560041</p>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 mt-8">
+            <p>&copy; 2025 we2systems. All rights reserved. | Hybrid Cloud & Specialized Consulting</p>
         </div>
     </footer>
 
