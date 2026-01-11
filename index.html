@@ -782,12 +782,50 @@
                   class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
                 ></textarea>
               </div>
+
+              <!-- Visual CAPTCHA (canvas-based) -->
+              <div class="pt-4">
+                <label for="visualCaptchaInput" class="block text-sm font-medium text-gray-300 mb-2 text-center w-full">Enter the characters shown</label>
+                <div class="flex items-center gap-[10px] justify-center">
+                  <canvas id="captchaCanvas" width="220" height="70" class="rounded-md border border-gray-600 bg-white"></canvas>
+                  <button id="refreshCaptcha" type="button" aria-label="Refresh CAPTCHA" title="Refresh CAPTCHA" class="p-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <polyline points="1 20 1 14 7 14"></polyline>
+                      <path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10"></path>
+                      <path d="M20.49 15a9 9 0 0 1-14.13 3.36L1 14"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="mt-3 flex justify-center">
+                  <input
+                    id="visualCaptchaInput"
+                    name="visualCaptcha"
+                    type="text"
+                    autocomplete="off"
+                    required
+                    class="w-full sm:w-72 px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
+                    aria-describedby="captchaHelp"
+                  />
+                </div>
+                <p id="captchaHelp" class="text-sm text-gray-400 mt-2 text-center" aria-live="polite">The CAPTCHA is case-sensitive. Type letters exactly as shown.</p>
+                <p id="captchaError" class="text-sm text-red-400 mt-2 hidden text-center" aria-live="assertive">Incorrect CAPTCHA — try again.</p>
+              </div>
+
               <button
+                id="submitBtn"
                 type="submit"
-                class="w-full px-6 py-3 bg-primary-blue text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]"
+                disabled
+                class="w-full px-6 py-3 bg-primary-blue disabled:opacity-50 disabled:cursor-not-allowed text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]"
               >
                 Send Consultation Request
               </button>
+
+              <!-- Success message (hidden by default) -->
+              <div id="formSuccess" role="status" aria-live="polite" class="mt-4 hidden">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-green-600 text-white font-medium">✅ Consultation Request sent successfully</div>
+              </div>
+
             </div>
           </form>
         </div>
@@ -858,10 +896,161 @@
     
     <!--Handles user interactions -->
     <script>
+      // Visual CAPTCHA: mixed-case alphabet characters rendered on canvas with noise/lines
+      (function() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let captchaText = '';
+
+        function rand(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function randomChar() {
+          return chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        function generateText(len = 6) {
+          let s = '';
+          for (let i = 0; i < len; i++) s += randomChar();
+          return s;
+        }
+
+        function drawCaptcha(text) {
+          const canvas = document.getElementById('captchaCanvas');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const w = canvas.width;
+          const h = canvas.height;
+
+          // background
+          ctx.clearRect(0, 0, w, h);
+          const grad = ctx.createLinearGradient(0, 0, w, h);
+          grad.addColorStop(0, '#f3f4f6');
+          grad.addColorStop(1, '#ffffff');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          // noise dots
+          for (let i = 0; i < 60; i++) {
+            ctx.fillStyle = `rgba(${rand(0,120)}, ${rand(0,120)}, ${rand(0,120)}, ${Math.random()*0.6})`;
+            ctx.beginPath();
+            ctx.arc(rand(0, w), rand(0, h), Math.random()*1.5 + 0.6, 0, Math.PI*2);
+            ctx.fill();
+          }
+
+          // draw characters with random rotation and position
+          const len = text.length;
+          const baseX = 18;
+          for (let i = 0; i < len; i++) {
+            const ch = text[i];
+            const fontSize = rand(28, 36);
+            ctx.font = `bold ${fontSize}px ${'Inter, Arial, sans-serif'}`;
+            ctx.textBaseline = 'middle';
+            const x = baseX + i * (w - 40) / len + rand(-2, 2);
+            const y = h/2 + rand(-6, 6);
+            const angle = (rand(-25, 25) * Math.PI) / 180;
+
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // shadow for depth
+            ctx.fillStyle = `rgba(${rand(20,80)}, ${rand(20,80)}, ${rand(20,80)}, 0.23)`;
+            ctx.fillText(ch, 2, 2);
+
+            // main character
+            ctx.fillStyle = `rgba(${rand(30,60)}, ${rand(50,100)}, ${rand(80,140)}, 1)`;
+            ctx.fillText(ch, 0, 0);
+            ctx.restore();
+          }
+
+          // obfuscation lines
+          for (let i = 0; i < 5; i++) {
+            ctx.beginPath();
+            ctx.moveTo(rand(0, w), rand(0, h));
+            ctx.bezierCurveTo(rand(0, w), rand(0, h), rand(0, w), rand(0, h), rand(0, w), rand(0, h));
+            ctx.strokeStyle = `rgba(${rand(20,80)}, ${rand(20,80)}, ${rand(20,80)}, ${Math.random()*0.5})`;
+            ctx.lineWidth = Math.random()*1.6 + 0.6;
+            ctx.stroke();
+          }
+        }
+
+        function generateCaptcha() {
+          captchaText = generateText(6);
+          drawCaptcha(captchaText);
+          // clear input & state
+          const input = document.getElementById('visualCaptchaInput');
+          const err = document.getElementById('captchaError');
+          if (input) input.value = '';
+          if (err) err.classList.add('hidden');
+          updateSubmitState(false);
+        }
+
+        function isCaptchaValid() {
+          const input = document.getElementById('visualCaptchaInput');
+          if (!input) return false;
+          return input.value === captchaText;
+        }
+
+        function updateSubmitState(valid) {
+          const btn = document.getElementById('submitBtn');
+          if (!btn) return;
+          btn.disabled = !valid;
+        }
+
+        // event hookups
+        document.addEventListener('DOMContentLoaded', () => {
+          const refresh = document.getElementById('refreshCaptcha');
+          const input = document.getElementById('visualCaptchaInput');
+
+          generateCaptcha();
+
+          if (refresh) refresh.addEventListener('click', generateCaptcha);
+
+          if (input) {
+            input.addEventListener('input', () => {
+              const valid = isCaptchaValid();
+              const err = document.getElementById('captchaError');
+              if (valid) {
+                if (err) err.classList.add('hidden');
+                updateSubmitState(true);
+              } else {
+                if (err) err.classList.remove('hidden');
+                updateSubmitState(false);
+              }
+            });
+          }
+
+          // when form resets, regenerate
+          const form = document.getElementById('contactForm');
+          if (form) {
+            form.addEventListener('reset', () => setTimeout(generateCaptcha, 50));
+          }
+        });
+
+      })();
+
       async function submitForm(event) {
         event.preventDefault();
 
         const form = event.target;
+
+        // ensure captcha correct
+        if (!document.getElementById('visualCaptchaInput') || !document.getElementById('submitBtn')) {
+          alert('CAPTCHA not initialized.');
+          return;
+        }
+
+        // check if submit button is enabled (captcha validated)
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn.disabled) {
+          const err = document.getElementById('captchaError');
+          if (err) {
+            err.textContent = 'Please solve the CAPTCHA correctly before sending.';
+            err.classList.remove('hidden');
+          }
+          return;
+        }
 
         const data = {
           name: form.name.value,
@@ -879,8 +1068,22 @@
           const result = await response.json();
 
           if (result.status === "success") {
-            alert("Form submitted successfully!");
+            // show inline success message
+            const success = document.getElementById('formSuccess');
+            if (success) {
+              success.classList.remove('hidden');
+              // automatically hide after 5 seconds
+              setTimeout(() => success.classList.add('hidden'), 5000);
+            } else {
+              alert('Consultation Request sent successfully');
+            }
+
             form.reset();
+            // regenerate CAPTCHA after successful submit
+            setTimeout(() => {
+              const evt = new Event('reset');
+              form.dispatchEvent(evt);
+            }, 50);
           } else {
             alert("Error submitting the form.");
           }
