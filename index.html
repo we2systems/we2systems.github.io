@@ -1,1151 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      we2systems | Hybrid Cloud Service Provider & Specialized Consulting
-    </title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind for the Inter font and custom colors -->
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "primary-blue": "#0070f3",
-              "dark-bg": "#0D1117",
-              "card-bg": "#161B22",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    we2systems | Hybrid Cloud Service Provider & Specialized Consulting
+  </title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <!-- Configure Tailwind for the Inter font and custom colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary-blue": "#0070f3",
+            "dark-bg": "#0D1117",
+            "card-bg": "#161B22",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
           },
         },
-      };
-    </script>
-    <style>
-      /*
+      },
+    };
+  </script>
+  <style>
+    /*
         Custom CSS for the Fluid Background Effect
         A large, slow-moving radial gradient for an elegant, fluid look.
         */
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: #0d1117; /* Dark background */
-        min-height: 100vh;
-      }
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #0d1117;
+      /* Dark background */
+      min-height: 100vh;
+    }
 
-      .fluid-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle at var(--x) var(--y),
+    .fluid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at var(--x) var(--y),
           rgba(0, 112, 243, 0.1) 0%,
           rgba(0, 112, 243, 0.05) 10%,
-          rgba(13, 17, 23, 1) 50%
-        );
-        transition: background 0.5s ease-out;
-        pointer-events: none; /* Allows clicks through the background */
-        z-index: -1;
-        opacity: 0.7;
+          rgba(13, 17, 23, 1) 50%);
+      transition: background 0.5s ease-out;
+      pointer-events: none;
+      /* Allows clicks through the background */
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
       }
 
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
+    }
+
+    /* Futuristic NVIDIA + Tesla inspired gradient glow */
+    @keyframes glowShift {
+      0% {
+        filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
       }
 
-      .service-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
+      50% {
+        filter: drop-shadow(0 0 26px rgba(0, 255, 190, 0.55));
       }
 
-      /* Futuristic NVIDIA + Tesla inspired gradient glow */
-      @keyframes glowShift {
-        0% {
-          filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
-        }
-        50% {
-          filter: drop-shadow(0 0 26px rgba(0, 255, 190, 0.55));
-        }
-        100% {
-          filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
-        }
+      100% {
+        filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
       }
-      #taglineAnimation {
-        animation: glowShift 4s ease-in-out infinite;
+    }
+
+    #taglineAnimation {
+      animation: glowShift 4s ease-in-out infinite;
+    }
+
+    /* glowing arrow */
+    @keyframes arrowGlow {
+      0% {
+        filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
       }
-      /* glowing arrow */
-      @keyframes arrowGlow {
-        0% {
-          filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
-        }
-        50% {
-          filter: drop-shadow(0 0 8px rgba(0, 112, 243, 0.6));
-        }
-        100% {
-          filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
-        }
+
+      50% {
+        filter: drop-shadow(0 0 8px rgba(0, 112, 243, 0.6));
       }
-      .glow-arrow {
-        animation: arrowGlow 2s infinite ease-in-out;
+
+      100% {
+        filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
       }
-      @keyframes glowPulse {
-        0% {
-          box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
-        }
-        50% {
-          box-shadow: 0 0 26px rgba(0, 255, 180, 0.5);
-        }
-        100% {
-          box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
-        }
+    }
+
+    .glow-arrow {
+      animation: arrowGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
       }
-      /* Metallic effect for HPE */
-      .hpe-metal {
-        background: linear-gradient(
-          135deg,
+
+      50% {
+        box-shadow: 0 0 26px rgba(0, 255, 180, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
+      }
+    }
+
+    /* Metallic effect for HPE */
+    .hpe-metal {
+      background: linear-gradient(135deg,
           #1a1a1a 0%,
           #262626 50%,
-          #1a1a1a 100%
-        );
-        border: 1px solid rgba(180, 180, 180, 0.4);
-        box-shadow: 0 0 10px rgba(200, 200, 200, 0.25);
-      }
-      /* NVIDIA neon pulse */
-      @keyframes nvidiaPulse {
-        0% {
-          box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
-        }
-        50% {
-          box-shadow: 0 0 28px rgba(0, 255, 180, 0.6);
-        }
-        100% {
-          box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
-        }
-      }
-      .nvidia-neon {
-        border: 1px solid rgba(0, 255, 180, 0.6);
-        animation: nvidiaPulse 3s ease-in-out infinite;
-      }
-      .active-service-card {
-        transform: scale(1.08);
-        opacity: 1;
-        transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
-      }
-      .service-card:not(.active-service-card) {
-        opacity: 0.75;
-        transform: scale(0.92);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      }
-      .glow-tile {
-        animation: softGlow 4s ease-in-out infinite;
-      }
-      @keyframes softGlow {
-        0% {
-          box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
-        }
-        50% {
-          box-shadow: 0 0 28px rgba(0, 255, 180, 0.45);
-        }
-        100% {
-          box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
-        }
+          #1a1a1a 100%);
+      border: 1px solid rgba(180, 180, 180, 0.4);
+      box-shadow: 0 0 10px rgba(200, 200, 200, 0.25);
+    }
+
+    /* NVIDIA neon pulse */
+    @keyframes nvidiaPulse {
+      0% {
+        box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
       }
 
-      .glow-hpc {
-        box-shadow: 0 0 25px rgba(0, 255, 180, 0.45);
-        border-color: rgba(0, 255, 180, 0.6);
+      50% {
+        box-shadow: 0 0 28px rgba(0, 255, 180, 0.6);
       }
-      .glow-hpe {
-        box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
-        border-color: rgba(0, 255, 0, 0.5);
+
+      100% {
+        box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
       }
-      .glow-cloud {
-        box-shadow: 0 0 25px rgba(0, 112, 243, 0.5);
-        border-color: rgba(0, 112, 243, 0.6);
+    }
+
+    .nvidia-neon {
+      border: 1px solid rgba(0, 255, 180, 0.6);
+      animation: nvidiaPulse 3s ease-in-out infinite;
+    }
+
+    .active-service-card {
+      transform: scale(1.08);
+      opacity: 1;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+    }
+
+    .service-card:not(.active-service-card) {
+      opacity: 0.75;
+      transform: scale(0.92);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .glow-tile {
+      animation: softGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes softGlow {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
       }
-      .glow-data {
-        box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
-        border-color: rgba(0, 180, 255, 0.6);
+
+      50% {
+        box-shadow: 0 0 28px rgba(0, 255, 180, 0.45);
       }
-      .glow-physical {
-        box-shadow: 0 0 25px rgba(255, 200, 80, 0.45);
-        border-color: rgba(255, 200, 80, 0.6);
+
+      100% {
+        box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
       }
-    </style>
-  </head>
-  <body>
-    <!-- Fluid Background Container -->
-    <div id="fluid-bg" class="fluid-background"></div>
+    }
 
-    <!-- JavaScript for the subtle mouse-following fluid effect -->
-    <script>
-      const fluidBg = document.getElementById("fluid-bg");
+    .glow-hpc {
+      box-shadow: 0 0 25px rgba(0, 255, 180, 0.45);
+      border-color: rgba(0, 255, 180, 0.6);
+    }
 
-      // Initial setup for the center to ensure the gradient is visible on load
-      fluidBg.style.setProperty("--x", "50%");
-      fluidBg.style.setProperty("--y", "50%");
+    .glow-hpe {
+      box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
+      border-color: rgba(0, 255, 0, 0.5);
+    }
 
-      // Update gradient position on mouse movement for a 'fluidic' feel
-      document.addEventListener("mousemove", (e) => {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        fluidBg.style.setProperty("--x", `${x}%`);
-        fluidBg.style.setProperty("--y", `${y}%`);
-      });
-    </script>
+    .glow-cloud {
+      box-shadow: 0 0 25px rgba(0, 112, 243, 0.5);
+      border-color: rgba(0, 112, 243, 0.6);
+    }
 
-    <!-- Header & Navigation -->
-    <header
-      class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
-      >
-        <!-- Logo - Assuming logo.png is in the same folder, or using text for robustness -->
-        <a
-          href="#home"
-          class="flex flex-col items-start leading-tight text-white"
-        >
-          <div
-            class="flex items-center space-x-2 text-2xl font-bold tracking-tight"
-          >
-            <span class="text-primary-blue">we2</span>systems
-          </div>
-        </a>
+    .glow-data {
+      box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
+      border-color: rgba(0, 180, 255, 0.6);
+    }
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-8">
-          <a
-            href="#services"
-            class="text-gray-300 hover:text-primary-blue transition duration-200"
-            >Services</a
-          >
-          <a
-            href="#why-us"
-            class="text-gray-300 hover:text-primary-blue transition duration-200"
-            >Why Us</a
-          >
-          <a
-            href="#contact"
-            class="text-gray-300 hover:text-primary-blue transition duration-200"
-            >Contact</a
-          >
-        </nav>
+    .glow-physical {
+      box-shadow: 0 0 25px rgba(255, 200, 80, 0.45);
+      border-color: rgba(255, 200, 80, 0.6);
+    }
+  </style>
+</head>
 
-        <!-- Contact Button (Mobile visible) -->
-        <a
-          href="#contact"
-          class="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-blue-600 transition duration-300 shadow-md hidden md:inline-block"
-        >
-          Start Consultation
-        </a>
+<body>
+  <!-- Fluid Background Container -->
+  <div id="fluid-bg" class="fluid-background"></div>
 
-        <!-- Mobile Menu Button -->
-        <button
-          id="mobileMenuBtn"
-          class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none"
-        >
-          <svg
-            class="w-7 h-7"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      <!-- Mobile Dropdown Menu -->
-      <nav
-        id="mobileMenu"
-        class="hidden flex flex-col bg-dark-bg/95 backdrop-blur-sm border-t border-gray-700/50 md:hidden px-6 pt-4 pb-6 space-y-4 text-center"
-      >
-        <a
-          href="#services"
-          class="text-gray-300 hover:text-primary-blue transition duration-200"
-          >Services</a
-        >
-        <a
-          href="#why-us"
-          class="text-gray-300 hover:text-primary-blue transition duration-200"
-          >Why Us</a
-        >
-        <a
-          href="#contact"
-          class="text-gray-300 hover:text-primary-blue transition duration-200"
-          >Contact</a
-        >
+
+
+  <!-- Header & Navigation -->
+  <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <!-- Logo - Assuming logo.png is in the same folder, or using text for robustness -->
+      <a href="#home" class="flex flex-col items-start leading-tight text-white">
+        <div class="flex items-center space-x-2 text-2xl font-bold tracking-tight">
+          <span class="text-primary-blue">we2</span>systems
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
+        <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
+        <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
       </nav>
-    </header>
 
-    <main>
-      <!-- NEW Landing Tagline Page -->
-      <section
-        id="landing"
-        class="relative flex items-center justify-center min-h-[100vh] text-center bg-dark-bg overflow-hidden"
-      >
-        <div
-          id="parallaxText"
-          class="max-w-5xl mx-auto px-6 z-10 will-change-transform"
-        >
-          <h1
-            id="taglineAnimation"
-            class="text-6xl sm:text-8xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-primary-blue via-blue-300 to-primary-blue bg-clip-text text-transparent"
-          >
-            Hybrid is the Future.<br /><span class="text-4xl sm:text-6xl"
-              >We Build What’s Real.</span
-            >
-            <h2
-              class="text-lg sm:text-2xl text-gray-300 mt-4 tracking-wide font-light"
-            >
-              We help enterprises build resilient, hybrid and multi-cloud
-              systems that balance cost, performance, and control.
-            </h2>
-          </h1>
-        </div>
+      <!-- Contact Button (Mobile visible) -->
+      <a href="#contact"
+        class="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-blue-600 transition duration-300 shadow-md hidden md:inline-block">
+        Start Consultation
+      </a>
 
-        <div class="absolute bottom-10 w-full flex justify-center">
-          <svg
-            class="w-10 h-10 text-primary-blue animate-bounce glow-arrow"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </div>
-      </section>
-      <section
-        id="home"
-        class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden"
-      >
-        <div class="max-w-4xl mx-auto px-4 z-10">
-          <p class="text-xl sm:text-2xl text-gray-400 mb-6 max-w-2xl mx-auto">
-            From Nutanix AHV to NC2, from VMware-exit to Kubernetes
-            modernization — we architect, migrate, and operate infrastructure
-            that simply works.
-          </p>
-          <h1
-            class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-10 animate-pulse"
-            style="animation: pulse 5s infinite"
-          >
-            Architecting Tomorrow's
-            <span class="text-primary-blue block sm:inline">Hybrid Cloud.</span>
-          </h1>
-          <a
-            href="#services"
-            class="inline-block px-10 py-4 bg-primary-blue text-white text-lg font-semibold rounded-xl hover:bg-blue-600 transition duration-300 shadow-xl shadow-primary-blue/30 transform hover:scale-105"
-          >
-            Explore Our Expertise
-          </a>
-        </div>
-      </section>
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Dropdown Menu -->
+    <nav id="mobileMenu"
+      class="hidden flex flex-col bg-dark-bg/95 backdrop-blur-sm border-t border-gray-700/50 md:hidden px-6 pt-4 pb-6 space-y-4 text-center">
+      <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
+      <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
+      <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
+    </nav>
+  </header>
 
-      <section id="services" class="py-20 bg-dark-bg/90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-4xl font-bold text-white mb-4">
-            Specialized Cloud & Infrastructure Consulting
+  <main>
+    <!-- NEW Landing Tagline Page -->
+    <section id="landing"
+      class="relative flex items-center justify-center min-h-[100vh] text-center bg-dark-bg overflow-hidden">
+      <div id="parallaxText" class="max-w-5xl mx-auto px-6 z-10 will-change-transform">
+        <h1 id="taglineAnimation"
+          class="text-6xl sm:text-8xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-primary-blue via-blue-300 to-primary-blue bg-clip-text text-transparent">
+          Hybrid is the Future.<br /><span class="text-4xl sm:text-6xl">We Build What’s Real.</span>
+          <h2 class="text-lg sm:text-2xl text-gray-300 mt-4 tracking-wide font-light">
+            We help enterprises build resilient, hybrid and multi-cloud
+            systems that balance cost, performance, and control.
           </h2>
-          <p class="text-gray-400 text-lg max-w-3xl mx-auto mb-16">
-            We don't just manage cloud—we master the critical technologies that
-            power modern, hybrid environments.
-          </p>
+        </h1>
+      </div>
 
-          <!-- TOP ROW — ICON TILES -->
+      <div class="absolute bottom-10 w-full flex justify-center">
+        <svg class="w-10 h-10 text-primary-blue animate-bounce glow-arrow" fill="none" stroke="currentColor"
+          stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </section>
+    <section id="home"
+      class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 z-10">
+        <p class="text-xl sm:text-2xl text-gray-400 mb-6 max-w-2xl mx-auto">
+          From Nutanix AHV to NC2, from VMware-exit to Kubernetes
+          modernization — we architect, migrate, and operate infrastructure
+          that simply works.
+        </p>
+        <h1 class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-10 animate-pulse"
+          style="animation: pulse 5s infinite">
+          Architecting Tomorrow's
+          <span class="text-primary-blue block sm:inline">Hybrid Cloud.</span>
+        </h1>
+        <a href="#services"
+          class="inline-block px-10 py-4 bg-primary-blue text-white text-lg font-semibold rounded-xl hover:bg-blue-600 transition duration-300 shadow-xl shadow-primary-blue/30 transform hover:scale-105">
+          Explore Our Expertise
+        </a>
+      </div>
+    </section>
+
+    <section id="services" class="py-20 bg-dark-bg/90">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold text-white mb-4">
+          Specialized Cloud & Infrastructure Consulting
+        </h2>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto mb-16">
+          We don't just manage cloud—we master the critical technologies that
+          power modern, hybrid environments.
+        </p>
+
+        <!-- TOP ROW — ICON TILES -->
+        <div id="serviceTabs" class="flex justify-center gap-4 flex-wrap mb-12">
           <div
-            id="serviceTabs"
-            class="flex justify-center gap-4 flex-wrap mb-12"
-          >
-            <div
-              class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-              data-target="tile-hpc"
-            >
-              ⚡ AI & HPC
-            </div>
-            <div
-              class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-              data-target="tile-hpe"
-            >
-              ▩ HPE Hybrid Infra
-            </div>
-            <div
-              class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-              data-target="tile-cloud"
-            >
-              ☁ Hybrid Cloud
-            </div>
-            <div
-              class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-              data-target="tile-data"
-            >
-              📊 Data Platforms
-            </div>
-            <div
-              class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-              data-target="tile-physical"
-            >
-              🧱 Physical Infra
-            </div>
+            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
+            data-target="tile-hpc">
+            ⚡ AI & HPC
           </div>
-
-          <!-- MAIN DISPLAY TILE -->
           <div
-            id="serviceDisplay"
-            class="mx-auto w-[85%] max-w-4xl relative flex items-center p-6 rounded-2xl bg-card-bg shadow-xl border border-primary-blue/40 text-left transition relative overflow-hidden glow-tile"
-          >
-            <button
-              id="prevBtn"
-              class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20"
-            >
-              &#10094;
-            </button>
-            <div
-              id="sliderWrapper"
-              class="service-slide flex transition-transform duration-700"
-              style="width: 100%"
-            >
-              <div id="tile-hpc" class="service-tile min-w-full px-6">
-                <div class="flex items-center mb-4 gap-3">
-                  <h3 class="text-3xl font-semibold text-primary-blue">
-                    AI & HPC Acceleration
-                  </h3>
-                </div>
-                <p class="text-gray-400 mb-4">
-                  Harnessing NVIDIA GPUs for AI, deep learning, simulation and
-                  high‑performance computing.
-                </p>
-                <ul class="text-gray-400 space-y-1">
-                  <li>• GPU Cluster Implementation</li>
-                  <li>• CUDA & OpenACC Optimization</li>
-                  <li>• Infrastructure Sizing</li>
-                </ul>
-              </div>
-
-              <div id="tile-hpe" class="service-tile min-w-full px-6">
-                <div class="flex items-center mb-4 gap-3">
-                  <h3 class="text-3xl font-semibold text-green-400">
-                    HPE Hybrid Infrastructure
-                  </h3>
-                </div>
-                <p class="text-gray-400 mb-4">
-                  Expertise across HPE HGX, ProLiant Gen10/Gen11, Alletra
-                  storage & enterprise networking.
-                </p>
-                <ul class="text-gray-400 space-y-1">
-                  <li>• AI Acceleration with HPE + NVIDIA</li>
-                  <li>• ProLiant Architecture Design</li>
-                  <li>• Alletra Storage Solutions</li>
-                </ul>
-              </div>
-
-              <div id="tile-cloud" class="service-tile min-w-full px-6">
-                <div class="flex items-center mb-4 gap-3">
-                  <h3 class="text-3xl font-semibold text-primary-blue">
-                    Hybrid Cloud & Ops
-                  </h3>
-                </div>
-                <p class="text-gray-400 mb-4">
-                  Seamlessly connect private infrastructure with public cloud
-                  resources for optimal performance and cost.
-                </p>
-                <ul class="text-gray-400 space-y-1">
-                  <li>• Kubernetes Cluster Design</li>
-                  <li>• Dockerization & Microservices</li>
-                  <li>• Multi-cloud Strategy</li>
-                </ul>
-              </div>
-              <div id="tile-data" class="service-tile min-w-full px-6">
-                <div class="flex items-center mb-4 gap-3">
-                  <h3 class="text-3xl font-semibold text-blue-300">
-                    Cloud Data Platforms
-                  </h3>
-                </div>
-                <p class="text-gray-400 mb-4">
-                  Expert consulting for data warehousing and analytics on
-                  modern, scalable platforms like <strong>Snowflake</strong>.
-                </p>
-                <ul class="text-gray-400 space-y-1">
-                  <li>• Snowflake Optimization</li>
-                  <li>• Data Governance & Security</li>
-                  <li>• ELT/ETL Pipeline Setup</li>
-                </ul>
-              </div>
-              <div id="tile-physical" class="service-tile min-w-full px-6">
-                <div class="flex items-center mb-4 gap-3">
-                  <h3 class="text-3xl font-semibold text-yellow-300">
-                    Physical Infrastructure
-                  </h3>
-                </div>
-                <p class="text-gray-400 mb-4">
-                  Design and deployment of physical
-                  <strong>Server Racks</strong> for on-prem or co-location data
-                  center environments.
-                </p>
-                <ul class="text-gray-400 space-y-1">
-                  <li>• Rack Layout & Cooling Strategy</li>
-                  <li>• Cabling and Power Management</li>
-                  <li>• Hardware Procurement Advice</li>
-                </ul>
-              </div>
-            </div>
-            <button
-              id="nextBtn"
-              class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20"
-            >
-              &#10095;
-            </button>
+            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
+            data-target="tile-hpe">
+            ▩ HPE Hybrid Infra
+          </div>
+          <div
+            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
+            data-target="tile-cloud">
+            ☁ Hybrid Cloud
+          </div>
+          <div
+            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
+            data-target="tile-data">
+            📊 Data Platforms
+          </div>
+          <div
+            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
+            data-target="tile-physical">
+            🧱 Physical Infra
           </div>
         </div>
 
-        <script>
-          const tabs = document.querySelectorAll(".service-tab");
-          let currentIndex = 0;
-          const slider = document.getElementById("sliderWrapper");
-
-          function slideTo(index) {
-            slider.style.transform = `translateX(-${index * 100}%)`;
-            const cards = slider.querySelectorAll(".service-tile");
-            cards.forEach((card, idx) => {
-              if (idx === index) {
-              } else {
-              }
-            });
-            // Dynamic Glow Change
-            const display = document.getElementById("serviceDisplay");
-            display.classList.remove(
-              "glow-hpc",
-              "glow-hpe",
-              "glow-cloud",
-              "glow-data",
-              "glow-physical"
-            );
-            switch (index) {
-              case 0:
-                display.classList.add("glow-hpc");
-                break;
-              case 1:
-                display.classList.add("glow-hpe");
-                break;
-              case 2:
-                display.classList.add("glow-cloud");
-                break;
-              case 3:
-                display.classList.add("glow-data");
-                break;
-              case 4:
-                display.classList.add("glow-physical");
-                break;
-            }
-
-            tabs.forEach((t) =>
-              t.classList.remove("bg-primary-blue", "text-white")
-            );
-            tabs[index].classList.add("bg-primary-blue", "text-white");
-            currentIndex = index;
-          }
-
-          tabs.forEach((tab, idx) => {
-            tab.addEventListener("click", () => {
-              clearInterval(autoScrollTiles);
-              slideTo(idx);
-            });
-          });
-
-          const prevBtn = document.getElementById('prevBtn');
-          const nextBtn = document.getElementById('nextBtn');
-
-          if (prevBtn) {
-            prevBtn.addEventListener("click", () => {
-              clearInterval(autoScrollTiles);
-              const prev = (currentIndex - 1 + tabs.length) % tabs.length;
-              slideTo(prev);
-            });
-          }
-          if (nextBtn) {
-            nextBtn.addEventListener("click", () => {
-              clearInterval(autoScrollTiles);
-              const next = (currentIndex + 1) % tabs.length;
-              slideTo(next);
-            });
-          }
-
-          const autoScrollTiles = setInterval(() => {
-            const next = (currentIndex + 1) % tabs.length;
-            slideTo(next);
-          }, 2500);
-
-          slideTo(0);
-        </script>
-      </section>
-
-      <!-- 3. Why Choose Us -->
-
-      <section id="why-us" class="py-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <span
-                class="text-primary-blue font-semibold uppercase tracking-wider"
-                >Our Advantage</span
-              >
-              <h2 class="text-4xl font-bold text-white mb-6 mt-2">
-                The Deep Expertise You Need for Hybrid Success
-              </h2>
-              <p class="text-gray-400 text-lg mb-8">
-                Navigating the complexities of modern IT requires specialized
-                knowledge. We bridge the gap between niche technologies and
-                enterprise architecture, delivering solutions that are robust,
-                secure, and future-proof.
+        <!-- MAIN DISPLAY TILE -->
+        <div id="serviceDisplay"
+          class="mx-auto w-[85%] max-w-4xl relative flex items-center p-6 rounded-2xl bg-card-bg shadow-xl border border-primary-blue/40 text-left transition relative overflow-hidden glow-tile">
+          <button id="prevBtn"
+            class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">
+            &#10094;
+          </button>
+          <div id="sliderWrapper" class="service-slide flex transition-transform duration-700" style="width: 100%">
+            <div id="tile-hpc" class="service-tile min-w-full px-6">
+              <div class="flex items-center mb-4 gap-3">
+                <h3 class="text-3xl font-semibold text-primary-blue">
+                  AI & HPC Acceleration
+                </h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Harnessing NVIDIA GPUs for AI, deep learning, simulation and
+                high‑performance computing.
               </p>
-
-              <div class="space-y-4">
-                <!-- Feature 1 -->
-                <div class="flex items-start space-x-3">
-                  <span
-                    class="text-primary-blue font-extrabold text-2xl leading-none"
-                    >01.</span
-                  >
-                  <div>
-                    <h4 class="text-white font-semibold">
-                      Niche Technology Focus
-                    </h4>
-                    <p class="text-gray-500 text-sm">
-                      We specialize in Kubernetes, Docker, Snowflake, and
-                      NVIDIA—critical layers of the modern stack.
-                    </p>
-                  </div>
-                </div>
-                <!-- Feature 2 -->
-                <div class="flex items-start space-x-3">
-                  <span
-                    class="text-primary-blue font-extrabold text-2xl leading-none"
-                    >02.</span
-                  >
-                  <div>
-                    <h4 class="text-white font-semibold">
-                      Full-Stack Approach
-                    </h4>
-                    <p class="text-gray-500 text-sm">
-                      From physical server rack deployment to cloud software
-                      optimization, we handle the entire infrastructure.
-                    </p>
-                  </div>
-                </div>
-                <!-- Feature 3 -->
-                <div class="flex items-start space-x-3">
-                  <span
-                    class="text-primary-blue font-extrabold text-2xl leading-none"
-                    >03.</span
-                  >
-                  <div>
-                    <h4 class="text-white font-semibold">
-                      Agility and Partnership
-                    </h4>
-                    <p class="text-gray-500 text-sm">
-                      We operate as an extension of your team, providing
-                      flexible consulting tailored to your business velocity.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ul class="text-gray-400 space-y-1">
+                <li>• GPU Cluster Implementation</li>
+                <li>• CUDA & OpenACC Optimization</li>
+                <li>• Infrastructure Sizing</li>
+              </ul>
             </div>
 
-            <!-- Placeholder Image/Graphic -->
-            <div class="hidden md:block">
-              <div
-                class="bg-card-bg rounded-3xl p-8 border border-primary-blue/30 shadow-2xl shadow-primary-blue/10 min-h-[400px] flex items-center justify-center"
-              >
-                <svg
-                  class="w-32 h-32 text-primary-blue opacity-50"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  ></path>
-                </svg>
+            <div id="tile-hpe" class="service-tile min-w-full px-6">
+              <div class="flex items-center mb-4 gap-3">
+                <h3 class="text-3xl font-semibold text-green-400">
+                  HPE Hybrid Infrastructure
+                </h3>
               </div>
+              <p class="text-gray-400 mb-4">
+                Expertise across HPE HGX, ProLiant Gen10/Gen11, Alletra
+                storage & enterprise networking.
+              </p>
+              <ul class="text-gray-400 space-y-1">
+                <li>• AI Acceleration with HPE + NVIDIA</li>
+                <li>• ProLiant Architecture Design</li>
+                <li>• Alletra Storage Solutions</li>
+              </ul>
+            </div>
+
+            <div id="tile-cloud" class="service-tile min-w-full px-6">
+              <div class="flex items-center mb-4 gap-3">
+                <h3 class="text-3xl font-semibold text-primary-blue">
+                  Hybrid Cloud & Ops
+                </h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Seamlessly connect private infrastructure with public cloud
+                resources for optimal performance and cost.
+              </p>
+              <ul class="text-gray-400 space-y-1">
+                <li>• Kubernetes Cluster Design</li>
+                <li>• Dockerization & Microservices</li>
+                <li>• Multi-cloud Strategy</li>
+              </ul>
+            </div>
+            <div id="tile-data" class="service-tile min-w-full px-6">
+              <div class="flex items-center mb-4 gap-3">
+                <h3 class="text-3xl font-semibold text-blue-300">
+                  Cloud Data Platforms
+                </h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Expert consulting for data warehousing and analytics on
+                modern, scalable platforms like <strong>Snowflake</strong>.
+              </p>
+              <ul class="text-gray-400 space-y-1">
+                <li>• Snowflake Optimization</li>
+                <li>• Data Governance & Security</li>
+                <li>• ELT/ETL Pipeline Setup</li>
+              </ul>
+            </div>
+            <div id="tile-physical" class="service-tile min-w-full px-6">
+              <div class="flex items-center mb-4 gap-3">
+                <h3 class="text-3xl font-semibold text-yellow-300">
+                  Physical Infrastructure
+                </h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Design and deployment of physical
+                <strong>Server Racks</strong> for on-prem or co-location data
+                center environments.
+              </p>
+              <ul class="text-gray-400 space-y-1">
+                <li>• Rack Layout & Cooling Strategy</li>
+                <li>• Cabling and Power Management</li>
+                <li>• Hardware Procurement Advice</li>
+              </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- 4. Contact Us -->
-      <section
-        id="contact"
-        class="py-20 bg-card-bg/50 border-t border-gray-700/50"
-      >
-        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-white mb-2">
-              Let's Build Your Hybrid Future
-            </h2>
-            <p class="text-gray-400 text-lg">
-              Tell us about your project—whether it's a Kubernetes migration or
-              a Snowflake optimization.
-            </p>
-          </div>
-
-          <form
-            id="contactForm"
-            onsubmit="submitForm(event)"
-            class="bg-card-bg p-8 rounded-2xl shadow-2xl border border-gray-700/50"
-          >
-            <div class="space-y-6">
-              <div>
-                <label
-                  for="name"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Full Name</label
-                >
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
-                />
-              </div>
-              <div>
-                <label
-                  for="email"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Work Email</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
-                />
-              </div>
-              <div>
-                <label
-                  for="service"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Area of Interest</label
-                >
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200 appearance-none"
-                >
-                  <option value="" disabled selected>Select a Service</option>
-                  <option value="hybrid-cloud">
-                    Hybrid Cloud & Operations
-                  </option>
-                  <option value="snowflake">Snowflake Consulting</option>
-                  <option value="nvidia">NVIDIA & HPC Acceleration</option>
-                  <option value="kubernetes-docker">Kubernetes & Docker</option>
-                  <option value="server-racks">Server Rack Deployment</option>
-                  <option value="general">General Inquiry</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  for="message"
-                  class="block text-sm font-medium text-gray-300 mb-1"
-                  >Project Details</label
-                >
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  required
-                  class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
-                ></textarea>
-              </div>
-
-              <!-- Visual CAPTCHA (canvas-based) -->
-              <div class="pt-4">
-                <label for="visualCaptchaInput" class="block text-sm font-medium text-gray-300 mb-2 text-center w-full">Enter the characters shown</label>
-                <div class="flex items-center gap-[10px] justify-center">
-                  <canvas id="captchaCanvas" width="220" height="70" class="rounded-md border border-gray-600 bg-white"></canvas>
-                  <button id="refreshCaptcha" type="button" aria-label="Refresh CAPTCHA" title="Refresh CAPTCHA" class="p-2 bg-gray-700 text-gray-200 rounded-md hover:bg-gray-600 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <polyline points="23 4 23 10 17 10"></polyline>
-                      <polyline points="1 20 1 14 7 14"></polyline>
-                      <path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10"></path>
-                      <path d="M20.49 15a9 9 0 0 1-14.13 3.36L1 14"></path>
-                    </svg>
-                  </button>
-                </div>
-                <div class="mt-3 flex justify-center">
-                  <input
-                    id="visualCaptchaInput"
-                    name="visualCaptcha"
-                    type="text"
-                    autocomplete="off"
-                    required
-                    class="w-full sm:w-72 px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"
-                    aria-describedby="captchaHelp"
-                  />
-                </div>
-                <p id="captchaHelp" class="text-sm text-gray-400 mt-2 text-center" aria-live="polite">The CAPTCHA is case-sensitive. Type letters exactly as shown.</p>
-                <p id="captchaError" class="text-sm text-red-400 mt-2 hidden text-center" aria-live="assertive">Incorrect CAPTCHA — try again.</p>
-              </div>
-
-              <button
-                id="submitBtn"
-                type="submit"
-                disabled
-                class="w-full px-6 py-3 bg-primary-blue disabled:opacity-50 disabled:cursor-not-allowed text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]"
-              >
-                Send Consultation Request
-              </button>
-
-              <!-- Success message (hidden by default) -->
-              <div id="formSuccess" role="status" aria-live="polite" class="mt-4 hidden">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-green-600 text-white font-medium">✅ Consultation Request sent successfully</div>
-              </div>
-
-              <!-- Debug banner (temporary) -->
-              <div id="serverDebug" role="status" aria-live="polite" class="mt-4 hidden">
-                <pre id="serverDebugPre" class="text-sm text-gray-300 mt-2 p-3 rounded bg-dark-bg border border-gray-700/40 overflow-auto"></pre>
-              </div>
-
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <script>
-        // Mobile Menu Toggle
-        const mobileBtn = document.getElementById("mobileMenuBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        mobileBtn.addEventListener("click", () => {
-          mobileMenu.classList.toggle("hidden");
-        });
-
-        // Parallax subtle movement on landing tagline
-        window.addEventListener("scroll", () => {
-          const scrollY = window.scrollY;
-          const speed = 0.18; // subtle movement
-          const element = document.getElementById("parallaxText");
-          if (element) {
-            element.style.transform = `translateY(${scrollY * speed}px)`;
-          }
-        });
-
-        // Smooth scroll between anchor sections
-        const links = document.querySelectorAll('a[href^="#"]');
-        for (const link of links) {
-          link.addEventListener("click", (e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute("href"));
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-        }
-      </script>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark-bg border-t border-gray-800 py-10">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-400 grid md:grid-cols-2 gap-8 text-center md:text-left"
-      >
-        <div>
-          <h3 class="text-white font-semibold mb-2">
-            Registered Address - Hyderabad
-          </h3>
-          <p>
-            #402, 4Th Floor,<br />6-3-249/6, Alcazar Plaza & Towers,<br />Road
-            No 1, Banjara Hills,<br />Hyderabad- 500034, Telangana
-          </p>
-        </div>
-        <div>
-          <h3 class="text-white font-semibold mb-2">Bengaluru Office</h3>
-          <p>
-            3rd Floor, 317 A, 9th Main Rd,<br />5th Block, Jayanagar,<br />Bengaluru,
-            Karnataka 560041
-          </p>
+          <button id="nextBtn"
+            class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">
+            &#10095;
+          </button>
         </div>
       </div>
-      <div class="text-center text-gray-500 mt-8">
+
+
+    </section>
+
+    <!-- 3. Why Choose Us -->
+
+    <section id="why-us" class="py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-primary-blue font-semibold uppercase tracking-wider">Our Advantage</span>
+            <h2 class="text-4xl font-bold text-white mb-6 mt-2">
+              The Deep Expertise You Need for Hybrid Success
+            </h2>
+            <p class="text-gray-400 text-lg mb-8">
+              Navigating the complexities of modern IT requires specialized
+              knowledge. We bridge the gap between niche technologies and
+              enterprise architecture, delivering solutions that are robust,
+              secure, and future-proof.
+            </p>
+
+            <div class="space-y-4">
+              <!-- Feature 1 -->
+              <div class="flex items-start space-x-3">
+                <span class="text-primary-blue font-extrabold text-2xl leading-none">01.</span>
+                <div>
+                  <h4 class="text-white font-semibold">
+                    Niche Technology Focus
+                  </h4>
+                  <p class="text-gray-500 text-sm">
+                    We specialize in Kubernetes, Docker, Snowflake, and
+                    NVIDIA—critical layers of the modern stack.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 2 -->
+              <div class="flex items-start space-x-3">
+                <span class="text-primary-blue font-extrabold text-2xl leading-none">02.</span>
+                <div>
+                  <h4 class="text-white font-semibold">
+                    Full-Stack Approach
+                  </h4>
+                  <p class="text-gray-500 text-sm">
+                    From physical server rack deployment to cloud software
+                    optimization, we handle the entire infrastructure.
+                  </p>
+                </div>
+              </div>
+              <!-- Feature 3 -->
+              <div class="flex items-start space-x-3">
+                <span class="text-primary-blue font-extrabold text-2xl leading-none">03.</span>
+                <div>
+                  <h4 class="text-white font-semibold">
+                    Agility and Partnership
+                  </h4>
+                  <p class="text-gray-500 text-sm">
+                    We operate as an extension of your team, providing
+                    flexible consulting tailored to your business velocity.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Placeholder Image/Graphic -->
+          <div class="hidden md:block">
+            <div
+              class="bg-card-bg rounded-3xl p-8 border border-primary-blue/30 shadow-2xl shadow-primary-blue/10 min-h-[400px] flex items-center justify-center">
+              <svg class="w-32 h-32 text-primary-blue opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Contact Us -->
+    <section id="contact" class="py-20 bg-card-bg/50 border-t border-gray-700/50">
+      <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-white mb-2">
+            Let's Build Your Hybrid Future
+          </h2>
+          <p class="text-gray-400 text-lg">
+            Tell us about your project—whether it's a Kubernetes migration or
+            a Snowflake optimization.
+          </p>
+        </div>
+
+        <form id="contactForm" onsubmit="submitForm(event)"
+          class="bg-card-bg p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+          <div class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+              <input type="text" name="name" id="name" required
+                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Work Email</label>
+              <input type="email" name="email" id="email" required
+                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200" />
+            </div>
+            <div>
+              <label for="service" class="block text-sm font-medium text-gray-300 mb-1">Area of Interest</label>
+              <select id="service" name="service" required
+                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200 appearance-none">
+                <option value="" disabled selected>Select a Service</option>
+                <option value="hybrid-cloud">
+                  Hybrid Cloud & Operations
+                </option>
+                <option value="snowflake">Snowflake Consulting</option>
+                <option value="nvidia">NVIDIA & HPC Acceleration</option>
+                <option value="kubernetes-docker">Kubernetes & Docker</option>
+                <option value="server-racks">Server Rack Deployment</option>
+                <option value="general">General Inquiry</option>
+              </select>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Project Details</label>
+              <textarea id="message" name="message" rows="4" required
+                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"></textarea>
+            </div>
+
+            <!-- Google reCAPTCHA v2 -->
+            <div class="flex justify-center pt-2">
+              <div class="g-recaptcha" data-sitekey="6LdyuW8sAAAAAAFT9ZOV8Hhs0c6Kn-6U0KMEPkru"></div>
+            </div>
+
+            <button id="submitBtn" type="submit"
+              class="w-full px-6 py-3 bg-primary-blue text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]">
+              Send Consultation Request
+            </button>
+
+            <!-- Success message (hidden by default) -->
+            <div id="formSuccess" role="status" aria-live="polite" class="mt-4 hidden">
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-green-600 text-white font-medium">✅
+                Consultation Request sent successfully</div>
+            </div>
+
+            <!-- Debug banner (temporary) -->
+            <div id="serverDebug" role="status" aria-live="polite" class="mt-4 hidden">
+              <pre id="serverDebugPre"
+                class="text-sm text-gray-300 mt-2 p-3 rounded bg-dark-bg border border-gray-700/40 overflow-auto"></pre>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark-bg border-t border-gray-800 py-10">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-400 grid md:grid-cols-2 gap-8 text-center md:text-left">
+      <div>
+        <h3 class="text-white font-semibold mb-2">
+          Registered Address - Hyderabad
+        </h3>
         <p>
-          &copy; 2025 we2systems. All rights reserved. | Hybrid Cloud &
-          Specialized Consulting
+          #402, 4Th Floor,<br />6-3-249/6, Alcazar Plaza & Towers,<br />Road
+          No 1, Banjara Hills,<br />Hyderabad- 500034, Telangana
         </p>
       </div>
-    </footer>
-    
-    <!--Handles user interactions -->
-    <script>
-      // Visual CAPTCHA: mixed-case alphabet characters rendered on canvas with noise/lines
-      (function() {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        let captchaText = '';
+      <div>
+        <h3 class="text-white font-semibold mb-2">Bengaluru Office</h3>
+        <p>
+          3rd Floor, 317 A, 9th Main Rd,<br />5th Block, Jayanagar,<br />Bengaluru,
+          Karnataka 560041
+        </p>
+      </div>
+    </div>
+    <div class="text-center text-gray-500 mt-8">
+      <p>
+        &copy; 2025 we2systems. All rights reserved. | Hybrid Cloud &
+        Specialized Consulting
+      </p>
+    </div>
+  </footer>
 
-        function rand(min, max) {
-          return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+  <!-- All JS in script.js -->
+  <script src="script.js"></script>
+</body>
 
-        function randomChar() {
-          return chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-
-        function generateText(len = 6) {
-          let s = '';
-          for (let i = 0; i < len; i++) s += randomChar();
-          return s;
-        }
-
-        function drawCaptcha(text) {
-          const canvas = document.getElementById('captchaCanvas');
-          if (!canvas) return;
-          const ctx = canvas.getContext('2d');
-          const w = canvas.width;
-          const h = canvas.height;
-
-          // background
-          ctx.clearRect(0, 0, w, h);
-          const grad = ctx.createLinearGradient(0, 0, w, h);
-          grad.addColorStop(0, '#f3f4f6');
-          grad.addColorStop(1, '#ffffff');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, w, h);
-
-          // noise dots
-          for (let i = 0; i < 60; i++) {
-            ctx.fillStyle = `rgba(${rand(0,120)}, ${rand(0,120)}, ${rand(0,120)}, ${Math.random()*0.6})`;
-            ctx.beginPath();
-            ctx.arc(rand(0, w), rand(0, h), Math.random()*1.5 + 0.6, 0, Math.PI*2);
-            ctx.fill();
-          }
-
-          // draw characters with random rotation and position
-          const len = text.length;
-          const baseX = 18;
-          for (let i = 0; i < len; i++) {
-            const ch = text[i];
-            const fontSize = rand(28, 36);
-            ctx.font = `bold ${fontSize}px ${'Inter, Arial, sans-serif'}`;
-            ctx.textBaseline = 'middle';
-            const x = baseX + i * (w - 40) / len + rand(-2, 2);
-            const y = h/2 + rand(-6, 6);
-            const angle = (rand(-25, 25) * Math.PI) / 180;
-
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(angle);
-
-            // shadow for depth
-            ctx.fillStyle = `rgba(${rand(20,80)}, ${rand(20,80)}, ${rand(20,80)}, 0.23)`;
-            ctx.fillText(ch, 2, 2);
-
-            // main character
-            ctx.fillStyle = `rgba(${rand(30,60)}, ${rand(50,100)}, ${rand(80,140)}, 1)`;
-            ctx.fillText(ch, 0, 0);
-            ctx.restore();
-          }
-
-          // obfuscation lines
-          for (let i = 0; i < 5; i++) {
-            ctx.beginPath();
-            ctx.moveTo(rand(0, w), rand(0, h));
-            ctx.bezierCurveTo(rand(0, w), rand(0, h), rand(0, w), rand(0, h), rand(0, w), rand(0, h));
-            ctx.strokeStyle = `rgba(${rand(20,80)}, ${rand(20,80)}, ${rand(20,80)}, ${Math.random()*0.5})`;
-            ctx.lineWidth = Math.random()*1.6 + 0.6;
-            ctx.stroke();
-          }
-        }
-
-        function generateCaptcha() {
-          captchaText = generateText(6);
-          drawCaptcha(captchaText);
-          // clear input & state
-          const input = document.getElementById('visualCaptchaInput');
-          const err = document.getElementById('captchaError');
-          if (input) input.value = '';
-          if (err) err.classList.add('hidden');
-          updateSubmitState(false);
-        }
-
-        function isCaptchaValid() {
-          const input = document.getElementById('visualCaptchaInput');
-          if (!input) return false;
-          return input.value === captchaText;
-        }
-
-        function updateSubmitState(valid) {
-          const btn = document.getElementById('submitBtn');
-          if (!btn) return;
-          btn.disabled = !valid;
-        }
-
-        // event hookups
-        document.addEventListener('DOMContentLoaded', () => {
-          const refresh = document.getElementById('refreshCaptcha');
-          const input = document.getElementById('visualCaptchaInput');
-
-          generateCaptcha();
-
-          if (refresh) refresh.addEventListener('click', generateCaptcha);
-
-          if (input) {
-            input.addEventListener('input', () => {
-              const valid = isCaptchaValid();
-              const err = document.getElementById('captchaError');
-              if (valid) {
-                if (err) err.classList.add('hidden');
-                updateSubmitState(true);
-              } else {
-                if (err) err.classList.remove('hidden');
-                updateSubmitState(false);
-              }
-            });
-          }
-
-          // when form resets, regenerate
-          const form = document.getElementById('contactForm');
-          if (form) {
-            form.addEventListener('reset', () => setTimeout(generateCaptcha, 50));
-          }
-        });
-
-      })();
-
-      async function submitForm(event) {
-        event.preventDefault();
-
-        const form = event.target;
-
-        // ensure captcha correct
-        if (!document.getElementById('visualCaptchaInput') || !document.getElementById('submitBtn')) {
-          alert('CAPTCHA not initialized.');
-          return;
-        }
-
-        // check if submit button is enabled (captcha validated)
-        const submitBtn = document.getElementById('submitBtn');
-        if (submitBtn.disabled) {
-          const err = document.getElementById('captchaError');
-          if (err) {
-            err.textContent = 'Please solve the CAPTCHA correctly before sending.';
-            err.classList.remove('hidden');
-          }
-          return;
-        }
-
-        const data = {
-          name: form.name.value,
-          email: form.email.value,
-          service: form.service.value,
-          message: form.message.value,
-        };
-
-        try {
-          // Use form-urlencoded to avoid CORS preflight with Google Apps Script
-          // (Apps Script webapps do not send CORS preflight headers for application/json)
-          const url = "https://script.google.com/macros/s/AKfycbyJfyADDi8ddpwccnRH4RsLcNLIuIRsUT9iCZ8TuMLxYr0KKlonfkMymLyvcN7tJQvQ/exec";
-          const formBody = new URLSearchParams();
-          formBody.append('name', data.name);
-          formBody.append('email', data.email);
-          formBody.append('service', data.service);
-          formBody.append('message', data.message);
-
-          const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formBody.toString(),
-          });
-
-          // Show raw response body for debugging when not ok
-          if (!res.ok) {
-            const txt = await res.text().catch(() => 'Unable to read response text');
-            console.error('Network response was not ok', res.status, res.statusText, txt);
-            const debugPre = document.getElementById('serverDebugPre');
-            if (debugPre) {
-              debugPre.textContent = `Network response not OK: ${res.status} ${res.statusText}\n\n${txt}`;
-              document.getElementById('serverDebug').classList.remove('hidden');
-            }
-            alert("Error submitting the form (network).");
-            return;
-          }
-
-          const result = await res.json().catch(async (e) => {
-            const txt = await res.text().catch(() => 'Unable to read response text');
-            throw new Error('Invalid JSON response: ' + txt);
-          });
-
-          // Show server response in debug banner for transparency
-          const debugPre = document.getElementById('serverDebugPre');
-          if (debugPre) {
-            debugPre.textContent = JSON.stringify(result, null, 2);
-            document.getElementById('serverDebug').classList.remove('hidden');
-          }
-
-          if (result.status === "success") {
-            const success = document.getElementById('formSuccess');
-            if (success) {
-              success.classList.remove('hidden');
-              // automatically hide after 5 seconds
-              setTimeout(() => success.classList.add('hidden'), 5000);
-            } else {
-              alert('Consultation Request saved successfully');
-            }
-
-            if (result.emailSent === false) {
-              alert('Submission saved, but email delivery failed — check script deployment or permissions.');
-            }
-
-            form.reset();
-            // regenerate CAPTCHA after successful submit
-            setTimeout(() => {
-              const evt = new Event('reset');
-              form.dispatchEvent(evt);
-            }, 50);
-          } else {
-            const errMsg = result && result.message ? result.message : "Error submitting the form.";
-            alert(errMsg);
-          }
-        } catch (err) {
-          console.error(err);
-          const debugPre = document.getElementById('serverDebugPre');
-          if (debugPre) {
-            debugPre.textContent = (err && err.message) ? err.message : String(err);
-            document.getElementById('serverDebug').classList.remove('hidden');
-          }
-          alert("Error submitting the form.");
-        }
-      }
-    </script>
-  </body>
 </html>
