@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS Platform — Field & Workforce Management | we2systems</title>
+    <meta name="description" content="we2systems is building FMS, a field and workforce management platform for real-time tracking, task management and time &amp; attendance across construction, manufacturing and logistics.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230ea5e9'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='18' fill='white'%3Ew2%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                        accent: '#6366f1',
+                        field: '#f59e0b',
+                    },
+                    maxWidth: { site: '1200px' },
+                }
+            }
+        };
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #ffffff; color: #1e293b; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .field-gradient {
+            background: linear-gradient(135deg, #f59e0b, #fb923c);
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Fade-up animation */
+        .fade-up {
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Module card */
+        .module-card {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(245,158,11,0.1);
+            border-color: rgba(245,158,11,0.3);
+        }
+
+        /* Flow step connector */
+        .flow-step { position: relative; }
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -24px; top: 50%;
+            transform: translateY(-50%);
+            width: 24px; height: 2px;
+            background: linear-gradient(90deg, #f59e0b, #fb923c);
+        }
+        @media (max-width: 767px) {
+            .flow-step:not(:last-child)::after { display: none; }
+        }
+
+        /* Nav glass */
+        .nav-glass {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+
+        /* Hero gradient mesh */
+        .hero-mesh {
+            position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 70% 60% at 10% 30%, rgba(245,158,11,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 50% at 80% 70%, rgba(14,165,233,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 50% 10%, rgba(99,102,241,0.05) 0%, transparent 50%);
+        }
+        /* Dot grid pattern */
+        .dot-grid {
+            background-image: radial-gradient(circle, rgba(245,158,11,0.15) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, #fffbeb 0%, #eff6ff 50%, #f5f3ff 100%);
+            border: 1px solid rgba(245,158,11,0.15);
+            border-radius: 1.5rem;
+        }
+
+        /* Hero buttons */
+        .btn-primary-field {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 1rem 2.5rem; font-size: 1rem; font-weight: 700;
+            border-radius: 9999px; color: #ffffff;
+            background: linear-gradient(to right, #f59e0b, #fb923c);
+            transition: transform 300ms ease, opacity 300ms ease;
+            text-decoration: none;
+        }
+        .btn-primary-field:hover { transform: translateY(-4px); opacity: 0.92; }
+        .btn-outline-field {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 1rem 2rem; font-size: 1rem; font-weight: 500;
+            border-radius: 9999px; color: #475569; border: 1px solid #e2e8f0;
+            background: transparent;
+            transition: border-color 300ms ease, color 300ms ease, transform 200ms ease;
+            text-decoration: none;
+        }
+        .btn-outline-field:hover { border-color: #fcd34d; color: #b45309; transform: translateY(-2px); }
+
+        /* Form inputs */
+        .form-input {
+            padding: 14px 18px; border-radius: 12px; background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.12); color: #0f172a; font-size: 0.875rem;
+            font-family: inherit; transition: border-color 200ms ease, box-shadow 200ms ease;
+            outline: none; resize: none;
+        }
+        .form-input::placeholder { color: #94a3b8; }
+        .form-input:focus { border-color: rgba(245,158,11,0.4); box-shadow: 0 0 0 3px rgba(245,158,11,0.12); }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .faq-item:first-child { border-top: 1px solid rgba(0,0,0,0.06); }
+        .faq-btn {
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; padding: 1.25rem 0; text-align: left; background: none; border: none;
+            cursor: pointer; font-size: 0.9375rem; font-weight: 600; color: #0f172a;
+            transition: color 200ms ease;
+        }
+        .faq-btn:hover { color: #f59e0b; }
+        .faq-icon {
+            flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+            background: #f1f5f9; display: flex; align-items: center; justify-content: center;
+            font-size: 9px; color: #94a3b8;
+            transition: transform 280ms cubic-bezier(.4,0,.2,1), background 200ms ease, color 200ms ease;
+        }
+        .faq-item.open .faq-icon { transform: rotate(180deg); background: #fef3c7; color: #f59e0b; }
+        .faq-body { max-height: 0; overflow: hidden; transition: max-height 320ms cubic-bezier(.4,0,.2,1); }
+        .faq-body-inner { padding-bottom: 1.375rem; font-size: 0.9rem; color: #475569; line-height: 1.75; }
+
+        /* Nav dropdown */
+        .platforms-dropdown {
+            position: absolute; top: calc(100% + 10px); left: 0;
+            min-width: 260px; background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08); border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.09), 0 4px 12px rgba(0,0,0,0.05);
+            padding: 6px; opacity: 0; pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.18s ease, transform 0.18s ease; z-index: 200;
+        }
+        .platforms-dropdown.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .solutions-dropdown { min-width: 540px; }
+        .platforms-platform-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 12px; border-radius: 10px; cursor: pointer;
+            text-decoration: none; transition: background 0.15s ease;
+        }
+        .platforms-platform-item:hover { background: #f8fafc; }
+        .mobile-platforms-sub, .mobile-solutions-sub {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease; opacity: 0;
+        }
+        .mobile-platforms-sub.open, .mobile-solutions-sub.open { max-height: 600px; opacity: 1; }
+        #platforms-chevron-mobile.rotated, #solutions-chevron-mobile.rotated { transform: rotate(180deg); }
+        #platforms-chevron-mobile, #solutions-chevron-mobile { transition: transform 0.25s ease; }
+    
+        /* Live status badge (Platforms nav) */
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 1px 7px 1px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: #059669;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 9999px;
+            line-height: 1.6;
+            vertical-align: middle;
+        }
+        .live-dot {
+            position: relative;
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
+            background: #10b981;
+            flex-shrink: 0;
+        }
+        .live-dot::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: #10b981;
+            animation: live-dot-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes live-dot-ping {
+            0% { transform: scale(1); opacity: 0.6; }
+            75%, 100% { transform: scale(2.4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── NAVIGATION ────────────────────────────── -->
+    <nav class="nav-glass fixed w-full z-50">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="font-bold text-xl tracking-tight text-slate-900">
+                    we<span class="text-gradient">2</span>systems
+                </a>
+
+                <div class="hidden md:flex space-x-1 items-center bg-slate-100 rounded-full px-2 py-1.5 border border-slate-200">
+                    <!-- Platforms dropdown -->
+                    <div class="relative" id="platforms-nav-wrapper">
+                        <button id="platforms-nav-btn" onclick="togglePlatformsNav()" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300 flex items-center gap-1.5 focus:outline-none">
+                            Platforms
+                            <i id="platforms-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-400"></i>
+                        </button>
+                        <div id="platforms-dropdown" class="platforms-dropdown">
+                            <a href="fms.html" class="platforms-platform-item bg-amber-50/60">
+                                <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-users-gear text-amber-500 text-xs"></i></div>
+                                <div><p class="text-sm font-semibold text-amber-700">FMS Workforce Management <span class="live-badge"><span class="live-dot"></span>Live</span></p><p class="text-xs text-slate-500 mt-0.5">Field & workforce operations</p></div>
+                            </a>
+                            <a href="hms.html" class="platforms-platform-item">
+                                <div class="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-hospital text-teal-500 text-xs"></i></div>
+                                <div><p class="text-sm font-medium text-slate-800">Healthcare Workflow Platform <span class="live-badge"><span class="live-dot"></span>Live</span></p><p class="text-xs text-slate-500 mt-0.5">HMS — hospital management</p></div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Solutions dropdown -->
+                    <div class="relative" id="solutions-nav-wrapper">
+                        <button id="solutions-nav-btn" onclick="toggleSolutionsNav()" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300 flex items-center gap-1.5 focus:outline-none">
+                            Solutions
+                            <i id="solutions-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-400"></i>
+                        </button>
+                        <div id="solutions-dropdown" class="platforms-dropdown solutions-dropdown">
+                            <div class="grid grid-cols-2 gap-1">
+                                <div>
+                                    <p class="text-[10px] font-bold text-primary uppercase tracking-widest px-3 pt-2 pb-1">Cloud & Infrastructure</p>
+                                    <a href="../solutions/cloud-infrastructure-consulting.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-brands fa-aws text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Cloud Infrastructure Consulting</p></div>
+                                    </a>
+                                    <a href="../solutions/devops-infrastructure-as-code.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code-branch text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">DevOps & Infrastructure as Code</p></div>
+                                    </a>
+                                    <a href="../solutions/backup-recovery-data-resilience.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-halved text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Backup, Recovery & Data Resilience</p></div>
+                                    </a>
+                                    <a href="../solutions/platform-engineering.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-layer-group text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Platform Engineering</p></div>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-accent uppercase tracking-widest px-3 pt-2 pb-1">Engineering & AI</p>
+                                    <a href="../services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-robot text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">AI Platforms & Automation</p></div>
+                                    </a>
+                                    <a href="../services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Application Engineering</p></div>
+                                    </a>
+                                    <a href="../services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-lock text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Security & AI Governance</p></div>
+                                    </a>
+                                    <a href="../services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-chart-bar text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Data Platforms & BI</p></div>
+                                    </a>
+                                    <a href="../services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gears text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Office Productivity Automation</p></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="../industries.html" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Industries</a>
+                    <a href="../index.html#insights" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Insights</a>
+                    <a href="../index.html#why" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">About We2</a>
+                    <a href="../index.html#readiness" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Contact</a>
+                </div>
+
+                <a href="#pilot" class="hidden md:inline-flex items-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-glow transition-all duration-300">
+                    Talk to an Architect <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
+
+                <button id="mobile-menu-btn" class="md:hidden text-slate-600 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 bg-white/95 backdrop-blur-2xl px-4 pt-3 pb-4 space-y-1">
+            <a href="../index.html" class="flex items-center gap-2 px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px]">
+                <i class="fa-solid fa-house text-sm"></i> Home
+            </a>
+            <!-- Mobile: Platforms accordion -->
+            <div>
+                <button onclick="toggleMobilePlatforms()" class="w-full flex items-center justify-between px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] focus:outline-none">
+                    <span>Platforms</span>
+                    <i id="platforms-chevron-mobile" class="fa-solid fa-chevron-down text-sm text-slate-400"></i>
+                </button>
+                <div id="mobile-platforms-sub" class="mobile-platforms-sub px-2">
+                    <a href="fms.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-users-gear text-xs text-amber-500 w-4"></i> FMS Workforce Management <span class="live-badge"><span class="live-dot"></span>Live</span></a>
+                    <a href="hms.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-hospital text-xs text-teal-500 w-4"></i> Healthcare Workflow Platform <span class="live-badge"><span class="live-dot"></span>Live</span></a>
+                </div>
+            </div>
+            <!-- Mobile: Solutions accordion -->
+            <div>
+                <button onclick="toggleMobileSolutions()" class="w-full flex items-center justify-between px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] focus:outline-none">
+                    <span>Solutions</span>
+                    <i id="solutions-chevron-mobile" class="fa-solid fa-chevron-down text-sm text-slate-400"></i>
+                </button>
+                <div id="mobile-solutions-sub" class="mobile-solutions-sub px-2">
+                    <a href="../solutions/cloud-infrastructure-consulting.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-brands fa-aws text-xs text-primary w-4"></i> Cloud Infrastructure Consulting</a>
+                    <a href="../solutions/devops-infrastructure-as-code.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-code-branch text-xs text-primary w-4"></i> DevOps & Infrastructure as Code</a>
+                    <a href="../solutions/backup-recovery-data-resilience.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-shield-halved text-xs text-primary w-4"></i> Backup, Recovery & Data Resilience</a>
+                    <a href="../solutions/platform-engineering.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-layer-group text-xs text-primary w-4"></i> Platform Engineering</a>
+                    <a href="../services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-robot text-xs text-accent w-4"></i> AI Platforms & Automation</a>
+                    <a href="../services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-code text-xs text-accent w-4"></i> Application Engineering</a>
+                    <a href="../services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-lock text-xs text-accent w-4"></i> Security & AI Governance</a>
+                    <a href="../services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-chart-bar text-xs text-accent w-4"></i> Data Platforms & BI</a>
+                    <a href="../services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-gears text-xs text-accent w-4"></i> Office Productivity Automation</a>
+                </div>
+            </div>
+            <a href="../industries.html" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 min-h-[48px] flex items-center">Industries</a>
+            <a href="../index.html#insights" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 min-h-[48px] flex items-center">Insights</a>
+            <a href="../index.html#why" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 min-h-[48px] flex items-center">About We2</a>
+            <a href="../index.html#readiness" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 min-h-[48px] flex items-center">Contact</a>
+            <a href="#pilot" class="block w-full text-center mt-3 px-6 py-3.5 text-base font-semibold rounded-lg text-white bg-primary">Talk to an Architect</a>
+        </div>
+    </nav>
+
+    <!-- ── HERO ──────────────────────────────────── -->
+    <section class="relative pt-32 pb-24 overflow-hidden">
+        <div class="hero-mesh"></div>
+        <div class="absolute inset-0 dot-grid opacity-40 z-0"></div>
+
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/15 text-amber-700 text-sm font-medium mb-8 fade-up">
+                    <i class="fa-solid fa-users-gear text-amber-500 text-xs"></i>
+                    Industry Platform · Workforce & Field Ops
+                    <span class="w-1 h-1 rounded-full bg-amber-400 ml-1"></span>
+                    <span class="text-amber-500">In development at we2systems</span>
+                </div>
+
+                <h1 class="font-bold text-slate-900 leading-[1.1] mb-6 fade-up" style="font-size: clamp(2.5rem, 1.5rem + 4vw, 4rem); transition-delay:0.1s;">
+                    Field Operations,<br>
+                    <span class="field-gradient">Workforce-First.</span>
+                </h1>
+
+                <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto fade-up" style="transition-delay:0.2s;">
+                    FMS is we2systems' field and workforce management platform — real-time location tracking, people management, time &amp; attendance and task accountability in one operating view.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up" style="transition-delay:0.3s;">
+                    <a href="#pilot" class="btn-primary-field">
+                        Express Interest in Early Access
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#capabilities" class="btn-outline-field">
+                        Explore Capabilities
+                        <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Field ops flow strip -->
+            <div class="mt-20 fade-up" style="transition-delay:0.4s;">
+                <p class="text-center text-xs font-mono text-slate-400 uppercase tracking-widest mb-8">One workforce. One view. Every site connected.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="flow-step text-center p-4 rounded-xl bg-amber-50 border border-amber-100">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-location-dot text-amber-600 text-sm"></i>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">Field Tracking</p>
+                    </div>
+                    <div class="flow-step text-center p-4 rounded-xl bg-orange-50 border border-orange-100">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-users-gear text-orange-600 text-sm"></i>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">People Management</p>
+                    </div>
+                    <div class="flow-step text-center p-4 rounded-xl bg-sky-50 border border-sky-100">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-clock text-sky-600 text-sm"></i>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">Time &amp; Attendance</p>
+                    </div>
+                    <div class="flow-step text-center p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-list-check text-emerald-600 text-sm"></i>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-700">Task Management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── THE PROBLEM ───────────────────────────── -->
+    <section class="py-24 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-up">
+                <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">The Problem</h2>
+                <h3 class="font-bold text-slate-900 mb-5" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">Most field operations still run on paper, spreadsheets and phone calls</h3>
+                <p class="text-lg text-slate-600">Industries with distributed field teams — construction, manufacturing, logistics, utilities and facilities — struggle with the same gap: no real-time visibility into where people are, what they're doing, or whether the work got done.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl border border-slate-200 p-7 fade-up">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-eye-slash text-rose-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">No Real-Time Visibility</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">Supervisors find out where a crew is and what they're working on only when someone calls in — long after the moment it mattered.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-7 fade-up" style="transition-delay:0.1s;">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-file-pen text-amber-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Manual Timesheets &amp; Payroll Errors</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">Paper timesheets and end-of-week reconciliation lead to disputed hours, missed overtime, and slow, error-prone payroll cycles.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-7 fade-up" style="transition-delay:0.2s;">
+                    <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-clipboard-question text-violet-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">No Task Accountability</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">Without a shared task log, it's hard to confirm what was assigned, what was completed, and who is responsible when something is missed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── THE APPROACH ──────────────────────────── -->
+    <section class="py-24">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-up">
+                    <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-4">Our Approach</h2>
+                    <h3 class="font-bold text-slate-900 mb-6" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">One workforce view.<br>Every site connected.</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed text-lg">FMS is being built as a single operating view of your field workforce — location, people, time and tasks — so supervisors and back-office teams see the same picture without chasing calls or paperwork.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-check text-amber-600 text-xs"></i></span>
+                            <span class="text-slate-600 text-sm leading-relaxed"><span class="font-semibold text-slate-800">Cross-industry by design</span> — built to serve construction, manufacturing, logistics, utilities and facilities teams from a common platform core.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-check text-amber-600 text-xs"></i></span>
+                            <span class="text-slate-600 text-sm leading-relaxed"><span class="font-semibold text-slate-800">Built on secure cloud infrastructure</span> — backed by we2systems' enterprise platform engineering and data protection capabilities.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-check text-amber-600 text-xs"></i></span>
+                            <span class="text-slate-600 text-sm leading-relaxed"><span class="font-semibold text-slate-800">Mobile-first for the field, desktop for oversight</span> — workers update tasks and time from a phone; supervisors get a real-time operations view.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Visual: field ops concept preview -->
+                <div class="fade-up" style="transition-delay:0.15s;">
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <p class="text-xs font-mono text-slate-400 uppercase tracking-widest">Concept Preview</p>
+                            <span class="text-[10px] font-mono text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">In Development</span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-location-dot text-amber-500 w-4"></i>
+                                <div class="flex-1">
+                                    <p class="text-xs font-semibold text-slate-700">Crew #4 — Site B, Zone 2</p>
+                                    <p class="text-xs text-slate-400 font-mono">Checked in 08:02 AM · 6 workers on site</p>
+                                </div>
+                                <i class="fa-solid fa-circle text-emerald-400 text-[8px]"></i>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-list-check text-emerald-500 w-4"></i>
+                                <div class="flex-1">
+                                    <p class="text-xs font-semibold text-slate-700">Task: Foundation inspection</p>
+                                    <p class="text-xs text-slate-400 font-mono">Assigned to R. Fernandez · Due 2:00 PM</p>
+                                </div>
+                                <i class="fa-solid fa-clock text-amber-400 text-xs"></i>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-emerald-100">
+                                <i class="fa-solid fa-clock text-sky-500 w-4"></i>
+                                <div class="flex-1">
+                                    <p class="text-xs font-semibold text-slate-700">Shift clock-in</p>
+                                    <p class="text-xs text-slate-400 font-mono">18 of 22 workers clocked in on time</p>
+                                </div>
+                                <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-100">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-500 w-4"></i>
+                                <div class="flex-1">
+                                    <p class="text-xs font-semibold text-slate-700">Geo-fence alert</p>
+                                    <p class="text-xs text-slate-400 font-mono">Vehicle #12 left designated zone · 9:41 AM</p>
+                                </div>
+                                <i class="fa-solid fa-bell text-rose-400 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CAPABILITIES ──────────────────────────── -->
+    <section id="capabilities" class="py-24 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+                <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Field &amp; Workforce Management</h2>
+                <h3 class="font-bold text-slate-900 mb-4" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">Workforce visibility for industries that run in the field.</h3>
+                <p class="text-slate-600">FMS is being designed for industries where people, time, location and task completion need to be tracked and managed in real time.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tracking -->
+                <div class="module-card fade-up">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-location-dot text-primary"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Field Tracking</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-4">Real-time location and movement tracking for field teams, vehicles, and assets. Know where your workforce is and what they are working on at any point in the day.</p>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-primary text-[10px]"></i> Live GPS tracking</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-primary text-[10px]"></i> Geo-fenced zone alerts</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-primary text-[10px]"></i> Route history & reporting</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-primary text-[10px]"></i> Asset and vehicle tracking</li>
+                    </ul>
+                </div>
+                <!-- People Management -->
+                <div class="module-card fade-up" style="transition-delay:0.08s;">
+                    <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-users-gear text-accent"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">People Management</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-4">Manage your workforce from a single dashboard — profiles, roles, assignments, skill sets, and performance records for every team member in the field or back office.</p>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent text-[10px]"></i> Employee profiles & roles</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent text-[10px]"></i> Team assignment & scheduling</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent text-[10px]"></i> Skill and certification tracking</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent text-[10px]"></i> Performance dashboards</li>
+                    </ul>
+                </div>
+                <!-- Timings -->
+                <div class="module-card fade-up" style="transition-delay:0.16s;">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-clock text-amber-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Time & Attendance</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-4">Automated clock-in and clock-out for field and site workers. Track shift timings, break durations, overtime, and compliance against scheduled hours — without manual timesheets.</p>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px]"></i> Digital clock-in / clock-out</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px]"></i> Shift & schedule management</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px]"></i> Overtime and absence tracking</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px]"></i> Payroll-ready reports</li>
+                    </ul>
+                </div>
+                <!-- Tasks -->
+                <div class="module-card fade-up" style="transition-delay:0.24s;">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-list-check text-emerald-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Task Management</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-4">Assign, track and close field tasks from a central operations view. Workers receive tasks on mobile, mark progress in real time, and supervisors get instant visibility on completion status.</p>
+                    <ul class="space-y-1.5 text-xs text-slate-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Task creation & assignment</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Mobile task updates in the field</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Priority, deadline & escalation</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Completion proof & sign-off</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Industry applicability strip -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-8 mt-10 fade-up" style="transition-delay:0.15s;">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+                    <div class="flex-1">
+                        <p class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Industries FMS Is Being Built For</p>
+                        <h4 class="font-bold text-slate-900 mb-2 text-lg">One platform. Multiple field operations.</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">FMS is being designed as a cross-industry workforce platform — starting with industries where field visibility, time accuracy and task accountability directly affect operational outcomes.</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 shrink-0">
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-amber-50 border border-amber-100 rounded-xl">
+                            <i class="fa-solid fa-helmet-safety text-amber-500 text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Construction</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-orange-50 border border-orange-100 rounded-xl">
+                            <i class="fa-solid fa-industry text-orange-500 text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Manufacturing</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-primary/5 border border-primary/15 rounded-xl">
+                            <i class="fa-solid fa-truck text-primary text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Logistics</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-emerald-50 border border-emerald-100 rounded-xl">
+                            <i class="fa-solid fa-bolt text-emerald-500 text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Utilities</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-accent/5 border border-accent/15 rounded-xl">
+                            <i class="fa-solid fa-building text-accent text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Facilities</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2.5 bg-teal-50 border border-teal-100 rounded-xl">
+                            <i class="fa-solid fa-hospital text-teal-500 text-sm"></i>
+                            <span class="text-xs font-semibold text-slate-700">Healthcare</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── KEY FEATURES ───────────────────────────── -->
+    <section id="key-features" class="py-24 bg-white border-b border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+                <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Under The Hood</h2>
+                <h3 class="font-bold text-slate-900 mb-4" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">What's built into the FMS portal today.</h3>
+                <p class="text-slate-600">Beyond the workforce workflows, FMS is engineered as a secure, multi-tenant platform from day one.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Access & Multi-tenancy -->
+                <div class="module-card fade-up">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-shield-halved text-primary"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Access &amp; Multi-Tenancy</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary text-[10px] mt-1"></i> Auth &amp; role-based access control (RBAC)</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-primary text-[10px] mt-1"></i> Multi-tenant architecture with per-tenant feature flags</li>
+                    </ul>
+                </div>
+                <!-- WEAP -->
+                <div class="module-card fade-up" style="transition-delay:0.08s;">
+                    <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-diagram-project text-accent"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">WEAP Module</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">Customers → Sites → Projects → Tasks, mapped end to end.</p>
+                    <ul class="space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-accent text-[10px] mt-1"></i> Completion proofs on every task</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-accent text-[10px] mt-1"></i> GPS check-ins</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-accent text-[10px] mt-1"></i> Approval workflows</li>
+                    </ul>
+                </div>
+                <!-- HRMS -->
+                <div class="module-card fade-up" style="transition-delay:0.16s;">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-id-badge text-amber-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">HRMS Module</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px] mt-1"></i> Employee records</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px] mt-1"></i> Leave management</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-500 text-[10px] mt-1"></i> Attendance tracking</li>
+                    </ul>
+                </div>
+                <!-- Finance -->
+                <div class="module-card fade-up">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-file-invoice-dollar text-emerald-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Finance Module</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px] mt-1"></i> Invoices</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px] mt-1"></i> Bills</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 text-[10px] mt-1"></i> Transactions</li>
+                    </ul>
+                </div>
+                <!-- Audit logging -->
+                <div class="module-card fade-up" style="transition-delay:0.08s;">
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-clipboard-list text-violet-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Audit Logging</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">Every state-changing action across every module is logged — full traceability for compliance and internal review.</p>
+                </div>
+                <!-- Security -->
+                <div class="module-card fade-up" style="transition-delay:0.16s;">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-lock text-rose-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-3">Security</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-rose-500 text-[10px] mt-1"></i> Rate limiting</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-rose-500 text-[10px] mt-1"></i> Helmet &amp; CORS</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-rose-500 text-[10px] mt-1"></i> Secure cookies</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-rose-500 text-[10px] mt-1"></i> Argon2id password hashing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Screenshot: WEAP Dashboard, live from the FMS portal -->
+            <div class="mt-10 fade-up" style="transition-delay:0.2s;">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <p class="text-xs font-mono text-slate-400 uppercase tracking-widest">From the live FMS portal</p>
+                    </div>
+                    <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">Screenshot</span>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-xl">
+                    <img src="../images/dashboard.png" alt="FMS portal dashboard — active projects, task breakdown and project progress for WEAP" class="w-full h-auto block" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── ROADMAP ───────────────────────────────── -->
+    <section class="py-24 bg-slate-50 border-y border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+                <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-3">Where FMS Is Today</h2>
+                <h3 class="font-bold text-slate-900 mb-4" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">Built openly, one phase at a time.</h3>
+                <p class="text-slate-600">FMS is under active development. Here's how we're rolling it out.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl border border-amber-200 p-7 relative">
+                    <span class="absolute top-6 right-6 text-[10px] font-mono text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">In progress</span>
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-pen-ruler text-amber-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Design &amp; Development</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed">Core capabilities — field tracking, people management, time &amp; attendance and task management — are being built on the Pralink platform.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-7 relative opacity-80">
+                    <span class="absolute top-6 right-6 text-[10px] font-mono text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">Next</span>
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-flask text-slate-400"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-600 mb-2">Early Access Pilots</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">A small set of design partners across construction, manufacturing and logistics will pilot FMS in real field conditions and shape the roadmap.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-7 relative opacity-80">
+                    <span class="absolute top-6 right-6 text-[10px] font-mono text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">Planned</span>
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-rocket text-slate-400"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-600 mb-2">General Availability</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Broader rollout across industries, informed directly by what pilot partners need from day-to-day field operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PILOT CTA ─────────────────────────────── -->
+    <section id="pilot" class="py-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="cta-section p-12 md:p-16 text-center fade-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-amber-200 text-amber-700 text-sm font-medium mb-8">
+                    <i class="fa-solid fa-flask text-amber-500 text-xs"></i>
+                    FMS Early Access — Now Open
+                </div>
+                <h3 class="font-bold text-slate-900 mb-5" style="font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);">Help shape FMS from the field up.</h3>
+                <p class="text-lg text-slate-600 mb-10 max-w-xl mx-auto leading-relaxed">Tell us about your field operations and we'll reach out when an early access slot opens for your industry — no commitment required.</p>
+
+                <form class="max-w-md mx-auto space-y-4" onsubmit="handleFmsForm(event)">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="Your name" required class="form-input w-full">
+                        <input type="text" placeholder="Company name" required class="form-input w-full">
+                    </div>
+                    <input type="email" placeholder="Work email" required class="form-input w-full">
+                    <input type="tel" placeholder="Phone number" required class="form-input w-full">
+                    <button type="submit" class="w-full py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-md">
+                        Express Interest in Early Access <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </button>
+                    <p class="text-xs text-slate-400 text-center">We'll reach out within 1 business day.</p>
+                </form>
+
+                <div id="fms-success" class="hidden mt-6">
+                    <div class="flex items-center justify-center gap-3 text-amber-600">
+                        <i class="fa-solid fa-circle-check text-2xl"></i>
+                        <div class="text-left">
+                            <p class="font-semibold">Request received!</p>
+                            <p class="text-sm text-slate-500">Our team will be in touch within 1 business day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FAQ ────────────────────────────────── -->
+    <section id="faq" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <p class="text-xs font-mono font-bold text-amber-600 uppercase tracking-[0.2em] mb-3">FAQ</p>
+                <h2 class="font-heading font-bold text-slate-900 text-2xl sm:text-3xl mb-3">Questions about FMS</h2>
+                <p class="text-slate-500 text-sm">What field and operations teams ask before signing up.</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Is FMS available today?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Not yet as a general release. FMS is in active development, and we're inviting a limited number of early access partners to pilot the platform in real field conditions before wider rollout.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Which industries is FMS being built for first?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">We're starting with industries that run distributed field teams — construction, manufacturing, logistics, utilities and facilities — where location, time and task tracking directly affect operations.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        How is workforce location data collected and secured?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Location data is collected only during working hours through the FMS mobile app, encrypted in transit and at rest, and governed by role-based access control on the same secure infrastructure we2systems runs for enterprise clients.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Will FMS integrate with our existing HR or payroll systems?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Yes — an open integration layer for HR and payroll systems is part of the platform design, so time &amp; attendance data can flow into your existing payroll process rather than requiring a manual export.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        How do I get involved in early access?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Submit your details through the early access form above. We're onboarding a limited number of design partners at a time and will reach out directly as slots open for your industry.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ────────────────────────────────── -->
+    <footer class="py-10 border-t border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                    <span class="font-bold text-slate-900">we<span class="text-gradient">2</span>systems</span>
+                    <span class="text-slate-300">·</span>
+                    <span>FMS Platform</span>
+                    <span class="text-slate-300">·</span>
+                    <span>&copy; 2026</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm">
+                    <a href="../index.html" class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-left text-xs"></i> Back to we2systems
+                    </a>
+                    <a href="mailto:hello@we2systems.com" class="text-slate-500 hover:text-primary transition-colors">
+                        hello@we2systems.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ accordion
+        document.querySelectorAll('.faq-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.faq-item');
+                var body = item.querySelector('.faq-body');
+                var isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(function (openItem) {
+                    openItem.classList.remove('open');
+                    openItem.querySelector('.faq-body').style.maxHeight = '0';
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    body.style.maxHeight = body.scrollHeight + 'px';
+                }
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Form handler
+        function handleFmsForm(e) {
+            e.preventDefault();
+            e.target.style.display = 'none';
+            document.getElementById('fms-success').classList.remove('hidden');
+        }
+
+        function togglePlatformsNav() {
+            var d = document.getElementById('platforms-dropdown');
+            var c = document.getElementById('platforms-chevron');
+            var open = d.classList.contains('open');
+            closeSolutionsNav();
+            if (open) { d.classList.remove('open'); c.style.transform='rotate(0deg)'; }
+            else { d.classList.add('open'); c.style.transform='rotate(180deg)'; }
+        }
+        function toggleSolutionsNav() {
+            var d = document.getElementById('solutions-dropdown');
+            var c = document.getElementById('solutions-chevron');
+            var open = d.classList.contains('open');
+            closePlatformsNav();
+            if (open) { d.classList.remove('open'); c.style.transform='rotate(0deg)'; }
+            else { d.classList.add('open'); c.style.transform='rotate(180deg)'; }
+        }
+        function closePlatformsNav() {
+            var d = document.getElementById('platforms-dropdown');
+            var c = document.getElementById('platforms-chevron');
+            if (d) d.classList.remove('open'); if (c) c.style.transform='rotate(0deg)';
+        }
+        function closeSolutionsNav() {
+            var d = document.getElementById('solutions-dropdown');
+            var c = document.getElementById('solutions-chevron');
+            if (d) d.classList.remove('open'); if (c) c.style.transform='rotate(0deg)';
+        }
+        document.addEventListener('click', function(e) {
+            var pw = document.getElementById('platforms-nav-wrapper');
+            var sw = document.getElementById('solutions-nav-wrapper');
+            if (pw && !pw.contains(e.target)) closePlatformsNav();
+            if (sw && !sw.contains(e.target)) closeSolutionsNav();
+        });
+        function toggleMobilePlatforms() {
+            var sub = document.getElementById('mobile-platforms-sub');
+            var chevron = document.getElementById('platforms-chevron-mobile');
+            sub.classList.toggle('open'); chevron.classList.toggle('rotated');
+        }
+        function toggleMobileSolutions() {
+            var sub = document.getElementById('mobile-solutions-sub');
+            var chevron = document.getElementById('solutions-chevron-mobile');
+            sub.classList.toggle('open'); chevron.classList.toggle('rotated');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
