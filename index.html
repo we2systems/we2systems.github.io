@@ -1,635 +1,2027 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    we2systems | Hybrid Cloud Service Provider & Specialized Consulting
-  </title>
-  <!-- Load Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google reCAPTCHA v2 -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <!-- Configure Tailwind for the Inter font and custom colors -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            "primary-blue": "#0070f3",
-            "dark-bg": "#0D1117",
-            "card-bg": "#161B22",
-          },
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
-          },
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>we2systems | Intelligent Business Platforms & Secure Cloud Infrastructure</title>
+    <meta name="description" content="We2 Systems builds intelligent business platforms and the secure cloud infrastructure behind them — cloud consulting, DevOps, backup resilience, AI automation and industry platforms for real-world operations.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:title" content="we2systems | Intelligent Business Platforms & Secure Cloud Infrastructure">
+    <meta property="og:description" content="We2 Systems builds intelligent business platforms and the secure cloud infrastructure behind them — cloud consulting, DevOps, backup resilience, AI automation and industry platforms for real-world operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://we2systems.com">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="we2systems | Intelligent Business Platforms & Secure Cloud Infrastructure">
+    <meta name="twitter:description" content="We2 Systems builds intelligent business platforms and the secure cloud infrastructure behind them — cloud consulting, DevOps, backup resilience, AI automation and industry platforms for real-world operations.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+    <!-- Additional SEO meta tags -->
+    <meta name="author" content="we2systems">
+    <meta name="theme-color" content="#0A1128">
+    <meta property="og:site_name" content="we2systems">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:site" content="@we2systems">
+    <meta name="twitter:creator" content="@we2systems">
+    <link rel="canonical" href="https://we2systems.com">
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "we2systems",
+        "url": "https://we2systems.com",
+        "logo": "https://we2systems.com/images/logo.svg",
+        "description": "Enterprise platform engineering, data security, and data protection services for modern hybrid and multi-cloud infrastructure.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bangalore",
+            "addressRegion": "Karnataka",
+            "addressCountry": "IN"
         },
-      },
-    };
-  </script>
-  <style>
-    /*
-        Custom CSS for the Fluid Background Effect
-        A large, slow-moving radial gradient for an elegant, fluid look.
-        */
-    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-
-    body {
-      font-family: "Inter", sans-serif;
-      background-color: #0d1117;
-      /* Dark background */
-      min-height: 100vh;
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "hello@we2systems.com",
+            "contactType": "sales"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/we2systems",
+            "https://github.com/we2systems"
+        ]
     }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230ea5e9'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='18' fill='white'%3Ew2%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    .fluid-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at var(--x) var(--y),
-          rgba(0, 112, 243, 0.1) 0%,
-          rgba(0, 112, 243, 0.05) 10%,
-          rgba(13, 17, 23, 1) 50%);
-      transition: background 0.5s ease-out;
-      pointer-events: none;
-      /* Allows clicks through the background */
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    .service-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 112, 243, 0.2);
-    }
-
-    /* Futuristic NVIDIA + Tesla inspired gradient glow */
-    @keyframes glowShift {
-      0% {
-        filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
-      }
-
-      50% {
-        filter: drop-shadow(0 0 26px rgba(0, 255, 190, 0.55));
-      }
-
-      100% {
-        filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
-      }
-    }
-
-    #taglineAnimation {
-      animation: glowShift 4s ease-in-out infinite;
-    }
-
-    /* glowing arrow */
-    @keyframes arrowGlow {
-      0% {
-        filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
-      }
-
-      50% {
-        filter: drop-shadow(0 0 8px rgba(0, 112, 243, 0.6));
-      }
-
-      100% {
-        filter: drop-shadow(0 0 2px rgba(0, 112, 243, 0.2));
-      }
-    }
-
-    .glow-arrow {
-      animation: arrowGlow 2s infinite ease-in-out;
-    }
-
-    @keyframes glowPulse {
-      0% {
-        box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
-      }
-
-      50% {
-        box-shadow: 0 0 26px rgba(0, 255, 180, 0.5);
-      }
-
-      100% {
-        box-shadow: 0 0 10px rgba(0, 112, 243, 0.2);
-      }
-    }
-
-    /* Metallic effect for HPE */
-    .hpe-metal {
-      background: linear-gradient(135deg,
-          #1a1a1a 0%,
-          #262626 50%,
-          #1a1a1a 100%);
-      border: 1px solid rgba(180, 180, 180, 0.4);
-      box-shadow: 0 0 10px rgba(200, 200, 200, 0.25);
-    }
-
-    /* NVIDIA neon pulse */
-    @keyframes nvidiaPulse {
-      0% {
-        box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
-      }
-
-      50% {
-        box-shadow: 0 0 28px rgba(0, 255, 180, 0.6);
-      }
-
-      100% {
-        box-shadow: 0 0 12px rgba(0, 255, 180, 0.25);
-      }
-    }
-
-    .nvidia-neon {
-      border: 1px solid rgba(0, 255, 180, 0.6);
-      animation: nvidiaPulse 3s ease-in-out infinite;
-    }
-
-    .active-service-card {
-      transform: scale(1.08);
-      opacity: 1;
-      transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
-    }
-
-    .service-card:not(.active-service-card) {
-      opacity: 0.75;
-      transform: scale(0.92);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .glow-tile {
-      animation: softGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes softGlow {
-      0% {
-        box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
-      }
-
-      50% {
-        box-shadow: 0 0 28px rgba(0, 255, 180, 0.45);
-      }
-
-      100% {
-        box-shadow: 0 0 10px rgba(0, 255, 180, 0.15);
-      }
-    }
-
-    .glow-hpc {
-      box-shadow: 0 0 25px rgba(0, 255, 180, 0.45);
-      border-color: rgba(0, 255, 180, 0.6);
-    }
-
-    .glow-hpe {
-      box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
-      border-color: rgba(0, 255, 0, 0.5);
-    }
-
-    .glow-cloud {
-      box-shadow: 0 0 25px rgba(0, 112, 243, 0.5);
-      border-color: rgba(0, 112, 243, 0.6);
-    }
-
-    .glow-data {
-      box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
-      border-color: rgba(0, 180, 255, 0.6);
-    }
-
-    .glow-physical {
-      box-shadow: 0 0 25px rgba(255, 200, 80, 0.45);
-      border-color: rgba(255, 200, 80, 0.6);
-    }
-  </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Helvetica Neue', 'sans-serif'],
+                        heading: ['Inter', 'Helvetica Neue', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#0ea5e9',
+                        primaryHover: '#38bdf8',
+                        accent: '#6366f1',
+                        accentHover: '#818cf8',
+                        dark: {
+                            950: '#f8fafc',
+                            900: '#ffffff',
+                            800: '#f1f5f9',
+                            700: '#e2e8f0',
+                            600: '#cbd5e1',
+                            500: '#94a3b8'
+                        },
+                    },
+                    maxWidth: {
+                        'site': '1200px',
+                    },
+                    boxShadow: {
+                        glow: '0 0 25px rgba(14, 165, 233, 0.35)',
+                        'glow-lg': '0 0 50px rgba(14, 165, 233, 0.2)',
+                        'glow-accent': '0 0 25px rgba(99, 102, 241, 0.35)',
+                    }
+                }
+            }
+        };
+    </script>
 </head>
+<body class="w-full min-h-screen font-sans antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white">
 
-<body>
-  <!-- Fluid Background Container -->
-  <div id="fluid-bg" class="fluid-background"></div>
+    <!-- Page transition veil -->
+    <div id="page-veil"></div>
 
-
-
-  <!-- Header & Navigation -->
-  <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-      <!-- Logo - Assuming logo.png is in the same folder, or using text for robustness -->
-      <a href="#home" class="flex flex-col items-start leading-tight text-white">
-        <div class="flex items-center space-x-2 text-2xl font-bold tracking-tight">
-          <span class="text-primary-blue">we2</span>systems
-        </div>
-      </a>
-
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex space-x-8">
-        <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
-        <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
-        <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
-      </nav>
-
-      <!-- Contact Button (Mobile visible) -->
-      <a href="#contact"
-        class="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-blue-600 transition duration-300 shadow-md hidden md:inline-block">
-        Start Consultation
-      </a>
-
-      <!-- Mobile Menu Button -->
-      <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-primary-blue focus:outline-none">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-      </button>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-spinner"></div>
     </div>
-    <!-- Mobile Dropdown Menu -->
-    <nav id="mobileMenu"
-      class="hidden flex flex-col bg-dark-bg/95 backdrop-blur-sm border-t border-gray-700/50 md:hidden px-6 pt-4 pb-6 space-y-4 text-center">
-      <a href="#services" class="text-gray-300 hover:text-primary-blue transition duration-200">Services</a>
-      <a href="#why-us" class="text-gray-300 hover:text-primary-blue transition duration-200">Why Us</a>
-      <a href="#contact" class="text-gray-300 hover:text-primary-blue transition duration-200">Contact</a>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] z-[9999] rounded-r-full" style="width:0%"></div>
+
+    <!-- ===================== NAVIGATION ===================== -->
+    <nav id="header" class="fixed w-full z-50 glass-panel transition-all duration-300">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#hero" class="flex-shrink-0 flex items-center cursor-pointer group" aria-label="Back to homepage">
+                    <span class="font-heading font-bold text-xl tracking-tight text-slate-900">
+                        we<span class="text-gradient">2</span>systems
+                    </span>
+                </a>
+
+                <div class="hidden md:flex space-x-1 items-center bg-slate-100 rounded-full px-2 py-1.5 border border-slate-200">
+                    <!-- Platforms dropdown -->
+                    <div class="relative" id="platforms-nav-wrapper">
+                        <button id="platforms-nav-btn" onclick="togglePlatformsNav()" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300 flex items-center gap-1.5 focus:outline-none">
+                            Platforms
+                            <i id="platforms-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-400"></i>
+                        </button>
+                        <div id="platforms-dropdown" class="platforms-dropdown flush-left" style="min-width:260px;">
+                            <a href="platforms/fms.html" class="platforms-platform-item">
+                                <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-users-gear text-accent text-xs"></i></div>
+                                <div><p class="text-sm font-medium text-slate-800">FMS Workforce Management <span class="live-badge"><span class="live-dot"></span>Live</span></p><p class="text-xs text-slate-500 mt-0.5">Field & workforce operations</p></div>
+                            </a>
+                            <a href="platforms/hms.html" class="platforms-platform-item">
+                                <div class="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-hospital text-teal-500 text-xs"></i></div>
+                                <div><p class="text-sm font-medium text-slate-800">Healthcare Workflow Platform <span class="live-badge"><span class="live-dot"></span>Live</span></p><p class="text-xs text-slate-500 mt-0.5">HMS — hospital management</p></div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Solutions dropdown -->
+                    <div class="relative" id="solutions-nav-wrapper">
+                        <button id="solutions-nav-btn" onclick="toggleSolutionsNav()" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300 flex items-center gap-1.5 focus:outline-none">
+                            Solutions
+                            <i id="solutions-chevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-400"></i>
+                        </button>
+                        <div id="solutions-dropdown" class="platforms-dropdown solutions-dropdown">
+                            <div class="grid grid-cols-2 gap-1">
+                                <div>
+                                    <p class="text-[10px] font-bold text-primary uppercase tracking-widest px-3 pt-2 pb-1">Cloud & Infrastructure</p>
+                                    <a href="solutions/cloud-infrastructure-consulting.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-brands fa-aws text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Cloud Infrastructure Consulting</p></div>
+                                    </a>
+                                    <a href="solutions/devops-infrastructure-as-code.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code-branch text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">DevOps & Infrastructure as Code</p></div>
+                                    </a>
+                                    <a href="solutions/backup-recovery-data-resilience.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-halved text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Backup, Recovery & Data Resilience</p></div>
+                                    </a>
+                                    <a href="solutions/platform-engineering.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-layer-group text-primary text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Platform Engineering</p></div>
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-accent uppercase tracking-widest px-3 pt-2 pb-1">Engineering & AI</p>
+                                    <a href="services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-robot text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">AI Platforms & Automation</p></div>
+                                    </a>
+                                    <a href="services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Application Engineering</p></div>
+                                    </a>
+                                    <a href="services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-lock text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Security & AI Governance</p></div>
+                                    </a>
+                                    <a href="services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-chart-bar text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Data Platforms & BI</p></div>
+                                    </a>
+                                    <a href="services.html" class="platforms-platform-item">
+                                        <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gears text-accent text-xs"></i></div>
+                                        <div><p class="text-sm font-medium text-slate-800">Office Productivity Automation</p></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="industries.html" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Industries</a>
+                    <a href="#insights" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Insights</a>
+                    <a href="about.html" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">About We2</a>
+                    <a href="#readiness" class="relative text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full hover:bg-slate-200/70 transition-all duration-300">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center">
+                    <a href="#readiness" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg">
+                        Talk to an Architect
+                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none" aria-label="Open menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white/95 backdrop-blur-2xl border-t border-slate-200">
+            <div class="px-4 pt-3 pb-4 space-y-1">
+                <!-- Mobile: Platforms accordion -->
+                <div>
+                    <button onclick="toggleMobilePlatforms()" class="w-full flex items-center justify-between px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] focus:outline-none">
+                        <span>Platforms</span>
+                        <i id="platforms-chevron-mobile" class="fa-solid fa-chevron-down text-sm text-slate-400"></i>
+                    </button>
+                    <div id="mobile-platforms-sub" class="mobile-platforms-sub px-2">
+                        <a href="platforms/fms.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-users-gear text-xs text-accent w-4"></i> FMS Workforce Management <span class="live-badge"><span class="live-dot"></span>Live</span></a>
+                        <a href="platforms/hms.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-hospital text-xs text-teal-500 w-4"></i> Healthcare Workflow Platform <span class="live-badge"><span class="live-dot"></span>Live</span></a>
+                    </div>
+                </div>
+                <!-- Mobile: Solutions accordion -->
+                <div>
+                    <button onclick="toggleMobileSolutions()" class="w-full flex items-center justify-between px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] focus:outline-none">
+                        <span>Solutions</span>
+                        <i id="solutions-chevron-mobile" class="fa-solid fa-chevron-down text-sm text-slate-400"></i>
+                    </button>
+                    <div id="mobile-solutions-sub" class="mobile-solutions-sub px-2">
+                        <a href="solutions/cloud-infrastructure-consulting.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-brands fa-aws text-xs text-primary w-4"></i> Cloud Infrastructure Consulting</a>
+                        <a href="solutions/devops-infrastructure-as-code.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-code-branch text-xs text-primary w-4"></i> DevOps & Infrastructure as Code</a>
+                        <a href="solutions/backup-recovery-data-resilience.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-shield-halved text-xs text-primary w-4"></i> Backup, Recovery & Data Resilience</a>
+                        <a href="solutions/platform-engineering.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-layer-group text-xs text-primary w-4"></i> Platform Engineering</a>
+                        <a href="services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-robot text-xs text-accent w-4"></i> AI Platforms & Automation</a>
+                        <a href="services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-code text-xs text-accent w-4"></i> Application Engineering</a>
+                        <a href="services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-lock text-xs text-accent w-4"></i> Security & AI Governance</a>
+                        <a href="services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-chart-bar text-xs text-accent w-4"></i> Data Platforms & BI</a>
+                        <a href="services.html" class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors"><i class="fa-solid fa-gears text-xs text-accent w-4"></i> Office Productivity Automation</a>
+                    </div>
+                </div>
+                <a href="industries.html" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] flex items-center">Industries</a>
+                <a href="#insights" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] flex items-center">Insights</a>
+                <a href="about.html" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] flex items-center">About We2</a>
+                <a href="#readiness" class="block px-4 py-3.5 rounded-lg text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-100 transition-colors min-h-[48px] flex items-center">Contact</a>
+                <a href="#readiness" class="block w-full text-center mt-3 px-6 py-3.5 text-base font-semibold rounded-lg text-white bg-primary hover:bg-primaryHover min-h-[48px] flex items-center justify-center transition-colors">
+                    Talk to an Architect
+                </a>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <main>
-    <!-- NEW Landing Tagline Page -->
-    <section id="landing"
-      class="relative flex items-center justify-center min-h-[100vh] text-center bg-dark-bg overflow-hidden">
-      <div id="parallaxText" class="max-w-5xl mx-auto px-6 z-10 will-change-transform">
-        <h1 id="taglineAnimation"
-          class="text-6xl sm:text-8xl font-extrabold tracking-tight leading-tight bg-gradient-to-r from-primary-blue via-blue-300 to-primary-blue bg-clip-text text-transparent">
-          Hybrid is the Future.<br /><span class="text-4xl sm:text-6xl">We Build What’s Real.</span>
-          <h2 class="text-lg sm:text-2xl text-gray-300 mt-4 tracking-wide font-light">
-            We help enterprises build resilient, hybrid and multi-cloud
-            systems that balance cost, performance, and control.
-          </h2>
-        </h1>
-      </div>
-
-      <div class="absolute bottom-10 w-full flex justify-center">
-        <svg class="w-10 h-10 text-primary-blue animate-bounce glow-arrow" fill="none" stroke="currentColor"
-          stroke-width="1.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-    </section>
-    <section id="home"
-      class="relative pt-20 pb-32 flex items-center justify-center min-h-[80vh] text-center overflow-hidden">
-      <div class="max-w-4xl mx-auto px-4 z-10">
-        <p class="text-xl sm:text-2xl text-gray-400 mb-6 max-w-2xl mx-auto">
-          From Nutanix AHV to NC2, from VMware-exit to Kubernetes
-          modernization — we architect, migrate, and operate infrastructure
-          that simply works.
-        </p>
-        <h1 class="text-5xl sm:text-7xl font-extrabold text-white leading-tight mb-10 animate-pulse"
-          style="animation: pulse 5s infinite">
-          Architecting Tomorrow's
-          <span class="text-primary-blue block sm:inline">Hybrid Cloud.</span>
-        </h1>
-        <a href="#services"
-          class="inline-block px-10 py-4 bg-primary-blue text-white text-lg font-semibold rounded-xl hover:bg-blue-600 transition duration-300 shadow-xl shadow-primary-blue/30 transform hover:scale-105">
-          Explore Our Expertise
-        </a>
-      </div>
-    </section>
-
-    <section id="services" class="py-20 bg-dark-bg/90">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-4xl font-bold text-white mb-4">
-          Specialized Cloud & Infrastructure Consulting
-        </h2>
-        <p class="text-gray-400 text-lg max-w-3xl mx-auto mb-16">
-          We don't just manage cloud—we master the critical technologies that
-          power modern, hybrid environments.
-        </p>
-
-        <!-- TOP ROW — ICON TILES -->
-        <div id="serviceTabs" class="flex justify-center gap-4 flex-wrap mb-12">
-          <div
-            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-            data-target="tile-hpc">
-            ⚡ AI & HPC
-          </div>
-          <div
-            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-            data-target="tile-hpe">
-            ▩ HPE Hybrid Infra
-          </div>
-          <div
-            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-            data-target="tile-cloud">
-            ☁ Hybrid Cloud
-          </div>
-          <div
-            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-            data-target="tile-data">
-            📊 Data Platforms
-          </div>
-          <div
-            class="service-tab p-3 rounded-lg cursor-pointer bg-card-bg hover:bg-gray-700/40 transition text-gray-300"
-            data-target="tile-physical">
-            🧱 Physical Infra
-          </div>
-        </div>
-
-        <!-- MAIN DISPLAY TILE -->
-        <div id="serviceDisplay"
-          class="mx-auto w-[85%] max-w-4xl relative flex items-center p-6 rounded-2xl bg-card-bg shadow-xl border border-primary-blue/40 text-left transition relative overflow-hidden glow-tile">
-          <button id="prevBtn"
-            class="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">
-            &#10094;
-          </button>
-          <div id="sliderWrapper" class="service-slide flex transition-transform duration-700" style="width: 100%">
-            <div id="tile-hpc" class="service-tile min-w-full px-6">
-              <div class="flex items-center mb-4 gap-3">
-                <h3 class="text-3xl font-semibold text-primary-blue">
-                  AI & HPC Acceleration
-                </h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                Harnessing NVIDIA GPUs for AI, deep learning, simulation and
-                high‑performance computing.
-              </p>
-              <ul class="text-gray-400 space-y-1">
-                <li>• GPU Cluster Implementation</li>
-                <li>• CUDA & OpenACC Optimization</li>
-                <li>• Infrastructure Sizing</li>
-              </ul>
-            </div>
-
-            <div id="tile-hpe" class="service-tile min-w-full px-6">
-              <div class="flex items-center mb-4 gap-3">
-                <h3 class="text-3xl font-semibold text-green-400">
-                  HPE Hybrid Infrastructure
-                </h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                Expertise across HPE HGX, ProLiant Gen10/Gen11, Alletra
-                storage & enterprise networking.
-              </p>
-              <ul class="text-gray-400 space-y-1">
-                <li>• AI Acceleration with HPE + NVIDIA</li>
-                <li>• ProLiant Architecture Design</li>
-                <li>• Alletra Storage Solutions</li>
-              </ul>
-            </div>
-
-            <div id="tile-cloud" class="service-tile min-w-full px-6">
-              <div class="flex items-center mb-4 gap-3">
-                <h3 class="text-3xl font-semibold text-primary-blue">
-                  Hybrid Cloud & Ops
-                </h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                Seamlessly connect private infrastructure with public cloud
-                resources for optimal performance and cost.
-              </p>
-              <ul class="text-gray-400 space-y-1">
-                <li>• Kubernetes Cluster Design</li>
-                <li>• Dockerization & Microservices</li>
-                <li>• Multi-cloud Strategy</li>
-              </ul>
-            </div>
-            <div id="tile-data" class="service-tile min-w-full px-6">
-              <div class="flex items-center mb-4 gap-3">
-                <h3 class="text-3xl font-semibold text-blue-300">
-                  Cloud Data Platforms
-                </h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                Expert consulting for data warehousing and analytics on
-                modern, scalable platforms like <strong>Snowflake</strong>.
-              </p>
-              <ul class="text-gray-400 space-y-1">
-                <li>• Snowflake Optimization</li>
-                <li>• Data Governance & Security</li>
-                <li>• ELT/ETL Pipeline Setup</li>
-              </ul>
-            </div>
-            <div id="tile-physical" class="service-tile min-w-full px-6">
-              <div class="flex items-center mb-4 gap-3">
-                <h3 class="text-3xl font-semibold text-yellow-300">
-                  Physical Infrastructure
-                </h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                Design and deployment of physical
-                <strong>Server Racks</strong> for on-prem or co-location data
-                center environments.
-              </p>
-              <ul class="text-gray-400 space-y-1">
-                <li>• Rack Layout & Cooling Strategy</li>
-                <li>• Cabling and Power Management</li>
-                <li>• Hardware Procurement Advice</li>
-              </ul>
-            </div>
-          </div>
-          <button id="nextBtn"
-            class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-4xl px-4 z-20">
-            &#10095;
-          </button>
-        </div>
-      </div>
-
-
-    </section>
-
-    <!-- 3. Why Choose Us -->
-
-    <section id="why-us" class="py-20">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span class="text-primary-blue font-semibold uppercase tracking-wider">Our Advantage</span>
-            <h2 class="text-4xl font-bold text-white mb-6 mt-2">
-              The Deep Expertise You Need for Hybrid Success
-            </h2>
-            <p class="text-gray-400 text-lg mb-8">
-              Navigating the complexities of modern IT requires specialized
-              knowledge. We bridge the gap between niche technologies and
-              enterprise architecture, delivering solutions that are robust,
-              secure, and future-proof.
-            </p>
-
-            <div class="space-y-4">
-              <!-- Feature 1 -->
-              <div class="flex items-start space-x-3">
-                <span class="text-primary-blue font-extrabold text-2xl leading-none">01.</span>
-                <div>
-                  <h4 class="text-white font-semibold">
-                    Niche Technology Focus
-                  </h4>
-                  <p class="text-gray-500 text-sm">
-                    We specialize in Kubernetes, Docker, Snowflake, and
-                    NVIDIA—critical layers of the modern stack.
-                  </p>
+    <!-- ===================== STICKY FAST-ACTION BAR ===================== -->
+    <div id="fast-action-bar" class="fixed top-0 left-0 right-0 z-40 translate-y-[-100%] pointer-events-none">
+        <div class="fast-action-inner">
+            <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-12">
+                <span class="font-heading font-bold text-sm text-slate-900 tracking-tight hidden sm:block">
+                    we<span class="text-gradient">2</span>systems
+                </span>
+                <div class="flex items-center gap-4 ml-auto">
+                    <span class="text-slate-600 text-xs hidden md:inline">Ready to modernize your infrastructure?</span>
+                    <a href="#readiness" class="inline-flex items-center px-5 py-1.5 text-xs font-semibold rounded-full text-white bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-glow transition-all duration-200 hover:-translate-y-0.5">
+                        Talk to an Architect
+                        <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
+                    </a>
                 </div>
-              </div>
-              <!-- Feature 2 -->
-              <div class="flex items-start space-x-3">
-                <span class="text-primary-blue font-extrabold text-2xl leading-none">02.</span>
-                <div>
-                  <h4 class="text-white font-semibold">
-                    Full-Stack Approach
-                  </h4>
-                  <p class="text-gray-500 text-sm">
-                    From physical server rack deployment to cloud software
-                    optimization, we handle the entire infrastructure.
-                  </p>
-                </div>
-              </div>
-              <!-- Feature 3 -->
-              <div class="flex items-start space-x-3">
-                <span class="text-primary-blue font-extrabold text-2xl leading-none">03.</span>
-                <div>
-                  <h4 class="text-white font-semibold">
-                    Agility and Partnership
-                  </h4>
-                  <p class="text-gray-500 text-sm">
-                    We operate as an extension of your team, providing
-                    flexible consulting tailored to your business velocity.
-                  </p>
-                </div>
-              </div>
             </div>
-          </div>
-
-          <!-- Placeholder Image/Graphic -->
-          <div class="hidden md:block">
-            <div
-              class="bg-card-bg rounded-3xl p-8 border border-primary-blue/30 shadow-2xl shadow-primary-blue/10 min-h-[400px] flex items-center justify-center">
-              <svg class="w-32 h-32 text-primary-blue opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-              </svg>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 4. Contact Us -->
-    <section id="contact" class="py-20 bg-card-bg/50 border-t border-gray-700/50">
-      <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-4xl font-bold text-white mb-2">
-            Let's Build Your Hybrid Future
-          </h2>
-          <p class="text-gray-400 text-lg">
-            Tell us about your project—whether it's a Kubernetes migration or
-            a Snowflake optimization.
-          </p>
-        </div>
-
-        <form id="contactForm" onsubmit="submitForm(event)"
-          class="bg-card-bg p-8 rounded-2xl shadow-2xl border border-gray-700/50">
-          <div class="space-y-6">
-            <div>
-              <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
-              <input type="text" name="name" id="name" required
-                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200" />
-            </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Work Email</label>
-              <input type="email" name="email" id="email" required
-                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200" />
-            </div>
-            <div>
-              <label for="service" class="block text-sm font-medium text-gray-300 mb-1">Area of Interest</label>
-              <select id="service" name="service" required
-                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200 appearance-none">
-                <option value="" disabled selected>Select a Service</option>
-                <option value="hybrid-cloud">
-                  Hybrid Cloud & Operations
-                </option>
-                <option value="snowflake">Snowflake Consulting</option>
-                <option value="nvidia">NVIDIA & HPC Acceleration</option>
-                <option value="kubernetes-docker">Kubernetes & Docker</option>
-                <option value="server-racks">Server Rack Deployment</option>
-                <option value="general">General Inquiry</option>
-              </select>
-            </div>
-            <div>
-              <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Project Details</label>
-              <textarea id="message" name="message" rows="4" required
-                class="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg text-white focus:ring-primary-blue focus:border-primary-blue transition duration-200"></textarea>
-            </div>
-
-            <!-- Google reCAPTCHA v2 -->
-            <div class="flex justify-center pt-2">
-              <div class="g-recaptcha" data-sitekey="6LdyuW8sAAAAAAFT9ZOV8Hhs0c6Kn-6U0KMEPkru"></div>
-            </div>
-
-            <button id="submitBtn" type="submit"
-              class="w-full px-6 py-3 bg-primary-blue text-white text-lg font-semibold rounded-lg hover:bg-blue-600 transition duration-300 shadow-lg shadow-primary-blue/40 transform hover:scale-[1.01]">
-              Send Consultation Request
-            </button>
-
-            <!-- Success message (hidden by default) -->
-            <div id="formSuccess" role="status" aria-live="polite" class="mt-4 hidden">
-              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-green-600 text-white font-medium">✅
-                Consultation Request sent successfully</div>
-            </div>
-
-            <!-- Debug banner (temporary) -->
-            <div id="serverDebug" role="status" aria-live="polite" class="mt-4 hidden">
-              <pre id="serverDebugPre"
-                class="text-sm text-gray-300 mt-2 p-3 rounded bg-dark-bg border border-gray-700/40 overflow-auto"></pre>
-            </div>
-
-          </div>
-        </form>
-      </div>
-    </section>
-
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-dark-bg border-t border-gray-800 py-10">
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-400 grid md:grid-cols-2 gap-8 text-center md:text-left">
-      <div>
-        <h3 class="text-white font-semibold mb-2">
-          Registered Address - Hyderabad
-        </h3>
-        <p>
-          #402, 4Th Floor,<br />6-3-249/6, Alcazar Plaza & Towers,<br />Road
-          No 1, Banjara Hills,<br />Hyderabad- 500034, Telangana
-        </p>
-      </div>
-      <div>
-        <h3 class="text-white font-semibold mb-2">Bengaluru Office</h3>
-        <p>
-          3rd Floor, 317 A, 9th Main Rd,<br />5th Block, Jayanagar,<br />Bengaluru,
-          Karnataka 560041
-        </p>
-      </div>
     </div>
-    <div class="text-center text-gray-500 mt-8">
-      <p>
-        &copy; 2025 we2systems. All rights reserved. | Hybrid Cloud &
-        Specialized Consulting
-      </p>
-    </div>
-  </footer>
 
-  <!-- All JS in script.js -->
-  <script src="script.js"></script>
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="relative pt-32 pb-20 lg:pt-44 lg:pb-28 overflow-hidden min-h-[100vh] flex items-center">
+        <!-- Mesh gradient base -->
+        <div class="hero-mesh-gradient"></div>
+
+        <!-- Noise / grain texture -->
+        <div class="hero-noise"></div>
+
+        <!-- Perspective grid -->
+        <div class="hero-perspective-grid">
+            <div class="hero-perspective-grid-inner"></div>
+        </div>
+
+        <!-- Mouse-follow spotlight -->
+        <div id="hero-spotlight" class="hero-spotlight"></div>
+
+        <!-- Aurora bands -->
+        <div class="hero-aurora">
+            <div class="hero-aurora-band"></div>
+            <div class="hero-aurora-band"></div>
+            <div class="hero-aurora-band"></div>
+            <div class="hero-aurora-band"></div>
+        </div>
+
+        <!-- Glowing orbs (softened — aurora is the primary effect) -->
+        <div class="absolute inset-0 z-[4] overflow-hidden">
+            <div class="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-primary/[0.06] filter blur-[160px] animate-float-slow"></div>
+            <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-accent/[0.06] filter blur-[160px] animate-float-medium"></div>
+            <div class="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full bg-purple-500/[0.05] filter blur-[140px] animate-float-slow" style="animation-delay:-3s"></div>
+        </div>
+
+        <!-- Hero Infrastructure Illustration -->
+        <div class="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none opacity-[0.07]">
+            <svg viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[90%] max-w-5xl h-auto">
+                <!-- Cloud shapes -->
+                <path d="M250 280c0-55 45-100 100-100 15-45 58-78 108-78 65 0 118 50 122 113 40 10 70 46 70 88 0 50-41 91-91 91H291c-50 0-91-41-91-91z" stroke="url(#hero-g1)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.8">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="6s" repeatCount="indefinite"/>
+                </path>
+                <!-- Server rack left -->
+                <rect x="120" y="350" width="120" height="160" rx="8" stroke="url(#hero-g1)" stroke-width="1.2"/>
+                <line x1="135" y1="380" x2="225" y2="380" stroke="#0ea5e9" stroke-width="1" opacity="0.6"/>
+                <line x1="135" y1="405" x2="225" y2="405" stroke="#0ea5e9" stroke-width="1" opacity="0.6"/>
+                <line x1="135" y1="430" x2="225" y2="430" stroke="#0ea5e9" stroke-width="1" opacity="0.6"/>
+                <line x1="135" y1="455" x2="225" y2="455" stroke="#0ea5e9" stroke-width="1" opacity="0.6"/>
+                <circle cx="220" cy="392" r="3" fill="#0ea5e9" opacity="0.8"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/></circle>
+                <circle cx="220" cy="417" r="3" fill="#6366f1" opacity="0.8"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/></circle>
+                <circle cx="220" cy="442" r="3" fill="#0ea5e9" opacity="0.8"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite"/></circle>
+                <!-- Server rack right -->
+                <rect x="660" y="350" width="120" height="160" rx="8" stroke="url(#hero-g2)" stroke-width="1.2"/>
+                <line x1="675" y1="380" x2="765" y2="380" stroke="#6366f1" stroke-width="1" opacity="0.6"/>
+                <line x1="675" y1="405" x2="765" y2="405" stroke="#6366f1" stroke-width="1" opacity="0.6"/>
+                <line x1="675" y1="430" x2="765" y2="430" stroke="#6366f1" stroke-width="1" opacity="0.6"/>
+                <line x1="675" y1="455" x2="765" y2="455" stroke="#6366f1" stroke-width="1" opacity="0.6"/>
+                <circle cx="760" cy="392" r="3" fill="#6366f1" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.5s" repeatCount="indefinite"/></circle>
+                <circle cx="760" cy="417" r="3" fill="#a855f7" opacity="0.8"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></circle>
+                <circle cx="760" cy="442" r="3" fill="#6366f1" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/></circle>
+                <!-- Kubernetes wheel center -->
+                <g transform="translate(450, 430)">
+                    <circle cx="0" cy="0" r="35" stroke="url(#hero-g1)" stroke-width="1.2" fill="none" stroke-dasharray="4 3">
+                        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="0" cy="0" r="18" stroke="#0ea5e9" stroke-width="1" fill="none" opacity="0.5"/>
+                    <!-- Spokes -->
+                    <line x1="0" y1="-18" x2="0" y2="-35" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="15.6" y1="9" x2="30.3" y2="17.5" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="-15.6" y1="9" x2="-30.3" y2="17.5" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="15.6" y1="-9" x2="30.3" y2="-17.5" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="-15.6" y1="-9" x2="-30.3" y2="-17.5" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="0" y1="18" x2="0" y2="35" stroke="#0ea5e9" stroke-width="0.8" opacity="0.5"/>
+                </g>
+                <!-- Connection lines -->
+                <line x1="240" y1="430" x2="415" y2="430" stroke="url(#hero-g1)" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.5">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2s" repeatCount="indefinite"/>
+                </line>
+                <line x1="485" y1="430" x2="660" y2="430" stroke="url(#hero-g2)" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.5">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2s" repeatCount="indefinite"/>
+                </line>
+                <!-- Cloud to servers -->
+                <line x1="320" y1="394" x2="240" y2="380" stroke="url(#hero-g1)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.4"/>
+                <line x1="580" y1="394" x2="660" y2="380" stroke="url(#hero-g2)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.4"/>
+                <line x1="450" y1="394" x2="450" y2="395" stroke="url(#hero-g1)" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.4"/>
+                <!-- Shield icon top center -->
+                <path d="M450 180 l30 12 v25c0 22-13 42-30 52-17-10-30-30-30-52v-25z" stroke="url(#hero-g1)" stroke-width="1.2" fill="none" opacity="0.6">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-5;0,0" dur="4s" repeatCount="indefinite"/>
+                </path>
+                <path d="M443 210 l5 5 10-10" stroke="#0ea5e9" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-5;0,0" dur="4s" repeatCount="indefinite"/>
+                </path>
+                <defs>
+                    <linearGradient id="hero-g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+                    <linearGradient id="hero-g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-[10] w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left: Hero Text (left-aligned) -->
+                <div class="text-left min-w-0">
+                    <div class="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/15 text-sm font-medium text-primary/90 mb-8 fade-up backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-primary mr-3 animate-pulse"></span>
+                        Business Platforms · Cloud Infrastructure · DevOps · AI
+                        <i class="fa-solid fa-sparkles ml-2 text-xs text-accent/60"></i>
+                    </div>
+                    <h1 class="font-heading font-bold tracking-tight text-slate-900 leading-[1.1] mb-6 hero-kinetic-h1 break-words">
+                        <span class="hero-words">
+                            <span class="hero-word">Intelligent</span>
+                            <span class="hero-word">Business</span>
+                            <span class="hero-word">Platforms</span>
+                            <span class="hero-word">&amp;</span>
+                        </span><br>
+                        <span class="text-gradient text-gradient-animate hero-subtitle">Secure Cloud Infrastructure.</span>
+                    </h1>
+                    <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mb-10 font-light leading-relaxed hero-desc">
+                        We2 Systems builds intelligent business platforms and the secure cloud infrastructure behind them — from application engineering and AI to DevOps, backup resilience and cloud consulting.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-5 mb-12 fade-up" style="transition-delay:1.3s">
+                        <a href="#readiness" class="btn-primary">
+                            Talk to an Architect
+                            <i class="fa-solid fa-arrow-right ml-3"></i>
+                        </a>
+                        <a href="#industry-platforms" class="btn-outline ml-0 sm:ml-2">
+                            Explore Platforms
+                            <i class="fa-solid fa-chevron-down ml-2.5 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Platform Status Dashboard -->
+                <div class="relative fade-up min-w-0" style="transition-delay: 1.5s;">
+                    <!-- Decorative rings -->
+                    <div class="absolute -inset-12 -z-10 opacity-20 pointer-events-none hidden sm:block">
+                        <svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <circle cx="300" cy="200" r="180" stroke="url(#ring-grad)" stroke-width="0.5" opacity="0.4">
+                                <animateTransform attributeName="transform" type="rotate" from="0 300 200" to="360 300 200" dur="40s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="300" cy="200" r="140" stroke="url(#ring-grad)" stroke-width="0.5" opacity="0.3" stroke-dasharray="8 12">
+                                <animateTransform attributeName="transform" type="rotate" from="360 300 200" to="0 300 200" dur="30s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="300" cy="200" r="100" stroke="url(#ring-grad)" stroke-width="0.5" opacity="0.2" stroke-dasharray="4 8">
+                                <animateTransform attributeName="transform" type="rotate" from="0 300 200" to="360 300 200" dur="25s" repeatCount="indefinite"/>
+                            </circle>
+                            <defs>
+                                <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#0ea5e9"/>
+                                    <stop offset="50%" stop-color="#6366f1"/>
+                                    <stop offset="100%" stop-color="#a855f7"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <!-- Metrics Dashboard Card -->
+                    <div class="relative rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
+                        <!-- Animated gradient top bar -->
+                        <div class="h-[3px] w-full bg-gradient-to-r from-primary via-accent to-purple-500 bg-[length:200%_100%] animate-gradient-x"></div>
+
+                        <!-- Card header -->
+                        <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-slate-100 bg-slate-50/60">
+                            <div class="flex gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-400/50"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-400/50"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400/70"></span>
+                            </div>
+                            <span class="ml-2 text-xs font-mono text-slate-400">we2systems — live metrics</span>
+                            <span class="ml-auto flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span class="text-[10px] font-mono text-emerald-600">LIVE</span>
+                            </span>
+                        </div>
+
+                        <!-- Dashboard body -->
+                        <div class="p-4 space-y-3">
+
+                            <!-- Row 1: Uptime + Deploys side by side -->
+                            <div class="grid grid-cols-2 gap-3">
+
+                                <!-- Uptime sparkline -->
+                                <div class="rounded-xl border border-slate-100 bg-gradient-to-br from-emerald-50/50 to-white p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-[9px] font-mono text-slate-400 uppercase tracking-wider">Uptime · 30d</span>
+                                        <span class="text-[11px] font-bold text-emerald-600">99.97%</span>
+                                    </div>
+                                    <svg viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto overflow-visible">
+                                        <defs>
+                                            <linearGradient id="uptime-area" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="0%" stop-color="#10b981" stop-opacity="0.22"/>
+                                                <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <line x1="0" y1="10" x2="130" y2="10" stroke="#e2e8f0" stroke-width="0.5" stroke-dasharray="2 3"/>
+                                        <line x1="0" y1="26" x2="130" y2="26" stroke="#e2e8f0" stroke-width="0.5" stroke-dasharray="2 3"/>
+                                        <path d="M0,34 C8,33 16,31 24,29 S38,24 52,21 S68,17 82,14 S98,11 112,9 S124,8 130,8 L130,44 L0,44 Z" fill="url(#uptime-area)"/>
+                                        <path d="M0,34 C8,33 16,31 24,29 S38,24 52,21 S68,17 82,14 S98,11 112,9 S124,8 130,8" stroke="#10b981" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" class="chart-line-draw"/>
+                                        <circle cx="130" cy="8" r="2.5" fill="#10b981">
+                                            <animate attributeName="r" values="2;3.5;2" dur="2s" repeatCount="indefinite"/>
+                                            <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="130" cy="8" r="7" fill="#10b981" opacity="0.12">
+                                            <animate attributeName="r" values="4;9;4" dur="2s" repeatCount="indefinite"/>
+                                            <animate attributeName="opacity" values="0.12;0;0.12" dur="2s" repeatCount="indefinite"/>
+                                        </circle>
+                                    </svg>
+                                </div>
+
+                                <!-- Deployments bar chart -->
+                                <div class="rounded-xl border border-slate-100 bg-gradient-to-br from-sky-50/50 to-white p-3">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-[9px] font-mono text-slate-400 uppercase tracking-wider">Deploys · 7d</span>
+                                        <span class="text-[11px] font-bold text-primary">24 / wk</span>
+                                    </div>
+                                    <svg viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                                        <defs>
+                                            <linearGradient id="bar-fill" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="0%" stop-color="#0ea5e9"/>
+                                                <stop offset="100%" stop-color="#6366f1" stop-opacity="0.7"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <rect x="4"  y="31" width="13" height="10" rx="2" fill="url(#bar-fill)" opacity="0.65" class="deploy-bar"/>
+                                        <rect x="22" y="22" width="13" height="19" rx="2" fill="url(#bar-fill)" opacity="0.75" class="deploy-bar" style="animation-delay:0.1s"/>
+                                        <rect x="40" y="26" width="13" height="15" rx="2" fill="url(#bar-fill)" opacity="0.7" class="deploy-bar" style="animation-delay:0.2s"/>
+                                        <rect x="58" y="14" width="13" height="27" rx="2" fill="url(#bar-fill)" opacity="0.85" class="deploy-bar" style="animation-delay:0.3s"/>
+                                        <rect x="76" y="19" width="13" height="22" rx="2" fill="url(#bar-fill)" opacity="0.8" class="deploy-bar" style="animation-delay:0.4s"/>
+                                        <rect x="94" y="17" width="13" height="24" rx="2" fill="url(#bar-fill)" opacity="0.9" class="deploy-bar" style="animation-delay:0.5s"/>
+                                        <rect x="112" y="8"  width="13" height="33" rx="2" fill="url(#bar-fill)" class="deploy-bar" style="animation-delay:0.6s"/>
+                                        <text x="10"  y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">M</text>
+                                        <text x="28"  y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">T</text>
+                                        <text x="46"  y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">W</text>
+                                        <text x="64"  y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">T</text>
+                                        <text x="82"  y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">F</text>
+                                        <text x="100" y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">S</text>
+                                        <text x="118" y="43" text-anchor="middle" fill="#94a3b8" font-size="5" font-family="monospace">S</text>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: P95 response time full-width -->
+                            <div class="rounded-xl border border-slate-100 bg-gradient-to-br from-violet-50/30 to-white p-3">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[9px] font-mono text-slate-400 uppercase tracking-wider">P95 Response Time</span>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-[9px] font-mono text-slate-400">avg <span class="text-accent font-bold text-[10px]">42ms</span></span>
+                                        <span class="text-[9px] font-mono text-slate-400">p95 <span class="text-accent font-bold text-[10px]">89ms</span></span>
+                                    </div>
+                                </div>
+                                <svg viewBox="0 0 270 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                                    <defs>
+                                        <linearGradient id="resp-area" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/>
+                                            <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <line x1="0" y1="10" x2="270" y2="10" stroke="#e2e8f0" stroke-width="0.5" stroke-dasharray="3 4"/>
+                                    <line x1="0" y1="26" x2="270" y2="26" stroke="#e2e8f0" stroke-width="0.5" stroke-dasharray="3 4"/>
+                                    <line x1="0" y1="10" x2="270" y2="10" stroke="#f59e0b" stroke-width="0.7" stroke-dasharray="4 3" opacity="0.45"/>
+                                    <text x="268" y="8" fill="#f59e0b" font-size="5" font-family="monospace" opacity="0.7" text-anchor="end">SLA</text>
+                                    <path d="M0,30 C12,29 22,28 32,26 S48,22 60,20 S72,24 84,30 S98,32 110,28 S124,22 138,20 S152,19 166,21 S180,26 194,22 S208,16 220,13 S238,19 250,23 S262,26 270,25 L270,44 L0,44 Z" fill="url(#resp-area)"/>
+                                    <path d="M0,30 C12,29 22,28 32,26 S48,22 60,20 S72,24 84,30 S98,32 110,28 S124,22 138,20 S152,19 166,21 S180,26 194,22 S208,16 220,13 S238,19 250,23 S262,26 270,25" stroke="#6366f1" stroke-width="1.4" fill="none" stroke-linecap="round" class="chart-line-draw" style="animation-delay:0.3s"/>
+                                    <circle cx="270" cy="25" r="2.5" fill="#6366f1">
+                                        <animate attributeName="opacity" values="1;0.4;1" dur="1.8s" repeatCount="indefinite"/>
+                                    </circle>
+                                </svg>
+                            </div>
+
+                            <!-- Row 3: Live event stream -->
+                            <div class="rounded-xl border border-slate-100 bg-slate-50/60 p-3 overflow-hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[9px] font-mono text-slate-400 uppercase tracking-wider">Event Stream</span>
+                                    <span class="flex items-center gap-1 text-[9px] font-mono text-emerald-500"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block"></span> 0 incidents</span>
+                                </div>
+                                <div class="space-y-1.5 font-mono text-[10px] leading-relaxed" id="hero-event-stream">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-slate-300 flex-shrink-0">14:23:04</span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                                        <span class="text-slate-500 truncate">backup ok · rpo=4m · nodes=24</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-slate-300 flex-shrink-0">14:22:47</span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                                        <span class="text-slate-500 truncate">deploy · <span class="text-primary">v2.14.1</span> → k8s prod</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-slate-300 flex-shrink-0">14:21:18</span>
+                                        <span class="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></span>
+                                        <span class="text-slate-500 truncate">zt-policy audit · 0 violations</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Bottom metrics row -->
+                        <div class="grid grid-cols-3 divide-x divide-slate-100 border-t border-slate-100">
+                            <div class="py-3.5 text-center">
+                                <p class="text-sm font-bold text-slate-900">99.99%</p>
+                                <p class="text-[9px] text-slate-400 font-mono mt-0.5">uptime SLA</p>
+                            </div>
+                            <div class="py-3.5 text-center">
+                                <p class="text-sm font-bold text-accent">42ms</p>
+                                <p class="text-[9px] text-slate-400 font-mono mt-0.5">avg response</p>
+                            </div>
+                            <div class="py-3.5 text-center">
+                                <p class="text-sm font-bold text-emerald-600">0</p>
+                                <p class="text-[9px] text-slate-400 font-mono mt-0.5">open incidents</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating badge: top-right (light themed) -->
+                    <div class="absolute -top-4 -right-4 z-20 hidden lg:block hero-float-badge">
+                        <div class="bg-white border border-slate-200 rounded-xl px-4 py-3 shadow-lg">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.4)]"></span>
+                                <span class="text-xs font-mono text-slate-700">All systems operational</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating badge: bottom-left (light themed) -->
+                    <div class="absolute -bottom-6 -left-6 z-20 hidden lg:block hero-float-badge" style="animation-delay: -2s;">
+                        <div class="bg-white border border-slate-200 rounded-xl px-4 py-3 shadow-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <i class="fa-solid fa-shield-check text-primary text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] font-mono text-slate-500">Uptime SLA</p>
+                                    <p class="text-sm font-bold text-slate-900">99.99%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== INFRASTRUCTURE MATTERS ===================== -->
+    <section id="infrastructure" class="py-24 bg-white border-y border-slate-100">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: statement -->
+                <div class="fade-up">
+                    <span class="inline-block text-xs font-mono font-bold text-primary bg-primary/10 border border-primary/15 px-3 py-1 rounded-full mb-5 tracking-wider">WHAT MAKES WE2 DIFFERENT</span>
+                    <h2 class="font-bold text-slate-900 mb-6 leading-tight" style="font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);">
+                        Applications are only as strong as the platforms they run on.
+                    </h2>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-5">
+                        We2 Systems is not only an application development company. We build business platforms and the production infrastructure behind them.
+                    </p>
+                    <p class="text-base text-slate-600 leading-relaxed mb-8">
+                        Our teams combine application engineering, cloud consulting, DevOps, Infrastructure as Code, backup resilience, security and AI automation — so we can help customers from idea to production.
+                    </p>
+                    <div class="p-6 rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/15">
+                        <p class="text-lg font-semibold text-slate-900 leading-snug">
+                            We do not stop at building screens.<br>
+                            <span class="text-primary">We build systems that run.</span>
+                        </p>
+                    </div>
+                    <a href="#readiness" class="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 shadow-sm shadow-primary/20">
+                        Talk to an Architect <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <!-- Right: capability list -->
+                <div class="fade-up" style="transition-delay:0.15s">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">From idea to production — we cover it all</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-magnifying-glass text-primary text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Business problem discovery</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-compass-drafting text-primary text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Application and platform design</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-brands fa-aws text-accent text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Cloud and infrastructure architecture</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-code-branch text-accent text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">DevOps and automation</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-robot text-purple-500 text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Data and AI readiness</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-database text-primary text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Backup and recovery</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-shield-check text-accent text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Security and compliance</p>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:bg-primary/5 transition-all duration-200">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-chart-line text-emerald-500 text-sm"></i></div>
+                            <p class="text-sm font-semibold text-slate-800">Ongoing operations and optimization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOCUS AREAS ===================== -->
+    <section id="focus" class="py-28 bg-grid-dark relative section-glow-top">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full filter blur-[120px]"></div>
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 fade-up">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    Core Expertise
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-5" style="font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);">What We Focus On</h3>
+                <p class="text-lg text-slate-600">We specialize in three disciplines that modern enterprises need to operate securely at scale.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1: Platform Engineering (BUILD) -->
+                <div class="glow-card service-card border-l-blue p-8 fade-up flex flex-col">
+                    <span class="card-number-badge">01</span>
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/15 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-layer-group text-primary text-xl"></i>
+                    </div>
+                    <span class="bracket-label block mb-2">BUILD</span>
+                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-3">Platform Engineering</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Production-ready hybrid and cloud-native platforms. Kubernetes, IaC, and GitOps automation built for real workloads — not demos.</p>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-primary text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Kubernetes orchestration</strong> &mdash; multi-cluster, auto-scaling, GitOps workflows</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-primary text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Hybrid cloud integration</strong> &mdash; unified control across on-prem, AWS, Azure, GCP</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-primary text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Infrastructure as Code</strong> &mdash; Terraform &amp; Ansible, zero manual drift</span>
+                        </li>
+                    </ul>
+                    <a href="#readiness" class="inline-flex items-center text-sm font-semibold text-primary hover:text-primaryHover transition-colors group/link mt-auto">
+                        Start an Assessment <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover/link:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2: Data Security (PROTECT) -->
+                <div class="glow-card service-card border-l-green p-8 fade-up flex flex-col" style="transition-delay:0.1s">
+                    <span class="card-number-badge">02</span>
+                    <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/15 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-shield-check text-accent text-xl"></i>
+                    </div>
+                    <span class="bracket-label bracket-label--accent block mb-2">PROTECT</span>
+                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-3">Data Security</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Backup, DR, and ransomware-resilient data architecture. Your critical assets stay recoverable no matter what hits production.</p>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-accent text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Zero-trust architecture</strong> &mdash; identity-aware policies at every network boundary</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-accent text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Ransomware protection</strong> &mdash; immutable vaults, air-gapped backups, automated threat isolation</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-accent text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Encryption at rest &amp; transit</strong> &mdash; centralised key management with audit trails</span>
+                        </li>
+                    </ul>
+                    <a href="#readiness" class="inline-flex items-center text-sm font-semibold text-accent hover:text-accentHover transition-colors group/link mt-auto">
+                        Start an Assessment <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover/link:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3: Data Protection (OPERATE) -->
+                <div class="glow-card service-card border-l-amber p-8 fade-up flex flex-col" style="transition-delay:0.2s">
+                    <span class="card-number-badge">03</span>
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/15 flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-chart-line text-purple-500 text-xl"></i>
+                    </div>
+                    <span class="bracket-label bracket-label--purple block mb-2">OPERATE</span>
+                    <h4 class="font-heading text-xl font-bold text-slate-900 mb-3">Data Protection</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">Cost, performance, reliability and governance built into daily operations. Infrastructure that stays healthy without constant firefighting.</p>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Automated backup &amp; recovery</strong> &mdash; RPO under 15 min, RTO under 1 hour</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Continuous data protection</strong> &mdash; journal-based CDP, restore to any point in time</span>
+                        </li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-purple-500 text-xs mt-1 flex-shrink-0"></i>
+                            <span><strong class="text-slate-800">Multi-site disaster recovery</strong> &mdash; active-passive and active-active topologies</span>
+                        </li>
+                    </ul>
+                    <a href="#readiness" class="inline-flex items-center text-sm font-semibold text-purple-500 hover:text-purple-600 transition-colors group/link mt-auto">
+                        Start an Assessment <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover/link:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- View all services link -->
+            <div class="text-center mt-10 fade-up">
+                <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primaryHover transition-colors group">
+                    View full service details
+                    <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== HOW WE WORK — Process Timeline ===================== -->
+    <section id="process" class="py-28 bg-dark-800 relative overflow-hidden section-glow-top">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-accent/5 rounded-full filter blur-[140px]"></div>
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 fade-up process-header-left">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    Our Approach
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-5" style="font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);">How We Work</h3>
+                <p class="text-lg text-slate-600">A proven, repeatable methodology that takes you from assessment to fully operational infrastructure.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-0 relative" id="process-grid">
+                <!-- Process Path (desktop only) -->
+                <div class="hidden md:block process-path-line" id="process-path"></div>
+
+                <!-- Step 1 -->
+                <div class="relative text-center px-6 fade-up group">
+                    <div class="relative z-10 w-[64px] h-[64px] mx-auto mb-6">
+                        <div class="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping-slow"></div>
+                        <div class="relative w-full h-full rounded-full bg-dark-900 border-2 border-primary/40 flex flex-col items-center justify-center group-hover:border-primary group-hover:shadow-glow transition-all duration-300">
+                            <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7">
+                                <circle cx="14" cy="14" r="8" stroke="#0ea5e9" stroke-width="1.2" fill="#0ea5e9" fill-opacity="0.06"/>
+                                <circle cx="14" cy="14" r="5" stroke="#38bdf8" stroke-width="0.7" fill="none" stroke-dasharray="2 2" opacity="0.4"/>
+                                <line x1="20" y1="20" x2="28" y2="28" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
+                                <rect x="10" y="12" width="8" height="1" rx="0.5" fill="#38bdf8" opacity="0.5"/>
+                                <rect x="10" y="14.5" width="5" height="1" rx="0.5" fill="#0ea5e9" opacity="0.35"/>
+                                <circle cx="14" cy="10" r="1" fill="#38bdf8" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="bracket-label block mb-1">STEP 01</span>
+                    <h4 class="font-heading text-lg font-bold text-slate-900 mb-3">Discover</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Deep-dive assessment of your current infrastructure, workloads, and operational gaps.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative text-center px-6 fade-up group" style="transition-delay:0.1s">
+                    <div class="relative z-10 w-[64px] h-[64px] mx-auto mb-6">
+                        <div class="absolute inset-0 rounded-full border-2 border-accent/30 animate-ping-slow" style="animation-delay:0.5s"></div>
+                        <div class="relative w-full h-full rounded-full bg-dark-900 border-2 border-accent/40 flex flex-col items-center justify-center group-hover:border-accent group-hover:shadow-glow-accent transition-all duration-300">
+                            <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7">
+                                <!-- Blueprint base -->
+                                <rect x="4" y="6" width="24" height="20" rx="2" stroke="#6366f1" stroke-width="0.8" fill="#6366f1" fill-opacity="0.05"/>
+                                <!-- Grid lines -->
+                                <line x1="4" y1="12" x2="28" y2="12" stroke="#6366f1" stroke-width="0.4" opacity="0.2"/>
+                                <line x1="4" y1="18" x2="28" y2="18" stroke="#6366f1" stroke-width="0.4" opacity="0.2"/>
+                                <line x1="14" y1="6" x2="14" y2="26" stroke="#6366f1" stroke-width="0.4" opacity="0.2"/>
+                                <!-- Compass arc -->
+                                <path d="M20 10a6 6 0 0 1 0 12" stroke="#818cf8" stroke-width="1" fill="none"/>
+                                <circle cx="20" cy="16" r="1.5" fill="#818cf8" opacity="0.4"/>
+                                <!-- Compass leg -->
+                                <line x1="20" y1="16" x2="24" y2="11" stroke="#818cf8" stroke-width="1" stroke-linecap="round"/>
+                                <line x1="20" y1="16" x2="17" y2="22" stroke="#6366f1" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+                                <!-- Dimension lines -->
+                                <path d="M7 22h6" stroke="#818cf8" stroke-width="0.6" opacity="0.4"/>
+                                <path d="M7 21v2M13 21v2" stroke="#818cf8" stroke-width="0.5" opacity="0.3"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="bracket-label bracket-label--accent block mb-1">STEP 02</span>
+                    <h4 class="font-heading text-lg font-bold text-slate-900 mb-3">Architect</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Design a resilient, cost-efficient platform blueprint tailored to your environment.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative text-center px-6 fade-up group" style="transition-delay:0.2s">
+                    <div class="relative z-10 w-[64px] h-[64px] mx-auto mb-6">
+                        <div class="absolute inset-0 rounded-full border-2 border-purple-500/30 animate-ping-slow" style="animation-delay:1s"></div>
+                        <div class="relative w-full h-full rounded-full bg-dark-900 border-2 border-purple-500/40 flex flex-col items-center justify-center group-hover:border-purple-500 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.35)] transition-all duration-300">
+                            <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7">
+                                <!-- Main branch line -->
+                                <line x1="10" y1="6" x2="10" y2="26" stroke="#a855f7" stroke-width="1.2"/>
+                                <!-- Branch line -->
+                                <path d="M10 12 Q16 12 22 8" stroke="#c084fc" stroke-width="1" fill="none"/>
+                                <path d="M10 20 Q16 20 22 16" stroke="#a855f7" stroke-width="0.8" fill="none" opacity="0.5"/>
+                                <!-- Commit dots on main -->
+                                <circle cx="10" cy="8" r="2" fill="#ffffff" stroke="#a855f7" stroke-width="1"/>
+                                <circle cx="10" cy="12" r="2" fill="#ffffff" stroke="#c084fc" stroke-width="1"/>
+                                <circle cx="10" cy="20" r="2" fill="#ffffff" stroke="#a855f7" stroke-width="1"/>
+                                <circle cx="10" cy="24" r="2" fill="#ffffff" stroke="#a855f7" stroke-width="1"/>
+                                <!-- Branch commits -->
+                                <circle cx="22" cy="8" r="2" fill="#ffffff" stroke="#c084fc" stroke-width="1"/>
+                                <circle cx="22" cy="16" r="2" fill="#ffffff" stroke="#a855f7" stroke-width="0.8" opacity="0.6"/>
+                                <!-- Merge arrow -->
+                                <path d="M22 8 Q26 14 22 16" stroke="#c084fc" stroke-width="0.6" fill="none" stroke-dasharray="2 1.5" opacity="0.4"/>
+                                <!-- Terminal bracket -->
+                                <path d="M15 23l3 3-3 3" stroke="#c084fc" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="bracket-label bracket-label--purple block mb-1">STEP 03</span>
+                    <h4 class="font-heading text-lg font-bold text-slate-900 mb-3">Implement</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Build, migrate, and harden your infrastructure with automation-first engineering.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative text-center px-6 fade-up group" style="transition-delay:0.3s">
+                    <div class="relative z-10 w-[64px] h-[64px] mx-auto mb-6">
+                        <div class="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping-slow" style="animation-delay:1.5s"></div>
+                        <div class="relative w-full h-full rounded-full bg-dark-900 border-2 border-primary/40 flex flex-col items-center justify-center group-hover:border-primary group-hover:shadow-glow transition-all duration-300">
+                            <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7">
+                                <!-- Monitor frame -->
+                                <rect x="4" y="5" width="24" height="16" rx="2" stroke="#0ea5e9" stroke-width="1" fill="#0ea5e9" fill-opacity="0.05"/>
+                                <!-- Chart area -->
+                                <polyline points="7,17 11,13 15,15 19,9 23,11 26,8" stroke="#38bdf8" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Chart fill -->
+                                <path d="M7 17 L11 13 L15 15 L19 9 L23 11 L26 8 L26 17 Z" fill="#0ea5e9" fill-opacity="0.08"/>
+                                <!-- Heartbeat pulse -->
+                                <circle cx="24" cy="8" r="1.5" fill="#38bdf8" opacity="0.6">
+                                    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Status dots -->
+                                <circle cx="8" cy="8" r="1" fill="#34d399" opacity="0.6"/>
+                                <circle cx="11" cy="8" r="1" fill="#0ea5e9" opacity="0.4"/>
+                                <!-- Stand -->
+                                <line x1="14" y1="21" x2="18" y2="21" stroke="#0ea5e9" stroke-width="0.8" opacity="0.4"/>
+                                <line x1="16" y1="21" x2="16" y2="24" stroke="#0ea5e9" stroke-width="0.8" opacity="0.3"/>
+                                <line x1="12" y1="24" x2="20" y2="24" stroke="#0ea5e9" stroke-width="0.8" opacity="0.3"/>
+                                <!-- Signal waves -->
+                                <path d="M24 24a4 4 0 0 0 4-4" stroke="#38bdf8" stroke-width="0.6" fill="none" opacity="0.25"/>
+                                <path d="M24 26a6 6 0 0 0 6-6" stroke="#38bdf8" stroke-width="0.5" fill="none" opacity="0.15"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="bracket-label block mb-1">STEP 04</span>
+                    <h4 class="font-heading text-lg font-bold text-slate-900 mb-3">Operate</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Ongoing monitoring, optimization, and support to keep systems performing at peak.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== INDUSTRY PLATFORMS ===================== -->
+    <section id="industry-platforms" class="py-28 relative overflow-hidden">
+        <!-- Subtle background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/60 via-white to-sky-50/40 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(16,185,129,0.06),transparent)] pointer-events-none"></div>
+
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+                <h2 class="text-sm font-bold text-emerald-600 uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-emerald-400/50"></span>
+                    Industry Platforms
+                    <span class="w-8 h-px bg-emerald-400/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-5" style="font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);">Workflow products built on<br><span class="text-gradient text-gradient-animate">secure cloud foundations.</span></h3>
+                <p class="text-lg text-slate-600">We take our infrastructure expertise and apply it to building production-ready platforms for data-heavy industries — starting with healthcare.</p>
+            </div>
+
+            <!-- Platform cards grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+                <!-- HMS — Featured card (spans 2 cols) -->
+                <div class="lg:col-span-2 fade-up">
+                    <div class="relative rounded-2xl overflow-hidden border border-emerald-200/60 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
+                        <!-- Top accent bar -->
+                        <div class="h-1 w-full bg-gradient-to-r from-emerald-400 to-sky-400"></div>
+                        <div class="p-8 sm:p-10">
+                            <!-- Header -->
+                            <div class="flex items-start justify-between mb-7">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-200">
+                                        <i class="fa-solid fa-heart-pulse text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-xs font-mono font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">Live Platform</span>
+                                        </div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-xl">Healthcare HMS Platform</h4>
+                                        <p class="text-sm text-slate-500">Tier-2 &amp; Tier-3 hospitals · UHID-led workflow</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="text-slate-600 mb-7 leading-relaxed">A connected Hospital Management System that links registration, consultation, lab, pharmacy, billing and follow-up into one operating flow — built for hospitals that need reliability, not complexity.</p>
+
+                            <!-- Key capabilities -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    One UHID across all departments
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    Auto-consolidated billing
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    OPD · Lab · Pharmacy · IPD
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    Built on secure hybrid cloud
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    Digital prescriptions &amp; reports
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm text-slate-600">
+                                    <span class="w-5 h-5 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-check text-emerald-500 text-[9px]"></i>
+                                    </span>
+                                    1-day OPD workflow go-live
+                                </div>
+                            </div>
+
+                            <!-- CTA row -->
+                            <div class="flex items-center gap-4">
+                                <a href="platforms/hms.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-md shadow-emerald-200">
+                                    Explore HMS Platform
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                </a>
+                                <a href="platforms/hms.html#pilot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors">
+                                    Request a demo <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: industry context + coming soon -->
+                <div class="lg:col-span-1 flex flex-col gap-5">
+                    <!-- Industry context card -->
+                    <div class="fade-up rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" style="transition-delay:0.1s">
+                        <h5 class="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns text-primary text-sm"></i>
+                            Industries we serve
+                        </h5>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                                <i class="fa-solid fa-hospital text-emerald-600 w-4 text-center"></i>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-800">Healthcare</p>
+                                    <p class="text-xs text-slate-500">HMS · Patient workflows</p>
+                                </div>
+                                <span class="ml-auto text-[10px] font-mono text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">Active</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 opacity-60">
+                                <i class="fa-solid fa-industry text-slate-400 w-4 text-center"></i>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-600">Manufacturing</p>
+                                    <p class="text-xs text-slate-400">Ops platforms · Coming soon</p>
+                                </div>
+                                <span class="ml-auto text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">Soon</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 opacity-60">
+                                <i class="fa-solid fa-landmark-dome text-slate-400 w-4 text-center"></i>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-600">Public Sector</p>
+                                    <p class="text-xs text-slate-400">Data-heavy operations · Coming soon</p>
+                                </div>
+                                <span class="ml-auto text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">Soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platform philosophy card -->
+                    <div class="fade-up rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/5 to-accent/5 p-6" style="transition-delay:0.2s">
+                        <i class="fa-solid fa-layer-group text-primary mb-3"></i>
+                        <p class="text-sm font-semibold text-slate-900 mb-2">Built on we2systems infrastructure</p>
+                        <p class="text-xs text-slate-600 leading-relaxed">Every platform we build runs on the same secure hybrid cloud stack — Kubernetes, encrypted storage, automated DR and 99.9% uptime SLA — that we deliver to enterprise clients.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industries we build for — full-width row -->
+            <div class="mt-16 fade-up" style="transition-delay:0.15s">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Industries we build for</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Healthcare -->
+                    <div class="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                        <div class="w-11 h-11 rounded-xl bg-white border border-emerald-100 flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <i class="fa-solid fa-hospital text-emerald-600"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <p class="font-semibold text-slate-900 text-sm">Healthcare</p>
+                                <span class="text-[10px] font-mono text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">Active</span>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">HMS · Patient workflows · UHID-led operations for Tier-2 &amp; Tier-3 hospitals</p>
+                        </div>
+                    </div>
+                    <!-- Manufacturing -->
+                    <div class="rounded-2xl border border-slate-200 bg-white p-6 flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 opacity-70">
+                        <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <i class="fa-solid fa-industry text-slate-400"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <p class="font-semibold text-slate-600 text-sm">Manufacturing</p>
+                                <span class="text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">Coming soon</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">Ops platforms · IaC-driven infrastructure · Data-heavy process automation</p>
+                        </div>
+                    </div>
+                    <!-- Public Sector -->
+                    <div class="rounded-2xl border border-slate-200 bg-white p-6 flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 opacity-70">
+                        <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <i class="fa-solid fa-landmark-dome text-slate-400"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <p class="font-semibold text-slate-600 text-sm">Public Sector</p>
+                                <span class="text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">Coming soon</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">Compliance-ready platforms · Secure data infrastructure · Government workflow digitisation</p>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- View all industries link -->
+            <div class="text-center mt-10 fade-up">
+                <a href="industries.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors group">
+                    View all industries we build for
+                    <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== WHY WE2SYSTEMS ===================== -->
+    <section id="why" class="py-28 bg-dark-900 relative overflow-hidden">
+        <!-- Background decorations -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/5 filter blur-[150px] animate-float-slow"></div>
+            <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-accent/5 filter blur-[140px] animate-float-medium"></div>
+            <!-- Grid overlay -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        </div>
+
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section header -->
+            <div class="text-center max-w-3xl mx-auto mb-20 fade-up why-header-left">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    Why We2Systems
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-5" style="font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);">A Different Kind of<br><span class="text-gradient text-gradient-animate">Infrastructure Consulting</span></h3>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-4">We build production-ready systems where infrastructure engineering, data security, and data protection work together — not in silos.</p>
+                <p class="text-sm text-slate-500 max-w-xl mx-auto italic">We stay until it works — embedding with your team through implementation and ongoing operations. <span class="text-slate-900 font-medium not-italic">No fixed-scope handoffs — we stay through go-live and beyond.</span></p>
+            </div>
+
+            <!-- Main layout: Image + Feature Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- Left: Image with overlay stats -->
+                <div class="lg:col-span-5 fade-left">
+                    <div class="relative rounded-2xl overflow-hidden group sticky top-28">
+                        <!-- Glowing border -->
+                        <div class="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-primary/30 via-transparent to-accent/30 z-0"></div>
+                        <div class="relative z-10 rounded-[15px] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Modern data center with blue lighting and server racks" class="w-full h-[520px] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#0A1128]/50 to-[#0A1128]/20"></div>
+
+                            <!-- Floating stat badges on image -->
+                            <div class="absolute top-5 left-5 right-5 flex flex-col gap-3 fade-up" style="transition-delay:0.2s">
+                                <div class="bg-[#0A1128]/80 backdrop-blur-md border border-primary/20 rounded-xl px-4 py-3 flex items-center gap-3 w-fit">
+                                    <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-shield-check text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-bold text-sm leading-none">Security-First Design</p>
+                                        <p class="text-slate-400 text-xs mt-0.5">Zero Trust · DR · Ransomware readiness</p>
+                                    </div>
+                                </div>
+                                <div class="bg-[#0A1128]/80 backdrop-blur-md border border-accent/20 rounded-xl px-4 py-3 flex items-center gap-3 w-fit">
+                                    <div class="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center">
+                                        <i class="fa-solid fa-bolt text-accent"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-bold text-sm leading-none">Automated, Repeatable Provisioning</p>
+                                        <p class="text-slate-400 text-xs mt-0.5">GitOps-driven, consistent every time</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom overlay content -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="flex -space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-cyan-400 border-2 border-[#0A1128] flex items-center justify-center text-[10px] font-bold text-white">K8</div>
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-purple-500 border-2 border-[#0A1128] flex items-center justify-center text-[10px] font-bold text-white">VM</div>
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-[#0A1128] flex items-center justify-center text-[10px] font-bold text-white">CI</div>
+                                    </div>
+                                    <span class="text-slate-300 text-xs">Multi-platform expertise</span>
+                                </div>
+                                <p class="text-white font-heading font-bold text-xl mb-1">Built for Production</p>
+                                <p class="text-slate-300 text-sm">Real infrastructure. Real environments. No shortcuts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Feature cards in 2-column grid -->
+                <div class="lg:col-span-7">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <!-- Card 1: Engineering Mindset -->
+                        <div class="glow-card p-7 fade-up group" style="transition-delay:0.05s">
+                            <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 icon-glow transition-all duration-300 group-hover:scale-110">
+                                <!-- Isometric Gear + Wrench -->
+                                <svg viewBox="0 0 40 40" fill="none" class="w-8 h-8">
+                                    <circle cx="20" cy="18" r="9" stroke="#0ea5e9" stroke-width="1" fill="#0ea5e9" fill-opacity="0.05"/>
+                                    <circle cx="20" cy="18" r="5" stroke="#0ea5e9" stroke-width="0.8" fill="none" opacity="0.4"/>
+                                    <!-- Gear teeth -->
+                                    <path d="M20 8v2M20 26v2M10 18h2M28 18h2M12.3 10.3l1.4 1.4M25.3 23.3l1.4 1.4M27.7 10.3l-1.4 1.4M14.7 23.3l-1.4 1.4" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+                                    <circle cx="20" cy="18" r="2.5" fill="#0ea5e9" fill-opacity="0.15" stroke="#0ea5e9" stroke-width="0.8"/>
+                                    <!-- Wrench diagonal -->
+                                    <path d="M24 22l8 8M30 28l2-2M30 32l2-2" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-heading text-lg font-bold text-slate-900 mb-2">Engineering Mindset</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">We approach every challenge as engineers — not consultants with slide decks. Every recommendation is tested and production-proven.</p>
+                        </div>
+
+                        <!-- Card 2: Hybrid Experience -->
+                        <div class="glow-card p-7 fade-up group" style="transition-delay:0.15s">
+                            <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-5 icon-glow transition-all duration-300 group-hover:scale-110">
+                                <!-- Isometric Layer Stack -->
+                                <svg viewBox="0 0 40 40" fill="none" class="w-8 h-8">
+                                    <!-- Layer 1 (bottom) -->
+                                    <path d="M20 32l-14-6 14-6 14 6-14 6z" fill="#6366f1" fill-opacity="0.06" stroke="#6366f1" stroke-width="0.8"/>
+                                    <!-- Layer 2 (middle) -->
+                                    <path d="M20 26l-14-6 14-6 14 6-14 6z" fill="#6366f1" fill-opacity="0.08" stroke="#6366f1" stroke-width="0.9"/>
+                                    <!-- Layer 3 (top) -->
+                                    <path d="M20 20l-14-6 14-6 14 6-14 6z" fill="#6366f1" fill-opacity="0.12" stroke="#818cf8" stroke-width="1"/>
+                                    <!-- Highlight edges -->
+                                    <path d="M6 14v6l14 6v-6" stroke="#6366f1" stroke-width="0.5" opacity="0.2"/>
+                                    <path d="M34 14v6l-14 6v-6" stroke="#818cf8" stroke-width="0.5" opacity="0.2"/>
+                                    <path d="M6 20v6l14 6v-6" stroke="#6366f1" stroke-width="0.4" opacity="0.15"/>
+                                    <path d="M34 20v6l-14 6v-6" stroke="#6366f1" stroke-width="0.4" opacity="0.15"/>
+                                    <!-- Center dots -->
+                                    <circle cx="20" cy="14" r="1.2" fill="#818cf8" opacity="0.6"/>
+                                    <circle cx="20" cy="20" r="1" fill="#6366f1" opacity="0.4"/>
+                                    <circle cx="20" cy="26" r="0.8" fill="#6366f1" opacity="0.3"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-heading text-lg font-bold text-slate-900 mb-2">Hybrid Expertise</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">Virtualization, Kubernetes, cloud-native — we operate across the full stack, not just one layer of your infrastructure.</p>
+                        </div>
+
+                        <!-- Card 3: Production Focus -->
+                        <div class="glow-card p-7 fade-up group" style="transition-delay:0.25s">
+                            <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-5 icon-glow transition-all duration-300 group-hover:scale-110">
+                                <!-- Isometric Rocket / Deploy -->
+                                <svg viewBox="0 0 40 40" fill="none" class="w-8 h-8">
+                                    <!-- Launch pad -->
+                                    <ellipse cx="20" cy="34" rx="8" ry="2.5" fill="#a855f7" fill-opacity="0.08" stroke="#a855f7" stroke-width="0.6"/>
+                                    <!-- Rocket body -->
+                                    <path d="M20 6c-3 4-5 10-5 16h10c0-6-2-12-5-16z" fill="#a855f7" fill-opacity="0.08" stroke="#a855f7" stroke-width="1"/>
+                                    <!-- Nose cone highlight -->
+                                    <path d="M20 6c-1.5 2-2.5 5-3 8h6c-.5-3-1.5-6-3-8z" fill="#c084fc" fill-opacity="0.1"/>
+                                    <!-- Window -->
+                                    <circle cx="20" cy="17" r="2" stroke="#c084fc" stroke-width="0.8" fill="#a855f7" fill-opacity="0.1"/>
+                                    <circle cx="20" cy="17" r="0.8" fill="#c084fc" opacity="0.5"/>
+                                    <!-- Fins -->
+                                    <path d="M15 22l-3 6h3" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="0.6"/>
+                                    <path d="M25 22l3 6h-3" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="0.6"/>
+                                    <!-- Exhaust -->
+                                    <path d="M17 28q3 4 6 0" stroke="#c084fc" stroke-width="0.8" fill="none" opacity="0.4"/>
+                                    <path d="M18 30q2 3 4 0" stroke="#a855f7" stroke-width="0.6" fill="none" opacity="0.3"/>
+                                    <!-- Trail particles -->
+                                    <circle cx="20" cy="33" r="0.8" fill="#c084fc" opacity="0.3"><animate attributeName="opacity" values="0.3;0;0.3" dur="1s" repeatCount="indefinite"/></circle>
+                                    <circle cx="18" cy="35" r="0.5" fill="#a855f7" opacity="0.2"><animate attributeName="opacity" values="0.2;0;0.2" dur="1.2s" repeatCount="indefinite"/></circle>
+                                    <circle cx="22" cy="35" r="0.5" fill="#a855f7" opacity="0.2"><animate attributeName="opacity" values="0;0.2;0" dur="1.2s" repeatCount="indefinite"/></circle>
+                                </svg>
+                            </div>
+                            <h4 class="font-heading text-lg font-bold text-slate-900 mb-2">Production Focus</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">Solutions that run reliably in real production environments — not prototypes that never leave staging.</p>
+                        </div>
+
+                        <!-- Card 4: Vendor Neutral -->
+                        <div class="glow-card p-7 fade-up group" style="transition-delay:0.35s">
+                            <div class="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5 icon-glow transition-all duration-300 group-hover:scale-110">
+                                <!-- Isometric Balance / Vendor Neutral -->
+                                <svg viewBox="0 0 40 40" fill="none" class="w-8 h-8">
+                                    <!-- Center pillar -->
+                                    <line x1="20" y1="8" x2="20" y2="30" stroke="#10b981" stroke-width="1.2"/>
+                                    <!-- Base -->
+                                    <path d="M14 30h12" stroke="#10b981" stroke-width="1.2" stroke-linecap="round"/>
+                                    <path d="M12 32h16" stroke="#10b981" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+                                    <!-- Beam -->
+                                    <line x1="6" y1="12" x2="34" y2="12" stroke="#34d399" stroke-width="1"/>
+                                    <!-- Top pivot -->
+                                    <path d="M18 8l2-3 2 3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="0.8"/>
+                                    <!-- Left pan -->
+                                    <path d="M6 12l-2 8h12l-2-8" fill="#10b981" fill-opacity="0.06" stroke="#10b981" stroke-width="0.8"/>
+                                    <line x1="6" y1="14" x2="14" y2="14" stroke="#34d399" stroke-width="0.5" opacity="0.3"/>
+                                    <!-- Left pan icons -->
+                                    <circle cx="8" cy="17" r="1.2" fill="#34d399" opacity="0.4"/>
+                                    <circle cx="11" cy="17" r="1.2" fill="#34d399" opacity="0.3"/>
+                                    <!-- Right pan -->
+                                    <path d="M26 12l-2 8h12l-2-8" fill="#10b981" fill-opacity="0.06" stroke="#10b981" stroke-width="0.8"/>
+                                    <line x1="26" y1="14" x2="34" y2="14" stroke="#34d399" stroke-width="0.5" opacity="0.3"/>
+                                    <!-- Right pan icons -->
+                                    <circle cx="29" cy="17" r="1.2" fill="#34d399" opacity="0.4"/>
+                                    <circle cx="32" cy="17" r="1.2" fill="#34d399" opacity="0.3"/>
+                                    <!-- Check mark at center -->
+                                    <path d="M18 24l2 2 4-4" stroke="#34d399" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-heading text-lg font-bold text-slate-900 mb-2">Vendor Neutral</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">We recommend what works best for your business — not what earns us the biggest commission from a vendor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== PROOF STRIP ===================== -->
+    <!-- <section id="proof" class="py-20 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 fade-up">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    Delivery Proof
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-3" style="font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);">Outcomes we've delivered</h3>
+                <p class="text-slate-500 text-sm">Anonymised engagement stories — real problems, real results.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="fade-up bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-hospital text-emerald-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Healthcare · HMS</p>
+                            <p class="text-sm font-semibold text-slate-800">Tier-2 Hospital, Karnataka</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-5">Multi-department hospital running on disconnected spreadsheets and paper. Billing errors and duplicate patient records were a daily occurrence.</p>
+                    <div class="border-t border-slate-100 pt-4 space-y-2.5">
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-emerald-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">OPD queue time reduced by <strong>40%</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-emerald-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">Zero duplicate patient records post go-live</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-emerald-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">OPD module live in <strong>1 day</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-up bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300" style="transition-delay:0.1s">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-indigo-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Data Protection · DR</p>
+                            <p class="text-sm font-semibold text-slate-800">Manufacturing Enterprise, Pune</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-5">Legacy backup infrastructure with untested recovery procedures. A ransomware simulation exposed a 6-hour RTO gap that would have cost the business significantly.</p>
+                    <div class="border-t border-slate-100 pt-4 space-y-2.5">
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-indigo-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">RTO reduced from <strong>6 hours → 45 min</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-indigo-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">Immutable backup vault deployed on Veeam</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-indigo-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">Monthly automated DR drills passing since rollout</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-up bg-white rounded-2xl border border-slate-200 p-7 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300" style="transition-delay:0.2s">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-dharmachakra text-sky-600 text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-mono text-slate-400 uppercase tracking-wide">Platform Engineering · K8s</p>
+                            <p class="text-sm font-semibold text-slate-800">FinTech Scale-up, Bangalore</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-5">Manual VM provisioning was slowing every release. Deployments took 2 days of engineering time; prod and staging drifted constantly.</p>
+                    <div class="border-t border-slate-100 pt-4 space-y-2.5">
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-sky-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">Deployment time: <strong>2 days → 3 hours</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-sky-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">GitOps pipeline eliminated config drift entirely</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-arrow-trend-up text-sky-500 text-xs w-4 flex-shrink-0"></i>
+                            <span class="text-slate-700">3-cluster K8s setup with auto-scaling live</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- <hr class="section-divider"> -->
+
+    <!-- ===================== TECHNOLOGIES ===================== -->
+    <section id="technologies" class="py-24 bg-slate-50 border-y border-slate-200 section-glow-top">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center max-w-3xl mx-auto mb-14 fade-up">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    Partner Ecosystem
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-5" style="font-size: clamp(1.875rem, 1.5rem + 2vw, 3rem);">Partner Ecosystem</h3>
+                <p class="text-lg text-slate-600">Platforms our engineers know deeply — and what we actually do with each one.</p>
+            </div>
+
+            <!-- Partner grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-slate-200 rounded-2xl overflow-hidden border border-slate-200 fade-up">
+                <div class="bg-white hover:bg-primary/[0.02] transition-colors duration-200 px-6 py-8 flex flex-col items-center gap-4 group relative">
+                    <div class="absolute top-3 right-3">
+                        <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full tracking-wide">Verified Partner</span>
+                    </div>
+                    <div class="h-10 flex items-center">
+                        <img src="images/partners/Veeam_logo_2024_RGB_main_20.svg" alt="Veeam" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-slate-800 mb-1">Veeam</p>
+                        <p class="text-xs text-slate-400 leading-snug">Enterprise backup &amp; ransomware protection</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-primary/70 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">Data Protection</span>
+                </div>
+                <div class="bg-white hover:bg-primary/[0.02] transition-colors duration-200 px-6 py-8 flex flex-col items-center gap-4 group">
+                    <div class="h-10 flex items-center">
+                        <img src="images/partners/kasten.svg" alt="Kasten by Veeam" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-slate-800 mb-1">Kasten</p>
+                        <p class="text-xs text-slate-400 leading-snug">Kubernetes-native data protection &amp; DR</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-primary/70 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">K8s Backup</span>
+                </div>
+                <div class="bg-white hover:bg-primary/[0.02] transition-colors duration-200 px-6 py-8 flex flex-col items-center gap-4 group">
+                    <div class="h-10 flex items-center">
+                        <img src="images/partners/nutanix-logo-charcoal-gray.svg" alt="Nutanix" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-slate-800 mb-1">Nutanix</p>
+                        <p class="text-xs text-slate-400 leading-snug">Hyperconverged &amp; hybrid cloud infrastructure</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-primary/70 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">HCI</span>
+                </div>
+                <div class="bg-white hover:bg-primary/[0.02] transition-colors duration-200 px-6 py-8 flex flex-col items-center gap-4 group">
+                    <div class="h-10 flex items-center">
+                        <img src="images/partners/OpenShift-LogoType (1).svg" alt="OpenShift" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-slate-800 mb-1">OpenShift</p>
+                        <p class="text-xs text-slate-400 leading-snug">Enterprise container platform &amp; GitOps</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-primary/70 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">Containers</span>
+                </div>
+                <div class="bg-white hover:bg-primary/[0.02] transition-colors duration-200 px-6 py-8 flex flex-col items-center gap-4 group">
+                    <div class="h-10 flex items-center">
+                        <img src="images/partners/Hewlett_Packard_Enterprise_logo_2025.svg" alt="HPE" class="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-semibold text-slate-800 mb-1">HPE</p>
+                        <p class="text-xs text-slate-400 leading-snug">On-prem compute, ProLiant &amp; Synergy for hybrid workloads</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-primary/70 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">Hardware</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== TALK TO ARCHITECT CTA ===================== -->
+    <section id="readiness" class="py-28 bg-dark-900 relative overflow-hidden section-glow-top">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-primary/10 via-accent/10 to-purple-500/10 rounded-full filter blur-[150px]"></div>
+        </div>
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="rounded-3xl bg-white/95 backdrop-blur-sm border border-white/10 shadow-2xl p-10 md:p-12 text-center">
+                <div class="fade-up">
+                    <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4 flex items-center justify-center gap-3">
+                        <span class="w-8 h-px bg-primary/50"></span>
+                        Get in Touch
+                        <span class="w-8 h-px bg-primary/50"></span>
+                    </h2>
+                    <h3 class="font-heading font-bold text-slate-900 mb-6" style="font-size: clamp(2rem, 1.5rem + 3vw, 3.75rem);">Talk to an Architect</h3>
+                    <p class="text-lg text-slate-600 mb-8 max-w-md mx-auto leading-relaxed">
+                        Schedule a complimentary 45-minute technical deep dive with our senior engineering team.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-sm text-slate-500">
+                        <span>No sales pitch — pure engineering, Responses within 1 business day</span>
+                    </div>
+
+                    <div id="cta-form-wrapper" class="max-w-md mx-auto text-left">
+                        <form id="contact-form" class="space-y-4" novalidate>
+                            <div class="form-row">
+                                <input type="text" name="name" placeholder="Your name" required class="form-input w-full">
+                                <input type="text" name="company" placeholder="Company" required class="form-input w-full">
+                            </div>
+                            <input type="email" name="email" placeholder="Work email" required class="form-input w-full">
+                            <textarea name="challenge" rows="2" placeholder="What are you looking to solve? (optional)" class="form-input w-full" data-optional="true"></textarea>
+                            <button type="submit" class="assessment-next-btn">
+                                Talk to an Architect <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div id="form-success" style="display:none">
+                        <div class="success-card max-w-md mx-auto">
+                            <div class="success-checkmark-ring">
+                                <div class="success-glow"></div>
+                                <svg viewBox="0 0 80 80">
+                                    <circle class="success-ring-circle" cx="40" cy="40" r="36"/>
+                                    <polyline class="success-check-path" points="24,42 34,52 56,30"/>
+                                </svg>
+                            </div>
+                            <h4 class="font-heading text-2xl font-bold text-slate-900 mb-2">Message Sent</h4>
+                            <p class="text-slate-600 text-lg mb-4">Thank you for reaching out. One of our infrastructure architects will get back to you within <span class="text-slate-900 font-medium">1 business day</span>.</p>
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/15 text-sm text-primary/80">
+                                <i class="fa-solid fa-envelope-circle-check text-xs"></i>
+                                Check your inbox for a confirmation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== INSIGHTS ===================== -->
+    <section id="insights" class="py-24 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 fade-up">
+                <span class="inline-block text-xs font-mono font-bold text-primary bg-primary/10 border border-primary/15 px-3 py-1 rounded-full mb-4 tracking-wider">INSIGHTS</span>
+                <h2 class="font-bold text-slate-900 text-3xl mb-3">Thought Leadership & Platform Stories</h2>
+                <p class="text-slate-600 max-w-xl mx-auto">Practical perspectives on cloud infrastructure, DevOps, resilience and AI-ready platforms from the We2 engineering team.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-up" style="transition-delay:0.1s">
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 self-start">Cloud</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">Why Every Business Platform Needs a Strong Cloud Foundation</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">The infrastructure you choose defines how well your platform scales, recovers and performs in production.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primaryHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-4 self-start">Resilience</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">Backup Is Not Resilience: Why Restore Testing Matters</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Having backups is the starting point. Knowing they work when you need them is what resilience actually means.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-accent hover:text-accentHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 self-start">Resilience</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">How Veeam Can Help Build Ransomware-Resilient Recovery</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Immutable backups and air-gap strategies are no longer optional — they are the minimum for enterprise data protection.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primaryHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-4 self-start">DevOps</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">Why Infrastructure as Code Is Important for Growing Enterprises</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Manual infrastructure is the bottleneck no one budgets for — until configuration drift becomes a production incident.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-accent hover:text-accentHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 self-start">Cloud</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">AWS and Azure Consulting: How to Avoid Cloud Sprawl</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Cloud sprawl is what happens when workload decisions are driven by convenience instead of architecture. Here is how to prevent it.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primaryHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-4 self-start">DevOps</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">DevOps Is Not Only CI/CD — It Is Governance, Speed and Reliability</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">A pipeline is the visible part. The real value is in the governance, security gates and operational confidence it creates.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-accent hover:text-accentHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 self-start">Platform</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">How Platform Engineering Helps Application Teams Move Faster</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Internal developer platforms remove the infrastructure friction that slows down every engineering team.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primaryHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold mb-4 self-start">Cloud</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">Cloud-Smart, Not Cloud-First: A Practical Approach to Workload Placement</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">Not every workload belongs in the cloud. Here is how to make placement decisions based on evidence, not defaults.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-accent hover:text-accentHover transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-500 text-xs font-semibold mb-4 self-start">AI</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 leading-snug">How to Build AI-Ready Infrastructure Without Losing Cost Control</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-grow">AI workloads have different infrastructure demands. Getting the foundation right from the start avoids expensive rework later.</p>
+                    <a href="#readiness" class="mt-4 inline-flex items-center text-sm font-semibold text-purple-500 hover:text-purple-600 transition-colors group">Read more <i class="fa-solid fa-arrow-right ml-1.5 text-xs group-hover:translate-x-0.5 transition-transform"></i></a>
+                </div>
+
+            </div>
+            <div class="text-center mt-10 fade-up" style="transition-delay:0.2s">
+                <a href="#readiness" class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 shadow-sm shadow-primary/20">
+                    Discuss a topic with our team <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="py-28 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[250px] bg-accent/[0.04] rounded-full filter blur-[100px] pointer-events-none"></div>
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+                <h2 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-3 flex items-center justify-center gap-3">
+                    <span class="w-8 h-px bg-primary/50"></span>
+                    FAQ
+                    <span class="w-8 h-px bg-primary/50"></span>
+                </h2>
+                <h3 class="font-heading font-bold text-slate-900 mb-4" style="font-size: clamp(1.75rem, 1.5rem + 1.5vw, 2.5rem);">Common questions</h3>
+                <p class="text-slate-500 text-base">Things people ask before starting an engagement.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto fade-up">
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        What size of organisation do you typically work with?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">We work with mid-market and enterprise teams — from 50-person engineering teams to large multi-site operations. Our solutions are production-grade but scoped to fit the client, not oversized for the sake of it.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Which cloud providers do you support?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">AWS, Azure, and GCP natively, plus on-premises and hybrid setups using VMware, bare-metal Kubernetes, and private cloud stacks. If your workloads span multiple environments, that's where we're most useful.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        What does a typical engagement look like?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">It starts with a 45-minute discovery call and a free architecture assessment. From there, most engagements follow four steps: Discover → Architect → Implement → Operate. You can start as small as a single service and expand from there.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Do you only work with Indian clients?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Our primary market is India, but our infrastructure expertise is cloud-agnostic and geography-independent. We work with clients wherever their workloads run.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        Do you provide ongoing support after implementation?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Yes. Every engagement includes a structured handover, and we offer ongoing managed operations for clients who prefer not to staff a dedicated infra team internally.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-btn">
+                        How long does a typical infrastructure project take?
+                        <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-body-inner">Focused projects — a single-service migration, DR setup, or security assessment — typically take 4–8 weeks. Full platform builds run 3–6 months. HMS go-live for a hospital OPD takes under a day.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer id="footer" class="bg-dark-900 pt-24 pb-8 footer-glow relative overflow-hidden">
+        <!-- Background subtle glow -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-t from-primary/[0.03] to-transparent rounded-full filter blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-site mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Top CTA strip -->
+            <div class="relative rounded-2xl mb-20 fade-up overflow-hidden">
+                <div class="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-purple-500/20 bg-[length:200%_100%] animate-gradient-x"></div>
+                <div class="relative rounded-[15px] bg-white/95 backdrop-blur-sm p-8 md:p-10">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div>
+                            <h4 class="font-heading text-xl md:text-2xl font-bold text-slate-900 mb-2">Stay ahead of infrastructure trends</h4>
+                            <p class="text-slate-600 text-sm">Monthly insights on platform engineering, security, and hybrid cloud — no spam, just signal.</p>
+                        </div>
+                        <form class="flex w-full md:w-auto gap-3" onsubmit="event.preventDefault()">
+                            <input type="email" placeholder="Enter your email" class="form-input flex-1 md:w-72">
+                            <button type="submit" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm hover:opacity-90 transition-all whitespace-nowrap shadow-glow">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-16">
+                <!-- Brand column -->
+                <div class="lg:col-span-3">
+                    <div class="flex items-center mb-6">
+                        <span class="font-heading font-bold text-xl tracking-tight text-slate-900">
+                            we<span class="text-gradient">2</span>systems
+                        </span>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed max-w-xs">
+                        We2 Systems builds intelligent business platforms and the secure cloud infrastructure behind them.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300" aria-label="X">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Platforms -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-slate-900 font-bold mb-6 font-heading text-xs uppercase tracking-[0.2em]">Platforms</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="platforms/fms.html" class="text-slate-500 hover:text-primary text-sm transition-colors">FMS Workforce Management</a></li>
+                        <li><a href="platforms/hms.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Healthcare Workflow Platform</a></li>
+                    </ul>
+                </div>
+
+                <!-- Solutions -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-slate-900 font-bold mb-6 font-heading text-xs uppercase tracking-[0.2em]">Solutions</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="solutions/cloud-infrastructure-consulting.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Cloud Infrastructure Consulting</a></li>
+                        <li><a href="solutions/devops-infrastructure-as-code.html" class="text-slate-500 hover:text-primary text-sm transition-colors">DevOps & Infrastructure as Code</a></li>
+                        <li><a href="solutions/backup-recovery-data-resilience.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Backup, Recovery & Resilience</a></li>
+                        <li><a href="solutions/platform-engineering.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Platform Engineering</a></li>
+                        <li><a href="services.html" class="text-slate-500 hover:text-primary text-sm transition-colors">AI Platforms & Automation</a></li>
+                        <li><a href="services.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Security & AI Governance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-slate-900 font-bold mb-6 font-heading text-xs uppercase tracking-[0.2em]">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="industries.html" class="text-slate-500 hover:text-primary text-sm transition-colors">Industries</a></li>
+                        <li><a href="#insights" class="text-slate-500 hover:text-primary text-sm transition-colors">Insights</a></li>
+                        <li><a href="about.html" class="text-slate-500 hover:text-primary text-sm transition-colors">About We2</a></li>
+                        <li><a href="#technologies" class="text-slate-500 hover:text-primary text-sm transition-colors">Partners</a></li>
+                        <li><a href="#readiness" class="text-slate-500 hover:text-primary text-sm transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-slate-900 font-bold mb-6 font-heading text-xs uppercase tracking-[0.2em]">Get in Touch</h4>
+                    <!-- Bangalore office map -->
+                    <div class="relative rounded-xl overflow-hidden mb-5 group">
+                        <div class="absolute -inset-[1px] rounded-xl bg-gradient-to-b from-primary/20 to-transparent z-0"></div>
+                        <div class="relative z-10 rounded-[11px] overflow-hidden">
+                            <a href="https://maps.google.com/?q=Jayanagar+5th+Block+Bangalore" target="_blank" rel="noopener noreferrer">
+                                <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=400&h=160&q=80" alt="We2Systems office location — Jayanagar 5th Block, Bangalore" class="w-full h-[120px] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#0A1128]/80 to-[#0A1128]/20 flex items-end p-3">
+                                    <span class="text-xs text-slate-300 flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-primary text-[10px]"></i> Jayanagar 5th Block, Bangalore</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                                <i class="fa-solid fa-location-dot text-primary text-xs"></i>
+                            </div>
+                            <span class="text-slate-500 text-sm leading-relaxed">Jayanagar 5th Block<br>Bangalore, India</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fa-solid fa-envelope text-primary text-xs"></i>
+                            </div>
+                            <a href="mailto:hello@we2systems.com" class="text-slate-500 hover:text-primary text-sm transition-colors">hello@we2systems.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fa-solid fa-phone text-primary text-xs"></i>
+                            </div>
+                            <span class="text-slate-500 text-sm">+91 96119 11883</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-600 text-sm">
+                    &copy; 2026 we2systems. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-8">
+                    <a href="#" onclick="openLegalModal('privacy');return false;" class="text-slate-600 hover:text-slate-400 text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" onclick="openLegalModal('terms');return false;" class="text-slate-600 hover:text-slate-400 text-sm transition-colors">Terms of Service</a>
+                    <span class="text-slate-700 text-xs">Made with <i class="fa-solid fa-heart text-primary/50 text-[10px]"></i> in India</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TODO: Replace this modal with dedicated /privacy and /terms pages when available -->
+    <div id="legal-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:#ffffff; border:1px solid rgba(0,0,0,0.1); border-radius:12px; padding:2rem; max-width:480px; width:90%; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+            <button onclick="closeLegalModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#64748b;font-size:20px;cursor:pointer;">&times;</button>
+            <h3 id="modal-title" class="font-heading text-xl font-bold text-slate-900" style="margin-bottom:12px;"></h3>
+            <p id="modal-body" style="font-size:14px;line-height:1.7;color:#475569;"></p>
+        </div>
+    </div>
+
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" aria-label="Back to top">↑</button>
+
+    <script src="js/main.js"></script>
+    <script>
+        // === Active Nav Highlight ===
+        (function() {
+            var path = window.location.pathname;
+            var navLinks = document.querySelectorAll('#header .hidden.md\\:flex a[href], #header .hidden.md\\:flex button');
+            var map = {
+                'industries': 'industries',
+                'services': 'solutions',
+                'solutions': 'solutions',
+                'about': 'about',
+                'hms': 'platforms',
+                'insights': 'insights'
+            };
+            var segment = path.split('/').filter(Boolean).pop() || '';
+            segment = segment.replace('.html', '');
+            var active = map[segment] || '';
+            navLinks.forEach(function(el) {
+                var text = el.textContent.trim().toLowerCase();
+                if (active && text.indexOf(active) !== -1) el.classList.add('nav-active');
+            });
+        })();
+
+        // === Platforms Nav Dropdown ===
+        function togglePlatformsNav() {
+            var dropdown = document.getElementById('platforms-dropdown');
+            var chevron  = document.getElementById('platforms-chevron');
+            var isOpen   = dropdown.classList.contains('open');
+            closeSolutionsNav();
+            if (isOpen) {
+                dropdown.classList.remove('open');
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.classList.add('open');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // === Solutions Nav Dropdown ===
+        function toggleSolutionsNav() {
+            var dropdown = document.getElementById('solutions-dropdown');
+            var chevron  = document.getElementById('solutions-chevron');
+            var isOpen   = dropdown.classList.contains('open');
+            closePlatformsNav();
+            if (isOpen) {
+                dropdown.classList.remove('open');
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.classList.add('open');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+        function closePlatformsNav() {
+            var d = document.getElementById('platforms-dropdown');
+            var c = document.getElementById('platforms-chevron');
+            if (d) d.classList.remove('open');
+            if (c) c.style.transform = 'rotate(0deg)';
+        }
+        function closeSolutionsNav() {
+            var d = document.getElementById('solutions-dropdown');
+            var c = document.getElementById('solutions-chevron');
+            if (d) d.classList.remove('open');
+            if (c) c.style.transform = 'rotate(0deg)';
+        }
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            var pw = document.getElementById('platforms-nav-wrapper');
+            var sw = document.getElementById('solutions-nav-wrapper');
+            if (pw && !pw.contains(e.target)) closePlatformsNav();
+            if (sw && !sw.contains(e.target)) closeSolutionsNav();
+        });
+
+        // === Mobile Platforms Accordion ===
+        function toggleMobilePlatforms() {
+            var sub     = document.getElementById('mobile-platforms-sub');
+            var chevron = document.getElementById('platforms-chevron-mobile');
+            sub.classList.toggle('open');
+            chevron.classList.toggle('rotated');
+        }
+
+        // === Mobile Solutions Accordion ===
+        function toggleMobileSolutions() {
+            var sub     = document.getElementById('mobile-solutions-sub');
+            var chevron = document.getElementById('solutions-chevron-mobile');
+            sub.classList.toggle('open');
+            chevron.classList.toggle('rotated');
+        }
+
+        // === Copy Terminal Content ===
+        function copyTerminal(btn) {
+            var container = btn.closest('.relative') || btn.parentElement.parentElement;
+            var body = container.querySelector('#terminal-body, .mini-terminal-body');
+            if (!body) return;
+            var text = body.innerText || body.textContent;
+            navigator.clipboard.writeText(text.trim()).then(function() {
+                btn.classList.add('copied');
+                btn.querySelector('i').className = 'fa-solid fa-check';
+                setTimeout(function() {
+                    btn.classList.remove('copied');
+                    btn.querySelector('i').className = 'fa-regular fa-copy';
+                }, 2000);
+            }).catch(function() {
+                btn.querySelector('i').className = 'fa-solid fa-xmark';
+                setTimeout(function() {
+                    btn.querySelector('i').className = 'fa-regular fa-copy';
+                }, 2000);
+            });
+        }
+
+        // TODO: Replace modal content with real legal pages when they exist
+        function openLegalModal(type) {
+            var title = document.getElementById('modal-title');
+            var body = document.getElementById('modal-body');
+            if (type === 'privacy') {
+                title.textContent = 'Privacy Policy';
+                body.textContent = 'We2Systems respects your privacy. We collect only the information necessary to respond to your enquiry — name, company, email, and message content. We do not sell, share, or distribute your data to third parties. Your information is stored securely and retained only as long as needed to fulfil our business relationship. For questions, contact hello@we2systems.com.';
+            } else if (type === 'terms') {
+                title.textContent = 'Terms of Service';
+                body.textContent = 'By using the We2Systems website you agree to these terms. All content, branding, and materials on this site are the intellectual property of We2Systems. Services described are subject to separate engagement agreements. We make no guarantees regarding uptime of this website. We2Systems reserves the right to update these terms at any time. For the latest version, contact hello@we2systems.com.';
+            }
+            document.getElementById('legal-modal').style.display = 'flex';
+        }
+        function closeLegalModal() {
+            document.getElementById('legal-modal').style.display = 'none';
+        }
+        // Close on backdrop click
+        document.getElementById('legal-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeLegalModal();
+        });
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLegalModal();
+        });
+
+        // Page transition veil
+        (function() {
+            var veil = document.getElementById('page-veil');
+            // Reveal page on load
+            window.addEventListener('DOMContentLoaded', function() {
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        veil.classList.add('veil-hidden');
+                    });
+                });
+            });
+            // Restore veil visibility when page is loaded from bfcache (e.g. browser back/forward)
+            window.addEventListener('pageshow', function(e) {
+                if (e.persisted) veil.classList.add('veil-hidden');
+            });
+            // Fade out before navigating to internal pages
+            document.addEventListener('click', function(e) {
+                var link = e.target.closest('a');
+                if (!link) return;
+                var href = link.getAttribute('href');
+                if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel') || link.target === '_blank') return;
+                if (/\.html$/.test(href) || href === '/' || href === 'index.html') {
+                    e.preventDefault();
+                    veil.classList.remove('veil-hidden');
+                    setTimeout(function() { window.location.href = href; }, 340);
+                }
+            });
+        })();
+    </script>
 </body>
-
 </html>
+
